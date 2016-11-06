@@ -22,7 +22,7 @@ limitations under the License.
     <link rel="stylesheet" type="text/css" href="scss/welcome.css" />
     <script src="less.js" type="text/javascript"></script>
     <script src="lobby.js"></script>
-    <script src ="gameManager.js"></script>
+
   </head>
   <body>
 
@@ -77,7 +77,24 @@ limitations under the License.
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="scss/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     
-    <script type="text/javascript">
+    <script type = "text/javascript">
+      window.onload = function() {
+        var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+        var appConfig = new cast.receiver.CastReceiverManager.Config();
+        appConfig.statusText = 'My Game is getting ready';
+        console.log("AvalonCast is initiating");
+        appConfig.maxInactivity = 6000;  // 100 minutes for testing only.
+
+        var gameConfig = new cast.receiver.games.GameManagerConfig();
+        gameConfig.applicationName = 'My Game';
+        gameConfig.maxPlayers = 2;
+        gameManager = new cast.receiver.games.GameManager(gameConfig);
+
+        castReceiverManager.start(appConfig);
+    };
+    </script>
+
+    <!-- <script type="text/javascript">
       window.onload = function() {
         cast.receiver.logger.setLevelValue(0);
         window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
@@ -135,6 +152,7 @@ limitations under the License.
         document.getElementById("message").innerHTML=text;
         window.castReceiverManager.setApplicationState(text);
       };
-    </script>
+    </script> -->
+
   </body>
 </html>
