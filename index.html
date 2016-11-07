@@ -102,49 +102,51 @@ limitations under the License.
 
         castReceiverManager.start(appConfig);
 
+        gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_AVAILABLE,
+        function(event) {
+
+          
+          console.log("Player Id: " + event.playerInfo.playerId + " is available");
+
+          playerIdList.push(event.playerInfo.playerId);
+
+        });  
+
+
+        gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_READY,
+        function(event) {
+
+          
+          console.log("Player Name: " + event.playerInfo.playerName + " is ready");
+
+          playerNameList.push(event.playerInfo.playerName);
+
+          updatePlayerList(playerNameList);
+
+        });
+
+        gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_QUIT,
+        function(event) {
+
+          
+          console.log("Player Name: " + event.playerInfo.playerName + " has quit");
+
+          var index = playerNameList.indexOf(event.playerInfo.playerName);
+
+          if(index > -1)
+          {
+            playerNameList.splice(index, 1);
+          }
+
+
+          updatePlayerList(playerNameList);
+
+        });  
+
 
     };
 
-    gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_AVAILABLE,
-    function(event) {
-
       
-      console.log("Player Id: " + event.playerInfo.playerId + " is available");
-
-      playerIdList.push(event.playerInfo.playerId);
-
-    });  
-
-
-    gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_READY,
-    function(event) {
-
-      
-      console.log("Player Name: " + event.playerInfo.playerName + " is ready");
-
-      playerNameList.push(event.playerInfo.playerName);
-
-      updatePlayerList(playerNameList);
-
-    });
-
-    gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_QUIT,
-    function(event) {
-
-      
-      console.log("Player Name: " + event.playerInfo.playerName + " has quit");
-
-      var index = playerNameList.indexOf(event.playerInfo.playerName);
-
-      if(index > -1)
-      {
-        playerNameList.splice(index, 1);
-      }
-
-
-      updatePlayerList(playerNameList);
-
-    });    
 
     </script>
 
