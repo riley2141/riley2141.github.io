@@ -25,6 +25,10 @@
   border-width: 3px;
   max-width: 80%;
   height: 35vh; }
+  .gameBoard .turn.current {
+    background-color: green; }
+  .gameBoard .turn.completed {
+    background-color: grey; }
 
 body {
   background-image: url("img/tablebg.jpg");
