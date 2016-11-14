@@ -167,9 +167,9 @@ limitations under the License.
         function(event) {
 
           
-          console.log("Player Name: " + event.playerName + " is ready");
+          console.log("Player Name: " + event.requestExtraMessageData.playerName + " is ready");
 
-          playerNameList.push(event.playerName);
+          playerNameList.push(event.requestExtraMessageData.playerName);
 
           updatePlayerList(playerNameList);
 
