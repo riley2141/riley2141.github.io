@@ -99,6 +99,7 @@ limitations under the License.
       <div class = "col-sm-2">
         <div class = "card center">
           <h2 class ="cardHeader sucess center">Success x1</h2>
+        gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_AVAILABLE,
           <img src = "scss/img/sucessGoblet.png" class = "goblet center">
         </div>
       </div>
@@ -151,7 +152,6 @@ limitations under the License.
         gameManager = new cast.receiver.games.GameManager(gameConfig);
 
         castReceiverManager.start(appConfig);
-
         gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_AVAILABLE,
         function(event) {
 
@@ -167,9 +167,9 @@ limitations under the License.
         function(event) {
 
           
-          console.log("Player Name: " + event.playerInfo.playerName + " is ready");
+          console.log("Player Name: " + event.playerName + " is ready");
 
-          playerNameList.push(event.playerInfo.playerName);
+          playerNameList.push(event.playerName);
 
           updatePlayerList(playerNameList);
 
