@@ -65,6 +65,22 @@
 		background-image: url('img/cardBg.jpg'); 
 		border-radius: 30px;
 	}
+
+	.voteBox {
+		background-image: url('img/voteBoxBg.jpg');
+		border-radius: 15px;
+		width: 100%;
+		height: 11vh;
+	}
+
+	.voteHeader {
+		color: gold;
+		text-shadow:
+    		-1px -1px 0 #000,
+    		1px -1px 0 #000,
+    		-1px 1px 0 #000,
+    		1px 1px 0 #000; 
+	}
 }
 body {
 	background-image: url('img/tablebg.jpg');
