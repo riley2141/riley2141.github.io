@@ -61,6 +61,8 @@ limitations under the License.
         <img src = "scss/img/badguy.jpg"  class = "center guys">
       </div>
     </div>
+
+    <div >Console: <span id = "console"/></div>
   </div>
 
   <div class = "gameBoard" style = "display:none">
@@ -191,7 +193,8 @@ limitations under the License.
         function(event) {
 
           
-          console.log("Player Id: " + event.playerInfo.playerId + " is available");
+          //console.log("Player Id: " + event.playerInfo.playerId + " is available");
+          document.getElementById("console").innerHTML = "Player Id: " + event.playerInfo.playerId + " is available";
 
           playerIdList.push(event.playerInfo.playerId);
 
@@ -204,6 +207,7 @@ limitations under the License.
           
           console.log("Player Name: " + event.requestExtraMessageData.playerName + " is ready");
 
+
           playerNameList.push(event.requestExtraMessageData.playerName);
 
           updatePlayerList(playerNameList);
@@ -214,9 +218,9 @@ limitations under the License.
         function(event) {
 
           
-          console.log("Player Name: " + event.playerInfo.playerName + " has quit");
+          console.log("Player Name: " + event.playerInfo.playerId + " has quit");
 
-          var index = playerNameList.indexOf(event.playerInfo.playerName);
+          var index = playerNameList.indexOf(event.playerInfo.playerId);
 
           if(index > -1)
           {
