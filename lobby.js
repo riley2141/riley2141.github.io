@@ -9,6 +9,6 @@ function testList(){
 function updatePlayerList(playerList){
 	for(var i = 0; i < playerList.length; i++)
 	{
-		document.getElementById("playerList").innerHTML = document.getElementById("playerList").innerHTML + playerList[i] + "<br>";
+		document.getElementById("playerList").innerHTML = document.getElementById("playerList").innerHTML + playerIdNameMap[playerList[i]] + "<br>";
 	}
 }

@@ -174,8 +174,9 @@ limitations under the License.
 
 
     var gameManager;
-    var playerNameList = [];
-    var playerIdList = [];
+    var playerNameList = []; // List of Player's ID's who are ready
+    var playerIdList = []; // List of Player's ID's who are available
+    var playerIdNameMap = [];
     var numPlayers
 
       window.onload = function() {
@@ -209,8 +210,8 @@ limitations under the License.
           
           console.log("Player Name: " + event.requestExtraMessageData.playerName + " is ready");
 
-
-          playerNameList.push(event.requestExtraMessageData.playerName);
+          playerIdNameMap[event.playerInfo.playerId] = event.requestExtraMessageData.playerName;
+          playerNameList.push(event.playerInfo.playerId);
 
           updatePlayerList(playerNameList);
 
