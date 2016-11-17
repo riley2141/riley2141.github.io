@@ -32,7 +32,7 @@ limitations under the License.
   <div class = "row">
     <div class = "col-sm-12">
       <h1 class = "center">AvalonCast</h1>
-      <div >Console: <div id = "console" /></div>
+      <div >             Console: <span id = "console" /></div>
     </div>
   </div>
 
@@ -177,7 +177,11 @@ limitations under the License.
     var playerNameList = []; // List of Player's ID's who are ready
     var playerIdList = []; // List of Player's ID's who are available
     var playerIdNameMap = [];
-    var numPlayers
+    var numPlayers;
+
+    function consoleLog(logString){
+      document.getElementById("console").innerHTML = logString;
+    }
 
       window.onload = function() {
         var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
@@ -219,9 +223,7 @@ limitations under the License.
 
         gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_QUIT,
         function(event) {
-
-          
-          console.log("Player Name: " + event.playerInfo.playerId + " has quit");
+          consoleLog("Player Name: " + event.playerInfo.playerId + " has quit");
 
           var index = playerNameList.indexOf(event.playerInfo.playerId);
 
