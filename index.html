@@ -224,9 +224,10 @@ limitations under the License.
 
       });
 
-      gameManager.onPlayerQuit = playerRemove;
+      gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_QUIT,
+      playerRemove);
 
-      gameManager.onPlayerDropped = playerRemove;
+      gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_DROPPED, playerRemove);
 
       function playerRemove(event){
         consoleLog("Player Name: " + event.playerInfo.playerId + " has quit");
