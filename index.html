@@ -213,7 +213,7 @@ window.onload = function() {
     consoleLog("Player Name: " + playerName + " is ready");
 
     gameManager.updatePlayerData(playerId, {'name' : playerName}, false);
-    
+    gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.READY, true);
     displayReadyPlayers();
     
     
