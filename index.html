@@ -231,7 +231,7 @@ window.onload = function() {
           for(var i = 0; i < readyPlayers.length; i++){
             var playerInfo = readyPlayers[i];
             var playerId = playerInfo.playerId;
-            gameManger.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING, true);
+            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING, true);
           }
 
           //close the lobby
