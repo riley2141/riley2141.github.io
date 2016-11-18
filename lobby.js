@@ -7,8 +7,10 @@ function testList(){
 
 
 function updatePlayerList(playerList){
+	consoleLog("in updatePlayerList");
 	for(var i = 0; i < playerList.length; i++)
 	{
+		consoleLog("in updatePlayerList's for loop");
 		var playerId = playerList[i];
 		consoleLog("playerId: " + playerId);
 		var playerName = "";
