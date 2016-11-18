@@ -224,8 +224,7 @@ limitations under the License.
 
       });
 
-      gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_QUIT,
-      playerRemove);  
+      gameManager.onPlayerQuit = playerRemove;
 
       gameManager.onPlayerDropped = playerRemove;
 
@@ -239,7 +238,6 @@ limitations under the License.
           playerLobbyList.splice(index, 1);
           playerIdNameMap[index] = null;
         }
-
 
         updatePlayerList(playerLobbyList);
       }
