@@ -9,6 +9,12 @@ function testList(){
 function updatePlayerList(playerList){
 	for(var i = 0; i < playerList.length; i++)
 	{
-		document.getElementById("playerList").innerHTML = document.getElementById("playerList").innerHTML + playerIdNameMap[playerList[i]] + "<br>";
+		consoleLog("playerList.length: " + playerList.length);
+		var playerId = playerList[i];
+		var playerName = "";
+		if(!(playerId == undefined || playerId == null){
+			playerName = playerIdNameMap[playerId];
+		}
+		document.getElementById("playerList").innerHTML = document.getElementById("playerList").innerHTML + playerName + "<br>";
 	}
 }
