@@ -230,8 +230,6 @@ limitations under the License.
       gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_DROPPED, playerRemove);
 
       function playerRemove(event){
-        consoleLog("Player Name: " + event.playerInfo.playerId + " has quit");
-
         var index = playerLobbyList.indexOf(event.playerInfo.playerId);
 
         if(index > -1)
