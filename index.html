@@ -183,63 +183,66 @@ limitations under the License.
       document.getElementById("console").innerHTML = logString;
     }
 
-      window.onload = function() {
-        var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
-        var appConfig = new cast.receiver.CastReceiverManager.Config();
-        appConfig.statusText = 'My Game is getting ready';
-        console.log("AvalonCast is initiating");
-        appConfig.maxInactivity = 6000;  // 100 minutes for testing only.
+    window.onload = function() {
+      var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+      var appConfig = new cast.receiver.CastReceiverManager.Config();
+      appConfig.statusText = 'My Game is getting ready';
+      console.log("AvalonCast is initiating");
+      appConfig.maxInactivity = 6000;  // 100 minutes for testing only.
 
-        var gameConfig = new cast.receiver.games.GameManagerConfig();
-        gameConfig.applicationName = 'My Game';
-        gameConfig.maxPlayers = 2;
-        gameManager = new cast.receiver.games.GameManager(gameConfig);
+      var gameConfig = new cast.receiver.games.GameManagerConfig();
+      gameConfig.applicationName = 'My Game';
+      gameConfig.maxPlayers = 2;
+      gameManager = new cast.receiver.games.GameManager(gameConfig);
 
-        castReceiverManager.start(appConfig);
-        gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_AVAILABLE,
-        function(event) {
+      castReceiverManager.start(appConfig);
+      gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_AVAILABLE,
+      function(event) {
 
-          
-          //console.log("Player Id: " + event.playerInfo.playerId + " is available");
-          document.getElementById("console").innerHTML = "Player Id: " + event.playerInfo.playerId + " is available";
+        
+        //console.log("Player Id: " + event.playerInfo.playerId + " is available");
+        document.getElementById("console").innerHTML = "Player Id: " + event.playerInfo.playerId + " is available";
 
-          playerIdList.push(event.playerInfo.playerId);
+        playerIdList.push(event.playerInfo.playerId);
 
-        });  
-
-
-        gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_READY,
-        function(event) {
-
-          var playerName = event.requestExtraMessageData.playerName;
-          var playerId = event.playerInfo.playerId
-          
-          consoleLog("Player Name: " + playerName + " is ready");
-
-          playerIdNameMap[playerId] = playerName;
-          playerLobbyList.push(playerId);
-
-          consoleLog("playerList.length: " + playerLobbyList.length);
-          updatePlayerList(playerLobbyList);
-
-        });
-
-        gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_QUIT,
-        function(event) {
-          consoleLog("Player Name: " + event.playerInfo.playerId + " has quit");
-
-          var index = playerLobbyList.indexOf(event.playerInfo.playerId);
-
-          if(index > -1)
-          {
-            playerLobbyList.splice(index, 1);
-            playerIdNameMap[index] = null;
-          }
+      });  
 
 
-          updatePlayerList(playerLobbyList);
+      gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_READY,
+      function(event) {
 
-        });  
+        var playerName = event.requestExtraMessageData.playerName;
+        var playerId = event.playerInfo.playerId
+        
+        consoleLog("Player Name: " + playerName + " is ready");
+
+        playerIdNameMap[playerId] = playerName;
+        playerLobbyList.push(playerId);
+
+        consoleLog("playerList.length: " + playerLobbyList.length);
+        updatePlayerList(playerLobbyList);
+
+      });
+
+      gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_QUIT,
+      playerRemove);  
+
+      gameManager.onPlayerDropped = playerRemove;
+
+      function playerRemove(event){
+        consoleLog("Player Name: " + event.playerInfo.playerId + " has quit");
+
+        var index = playerLobbyList.indexOf(event.playerInfo.playerId);
+
+        if(index > -1)
+        {
+          playerLobbyList.splice(index, 1);
+          playerIdNameMap[index] = null;
+        }
+
+
+        updatePlayerList(playerLobbyList);
+      }
 
 
     };
