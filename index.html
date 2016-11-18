@@ -212,7 +212,7 @@ limitations under the License.
         function(event) {
 
           
-          console.log("Player Name: " + event.requestExtraMessageData.playerName + " is ready");
+          consoleLog("Player Name: " + event.requestExtraMessageData.playerName + " is ready");
 
           playerIdNameMap[event.playerInfo.playerId] = event.requestExtraMessageData.playerName;
           playerNameList.push(event.playerInfo.playerId);
