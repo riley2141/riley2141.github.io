@@ -174,7 +174,7 @@ limitations under the License.
 
 
     var gameManager;
-    var playerNameList = []; // List of Player's ID's who are ready
+    var playerLobbyList = []; // List of Player's ID's who are ready
     var playerIdList = []; // List of Player's ID's who are available
     var playerIdNameMap = [];
     var numPlayers;
@@ -211,13 +211,16 @@ limitations under the License.
         gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_READY,
         function(event) {
 
+          var playerName = event.requestExtraMessageData.playerName;
+          var playerId = event.playerInfo.playerId
           
-          consoleLog("Player Name: " + event.requestExtraMessageData.playerName + " is ready");
+          consoleLog("Player Name: " + playerName + " is ready");
 
-          playerIdNameMap[event.playerInfo.playerId] = event.requestExtraMessageData.playerName;
-          playerNameList.push(event.playerInfo.playerId);
+          playerIdNameMap[playerId] = playerName;
+          playerLobbyList.push(playerId);
 
-          updatePlayerList(playerNameList);
+          consoleLog("playerList.length: " + playerLobbyList.length);
+          updatePlayerList(playerLobbyList);
 
         });
 
@@ -225,17 +228,16 @@ limitations under the License.
         function(event) {
           consoleLog("Player Name: " + event.playerInfo.playerId + " has quit");
 
-          var index = playerNameList.indexOf(event.playerInfo.playerId);
+          var index = playerLobbyList.indexOf(event.playerInfo.playerId);
 
           if(index > -1)
           {
-            playerNameList.splice(index, 1);
+            playerLobbyList.splice(index, 1);
             playerIdNameMap[index] = null;
-            consoleLog(playerNameList[index]);
           }
 
 
-          updatePlayerList(playerNameList);
+          updatePlayerList(playerLobbyList);
 
         });  
 
