@@ -6,15 +6,14 @@ function testList(){
 }
 
 
-function updatePlayerList(playerList){
+function displayReadyPlayers(playerList){
+	var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY, true);
 	document.getElementById("playerList").innerHTML = "";
-	for(var i = 0; i < playerList.length; i++)
+	for(var i = 0; i < readyPlayers.length; i++)
 	{
-		var playerId = playerList[i];
-		var playerName = "";
-		if(playerId != undefined){
-			playerName = playerIdNameMap[playerId];
-		}
+		var playerInfo = readyPlayers[i];
+
+		var playerName = playerInfo.playerData.name;
 		document.getElementById("playerList").innerHTML = document.getElementById("playerList").innerHTML + playerName + "<br>";
 	}
 }

@@ -171,80 +171,86 @@ limitations under the License.
     
     <script type = "text/javascript">
 
+var gameManager;
+var numPlayers;
+
+function consoleLog(logString){
+  document.getElementById("console").innerHTML = logString;
+}
+
+window.onload = function() {
+  var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+  var appConfig = new cast.receiver.CastReceiverManager.Config();
+  appConfig.statusText = 'My Game is getting ready';
+  console.log("AvalonCast is initiating");
+  appConfig.maxInactivity = 6000;  // 100 minutes for testing only.
+
+  var gameConfig = new cast.receiver.games.GameManagerConfig();
+  gameConfig.applicationName = 'My Game';
+  gameConfig.maxPlayers = 10;
+  gameManager = new cast.receiver.games.GameManager(gameConfig);
+
+  castReceiverManager.start(appConfig);
+  gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_AVAILABLE,
+  function(event) {
+
+    
+    //console.log("Player Id: " + event.playerInfo.playerId + " is available");
+    document.getElementById("console").innerHTML = "Player Id: " + event.playerInfo.playerId + " is available";
+
+    playerIdList.push(event.playerInfo.playerId);
+
+  });  
 
 
-    var gameManager;
-    var playerLobbyList = []; // List of Player's ID's who are ready
-    var playerIdList = []; // List of Player's ID's who are available
-    var playerIdNameMap = [];
-    var numPlayers;
+  gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_READY,
+  function(event) {
 
-    function consoleLog(logString){
-      document.getElementById("console").innerHTML = logString;
-    }
+    var playerName = event.requestExtraMessageData.playerName;
+    var playerId = event.playerInfo.playerId;
 
-    window.onload = function() {
-      var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
-      var appConfig = new cast.receiver.CastReceiverManager.Config();
-      appConfig.statusText = 'My Game is getting ready';
-      console.log("AvalonCast is initiating");
-      appConfig.maxInactivity = 6000;  // 100 minutes for testing only.
+    gameManger.updatePlayerData(playerId, {'name' : playerName}, false);
+    
+    displayReadyPlayers();
+    
+    consoleLog("Player Name: " + playerName + " is ready");
 
-      var gameConfig = new cast.receiver.games.GameManagerConfig();
-      gameConfig.applicationName = 'My Game';
-      gameConfig.maxPlayers = 2;
-      gameManager = new cast.receiver.games.GameManager(gameConfig);
+  });
 
-      castReceiverManager.start(appConfig);
-      gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_AVAILABLE,
-      function(event) {
+  gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
+      if(event.requestExtraMessageData == "startGame"){
+        //get list of ready players
+        var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY, true);
+        // make sure ready players is between 5 and 10
+        if(readyPlayers.length < 5 || readyPlayers.length > 10){
+          event.resultExtraMessage = { result: "NumberPlayersInvalid" };
+        } else {
+          //set players in playerLobbyList to playing state
+          for(var i = 0; i < readyPlayers.length; i++){
+            var playerInfo = readyPlayers[i];
+            var playerId = playerInfo.playerId;
+            gameManger.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING, true);
+          }
 
-        
-        //console.log("Player Id: " + event.playerInfo.playerId + " is available");
-        document.getElementById("console").innerHTML = "Player Id: " + event.playerInfo.playerId + " is available";
+          //close the lobby
+          consoleLog("GAMEPLAY_STATE" + gameManager.getGameplayState());
 
-        playerIdList.push(event.playerInfo.playerId);
-
-      });  
-
-
-      gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_READY,
-      function(event) {
-
-        var playerName = event.requestExtraMessageData.playerName;
-        var playerId = event.playerInfo.playerId
-        
-        consoleLog("Player Name: " + playerName + " is ready");
-
-        playerIdNameMap[playerId] = playerName;
-        playerLobbyList.push(playerId);
-
-        consoleLog("playerList.length: " + playerLobbyList.length);
-        updatePlayerList(playerLobbyList);
-
-      });
-
-      gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_QUIT,
-      playerRemove);
-
-      gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_DROPPED, playerRemove);
-
-      function playerRemove(event){
-        var index = playerLobbyList.indexOf(event.playerInfo.playerId);
-
-        if(index > -1)
-        {
-          playerLobbyList.splice(index, 1);
-          playerIdNameMap[index] = null;
+          //set game state to playing
         }
 
-        updatePlayerList(playerLobbyList);
+        
+
       }
+  });
 
+  gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_QUIT,
+  displayReadyPlayers);
 
-    };
+  gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_DROPPED, displayReadyPlayers);
 
-      
+};
+
+  
 
     </script>
 
