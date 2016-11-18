@@ -202,9 +202,10 @@ window.onload = function() {
 
   });  
 
-
   gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_READY,
   function(event) {
+
+    consoleLog("Player Name: " + playerName + " is ready");
 
     var playerName = event.requestExtraMessageData.playerName;
     var playerId = event.playerInfo.playerId;
@@ -213,7 +214,7 @@ window.onload = function() {
     
     displayReadyPlayers();
     
-    consoleLog("Player Name: " + playerName + " is ready");
+    
 
   });
 
