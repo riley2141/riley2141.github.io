@@ -9,8 +9,8 @@ function testList(){
 function updatePlayerList(playerList){
 	for(var i = 0; i < playerList.length; i++)
 	{
-		consoleLog("playerList.length: " + playerList.length);
 		var playerId = playerList[i];
+		consoleLog("playerId: " + playerId);
 		var playerName = "";
 		if(!(playerId == undefined || playerId == null){
 			playerName = playerIdNameMap[playerId];
