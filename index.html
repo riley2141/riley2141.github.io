@@ -209,10 +209,10 @@ window.onload = function() {
     var playerName = event.requestExtraMessageData.playerName;
     var playerId = event.playerInfo.playerId;
 
-    
+
     consoleLog("Player Name: " + playerName + " is ready");
 
-    gameManger.updatePlayerData(playerId, {'name' : playerName}, false);
+    gameManager.updatePlayerData(playerId, {'name' : playerName}, false);
     
     displayReadyPlayers();
     
