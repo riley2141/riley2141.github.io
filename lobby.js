@@ -8,6 +8,7 @@ function testList(){
 
 function updatePlayerList(playerList){
 	consoleLog("in updatePlayerList");
+	document.getElementById("playerList").innerHTML = "";
 	for(var i = 0; i < playerList.length; i++)
 	{
 		consoleLog("in updatePlayerList's for loop");
