@@ -14,7 +14,7 @@ function updatePlayerList(playerList){
 		var playerId = playerList[i];
 		consoleLog("playerId: " + playerId);
 		var playerName = "";
-		if(!(playerId == undefined || playerId == null){
+		if(playerId != undefined){
 			playerName = playerIdNameMap[playerId];
 		}
 		document.getElementById("playerList").innerHTML = document.getElementById("playerList").innerHTML + playerName + "<br>";
