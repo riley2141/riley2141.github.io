@@ -216,8 +216,8 @@ window.onload = function() {
   });
 
   gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
-        consoleLog("updatePlayerList" + event.requestExtraMessageData.updatePlayerList);
-      if(event.requestExtraMessageData.updatePlayerList == true){
+        consoleLog("updatePlayerList " + event.requestExtraMessageData.updatePlayerList);
+      if(event.requestExtraMessageData.updatePlayerList == "true"){
         displayReadyPlayers();
       }
       else if(event.requestExtraMessageData.startGame == true){
