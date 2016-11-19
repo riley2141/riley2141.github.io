@@ -217,6 +217,7 @@ window.onload = function() {
 
   gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
       if(event.requestExtraMessageData == "updatePlayerList"){
+        consoleLog("received updatePlayerList signal");
         displayReadyPlayers();
       }
       else if(event.requestExtraMessageData == "startGame"){
