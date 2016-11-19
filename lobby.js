@@ -8,7 +8,7 @@ function testList(){
 
 function displayReadyPlayers(){
 	consoleLog("in display ready players");
-	var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY, true);
+	var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
 	consoleLog("num ready players " + readyPlayers.length);
 	document.getElementById("playerList").innerHTML = "";
 	for(var i = 0; i < readyPlayers.length; i++)
