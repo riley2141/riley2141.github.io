@@ -8,6 +8,7 @@ function testList(){
 
 function displayReadyPlayers(){
 	var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY, true);
+	consoleLog(readyPlayers.length);
 	document.getElementById("playerList").innerHTML = "";
 	for(var i = 0; i < readyPlayers.length; i++)
 	{
