@@ -216,7 +216,7 @@ window.onload = function() {
   });
 
   gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
-        consoleLog("received gameMessage from sender");
+        consoleLog("event.requestExtraMessageData:" + event.requestExtraMessageData);
       if(event.requestExtraMessageData == "updatePlayerList"){
         displayReadyPlayers();
       }
