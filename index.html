@@ -217,10 +217,10 @@ window.onload = function() {
 
   gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
         consoleLog("event.requestExtraMessageData:" + event.requestExtraMessageData);
-      if(event.requestExtraMessageData == "updatePlayerList"){
+      if(event.requestExtraMessageData.updatePlayerList == true){
         displayReadyPlayers();
       }
-      else if(event.requestExtraMessageData == "startGame"){
+      else if(event.requestExtraMessageData.startGame == true){
         //get list of ready players
         var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY, true);
         // make sure ready players is between 5 and 10
