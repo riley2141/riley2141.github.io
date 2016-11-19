@@ -191,20 +191,20 @@ window.onload = function() {
   gameManager = new cast.receiver.games.GameManager(gameConfig);
 
   castReceiverManager.start(appConfig);
+
+  /**
+   * Player Available Listener
+   */
   gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_AVAILABLE,
   function(event) {
-
-    
     //console.log("Player Id: " + event.playerInfo.playerId + " is available");
     document.getElementById("console").innerHTML = "Player Id: " + event.playerInfo.playerId + " is available";
 
     playerIdList.push(event.playerInfo.playerId);
-
   });  
 
   gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_READY,
   function(event) {
-
 
     var playerName = event.requestExtraMessageData.playerName;
     var playerId = event.playerInfo.playerId;
@@ -213,21 +213,20 @@ window.onload = function() {
     consoleLog("Player Name: " + playerName + " is ready");
 
     gameManager.updatePlayerData(playerId, {'name' : playerName}, false);
-    gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.READY, true);
-    displayReadyPlayers();
-    
-    
   });
 
   gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
-      if(event.requestExtraMessageData == "startGame"){
+      if(event.requestExtraMessageData == "updatePlayerList"){
+        displayReadyPlayers();
+      }
+      else if(event.requestExtraMessageData == "startGame"){
         //get list of ready players
         var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY, true);
         // make sure ready players is between 5 and 10
         if(readyPlayers.length < 5 || readyPlayers.length > 10){
           event.resultExtraMessage = { result: "NumberPlayersInvalid" };
         } else {
-          //set players in playerLobbyList to playing state
+          //set players in ready state to playing state
           for(var i = 0; i < readyPlayers.length; i++){
             var playerInfo = readyPlayers[i];
             var playerId = playerInfo.playerId;
@@ -239,9 +238,6 @@ window.onload = function() {
 
           //set game state to playing
         }
-
-        
-
       }
   });
 
