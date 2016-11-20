@@ -194,9 +194,7 @@ window.onload = function() {
   function(event) {
     //console.log("Player Id: " + event.playerInfo.playerId + " is available");
     document.getElementById("console").innerHTML = "Player Id: " + event.playerInfo.playerId + " is available";
-
-    playerIdList.push(event.playerInfo.playerId);
-  });  
+  });
 
   gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_READY,
   function(event) {
@@ -208,6 +206,8 @@ window.onload = function() {
     console.log("Player Name: " + playerName + " is ready");
 
     gameManager.updatePlayerData(playerId, {'name' : playerName}, false);
+
+    
   });
 
   gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
