@@ -231,7 +231,7 @@ window.onload = function() {
           for(var i = 0; i < readyPlayers.length; i++){
             var playerInfo = readyPlayers[i];
             var playerId = playerInfo.playerId;
-            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING, true);
+            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING);
 
             gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null);
 
