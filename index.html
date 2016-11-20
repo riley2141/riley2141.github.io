@@ -32,7 +32,6 @@ limitations under the License.
   <div class = "row">
     <div class = "col-sm-12">
       <h1 class = "center">AvalonCast</h1>
-      <div >             Console: <span id = "console" /></div>
     </div>
   </div>
 
@@ -174,10 +173,6 @@ limitations under the License.
 var gameManager;
 var numPlayers;
 
-function consoleLog(logString){
-  document.getElementById("console").innerHTML = logString;
-}
-
 window.onload = function() {
   var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
   var appConfig = new cast.receiver.CastReceiverManager.Config();
@@ -210,15 +205,15 @@ window.onload = function() {
     var playerId = event.playerInfo.playerId;
 
 
-    consoleLog("Player Name: " + playerName + " is ready");
+    console.log("Player Name: " + playerName + " is ready");
 
     gameManager.updatePlayerData(playerId, {'name' : playerName}, false);
   });
 
   gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
-        consoleLog("updatePlayerList " + event.requestExtraMessageData.updatePlayerList);
+        console.log("updatePlayerList " + event.requestExtraMessageData.updatePlayerList);
       if(event.requestExtraMessageData.updatePlayerList == "true"){
-        consoleLog("updatePlayerList equals true");
+        console.log("updatePlayerList equals true");
         displayReadyPlayers();
       }
       else if(event.requestExtraMessageData.startGame == true){
@@ -236,7 +231,7 @@ window.onload = function() {
           }
 
           //close the lobby
-          consoleLog("GAMEPLAY_STATE" + gameManager.getGameplayState());
+          console.log("GAMEPLAY_STATE" + gameManager.getGameplayState());
 
           //set game state to playing
         }
