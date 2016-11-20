@@ -205,8 +205,9 @@ window.onload = function() {
 
     console.log("Player Name: " + playerName + " is ready");
 
-    gameManager.updatePlayerData(playerId, {'name' : playerName}, false);
+    gameManager.updatePlayerData(playerId, {'name' : playerName}, false
 
+    displayReadyPlayers();
     
   });
 
@@ -214,7 +215,7 @@ window.onload = function() {
         console.log("updatePlayerList " + event.requestExtraMessageData.updatePlayerList);
       if(event.requestExtraMessageData.updatePlayerList == "true"){
         console.log("updatePlayerList equals true");
-        displayReadyPlayers();
+        //displayReadyPlayers();
       }
       else if(event.requestExtraMessageData.startGame == true){
         //get list of ready players
