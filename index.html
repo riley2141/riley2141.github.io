@@ -225,7 +225,7 @@ window.onload = function() {
         var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
         // make sure ready players is between 5 and 10
         if(readyPlayers.length < 1 || readyPlayers.length > 10){
-          event.resultExtraMessage = { result: "NumberPlayersInvalid" };
+          event.resultExtraMessageData = { result: "NumberPlayersInvalid" };
         } else {
           //set players in ready state to playing state
           for(var i = 0; i < readyPlayers.length; i++){
