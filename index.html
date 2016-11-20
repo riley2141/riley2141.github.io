@@ -221,7 +221,8 @@ window.onload = function() {
       }
       else if(event.requestExtraMessageData.startGame == "true"){
         //get list of ready players
-        var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY, true);
+        console.log("Player is trying to start")
+        var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
         // make sure ready players is between 5 and 10
         if(readyPlayers.length < 1 || readyPlayers.length > 10){
           event.resultExtraMessage = { result: "NumberPlayersInvalid" };
