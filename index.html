@@ -35,7 +35,7 @@ limitations under the License.
     </div>
   </div>
 
-  <div class = "welcome" style = "">
+  <div class = "welcome" id = "welcome" style = "">
     <br>
     <br>
     <br>
@@ -66,7 +66,7 @@ limitations under the License.
 
   </div>
 
-  <div class = "gameBoard" style = "display:none">
+  <div class = "gameBoard" id = "gameBoard" style = "display:none">
     <br>
     <br>
     
@@ -187,6 +187,8 @@ window.onload = function() {
 
   castReceiverManager.start(appConfig);
 
+  gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null);
+
   /**
    * Player Available Listener
    */
@@ -217,11 +219,11 @@ window.onload = function() {
         console.log("updatePlayerList equals true");
         //displayReadyPlayers();
       }
-      else if(event.requestExtraMessageData.startGame == true){
+      else if(event.requestExtraMessageData.startGame == "true"){
         //get list of ready players
         var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY, true);
         // make sure ready players is between 5 and 10
-        if(readyPlayers.length < 5 || readyPlayers.length > 10){
+        if(readyPlayers.length < 1 || readyPlayers.length > 10){
           event.resultExtraMessage = { result: "NumberPlayersInvalid" };
         } else {
           //set players in ready state to playing state
@@ -229,7 +231,16 @@ window.onload = function() {
             var playerInfo = readyPlayers[i];
             var playerId = playerInfo.playerId;
             gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING, true);
+
+            gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null);
+
+            document.getElementById("welcome").style = "display:none";
+            document.getElementById("gameBoard").style = "";
+
+
           }
+
+
 
           //close the lobby
           console.log("GAMEPLAY_STATE" + gameManager.getGameplayState());
