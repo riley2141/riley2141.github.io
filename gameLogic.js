@@ -15,7 +15,7 @@ function assignRoles(){
 	}
 
 	for (i = 0; i < players.length; i++) {
-		gameManager.updatePlayerData(players[evilPlayer].playerId, {'loyalty': 'good'}, true);
+		gameManager.updatePlayerData(players[i].playerId, {'loyalty': 'good'}, true);
 	}
 
 	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
