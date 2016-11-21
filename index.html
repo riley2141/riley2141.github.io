@@ -227,7 +227,7 @@ window.onload = function() {
     gameManager.updatePlayerData(playerId, {'name' : playerName}, false);
 
     displayReadyPlayers();
-    
+a    
   });
 
   gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
@@ -250,17 +250,17 @@ window.onload = function() {
             var playerId = playerInfo.playerId;
             gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING);
 
-            gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null);
+            
 
-            document.getElementById("welcome").style = "display:none";
-            document.getElementById("gameBoard").style = "";
-
-            assignRoles();
+            
 
 
           }
+          gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null);
+          document.getElementById("welcome").style = "display:none";
+          document.getElementById("gameBoard").style = "";
 
-
+          assignRoles();
 
           //close the lobby
           console.log("GAMEPLAY_STATE" + gameManager.getGameplayState());
