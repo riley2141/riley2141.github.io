@@ -363,9 +363,9 @@ window.onload = function() {
   });
 
   gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_QUIT,
-  displayReadyPlayers);
+  displayQuitPlayers);
 
-  gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_DROPPED, displayReadyPlayers);
+  gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_DROPPED, displayQuitPlayers);
 
 };
 

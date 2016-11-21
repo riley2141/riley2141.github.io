@@ -19,3 +19,7 @@ function displayReadyPlayers(){
 		document.getElementById("playerList").innerHTML = document.getElementById("playerList").innerHTML + playerName + "<br>";
 	}
 }
+
+function displayQuitPlayers(){
+	console.log(A player has quit);
+}
