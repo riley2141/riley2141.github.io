@@ -42,10 +42,10 @@ function randomIntFromInterval(min,max)
 function displayMissionTeam(){
 	console.log("in display mission team players");
 	var missionNum = gameManager.getGameData().missionNum;
-	//get mission team
+	//TODO get mission team
 	var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
 	console.log("num ready players " + readyPlayers.length);
-	document.getElementById("playerList").innerHTML = "";
+	document.getElementById(missionNum).innerHTML = "";
 	for(var i = 0; i < readyPlayers.length; i++)
 	{
 		var playerInfo = readyPlayers[i];

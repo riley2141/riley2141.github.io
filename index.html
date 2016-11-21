@@ -264,24 +264,28 @@ window.onload = function() {
           //set game state to playing
         }
       }
-      else if (event.requestExtraMessageData.startVote == "true") {
+      else if (event.requestExtraMessageData.missionTeam != null ) {
         console.log("send voting signal");
         displayMissionTeam();
+        //TODO set mission team in game data
         gameManager.updateGameData({'phase': votingPhase}, false);
       }
-      else if (event.requestExtraMessageData.voteDone == "true") {
+      else if (event.requestExtraMessageData.acceptReject != null) {
         voteCount++;
-        if (event.requestExtraMessageData.passFail == "pass")
+        if (event.requestExtraMessageData.acceptReject == "accept")
           passCount++;
         if (voteCount == gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length) {
           
+
+
           if (passCount > voteCount / 2) {
-            //display pass card
+            //TODO display vote information
             gameManager.updateGameData({'phase': missionPhase}, false);
-            //update mission team stuff
+            //TODO update mission team stuff
           } else {
-            //display fail card
-            gameManager.updateGameData({'phase': selectPhase}, false);
+            //TODO display vote information
+            //TODO increment and check total vote count
+            //Unnecessary - change leader will call this gameManager.updateGameData({'phase': selectPhase}, false);
             changeLeader();
           }
 
@@ -289,7 +293,7 @@ window.onload = function() {
           passCount = 0;  
         }
       }
-      else if (event.requestExtraMessageData.missionEnd == "true") {
+      else if (event.requestExtraMessageData.successFail != null) {
         voteCount++;
         var missionNum = gameManager.getGameData().missionNum;
         if (event.requestExtraMessageData.successFail == "success") {
@@ -297,13 +301,21 @@ window.onload = function() {
         }
         if (voteCount == missionTeamSize[missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]) {
           
-          if (passCount > voteCount / 2) {
-            //display pass card
-            gameManager.updateGameData({'phase': missionPhase}, false);
-            //update mission team stuff
+          if (passCount == voteCount) {
+            //TODO display both cards
+            //gameManager.updateGameData({'phase': missionPhase}, false);
+            //TODO mark mission box as blue
+            //TODO increment mission num
+            //TODO check if game over
+
+            changeLeader();
+            
           } else {
-            //display fail card
-            gameManager.updateGameData({'phase': selectPhase}, false);
+            //TODO display both cards
+            //TODO mark mission box as red
+            //TODO increment mission num
+            //TODO check if game over
+            //gameManager.updateGameData({'phase': selectPhase}, false);
             changeLeader();
           }
 
