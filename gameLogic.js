@@ -38,6 +38,7 @@ function changeLeader() {
 }
 
 function alertLeader() {
+	console.log("Alert leader is setting the phase to selectPhase: " + selectPhase);
 	gameManager.updateGameData( {'phase': selectPhase}, false);
 }
 
