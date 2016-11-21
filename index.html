@@ -170,6 +170,14 @@ limitations under the License.
     
     <script type = "text/javascript">
 
+var missionTeamSize =   [
+                        [2,2,2,3,3,3],
+                        [3,3,3,4,4,4],
+                        [2,4,3,4,4,4],
+                        [3,3,4,5,5,5],
+                        [3,4,4,5,5,5]
+                        ];
+
 var selectPhase = 0;
 var votingPhase = 1;
 var missionPhase = 2;
@@ -280,6 +288,29 @@ window.onload = function() {
           voteCount = 0;
           passCount = 0;  
         }
+      }
+      else if (event.requestExtraMessageData.missionEnd == "true") {
+        voteCount++;
+        var missionNum = gameManager.getGameData().missionNum;
+        if (event.requestExtraMessageData.successFail == "success") {
+          passCount++;
+        }
+        if (voteCount == missionTeamSize[missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]) {
+          
+          if (passCount > voteCount / 2) {
+            //display pass card
+            gameManager.updateGameData({'phase': missionPhase}, false);
+            //update mission team stuff
+          } else {
+            //display fail card
+            gameManager.updateGameData({'phase': selectPhase}, false);
+            changeLeader();
+          }
+
+          voteCount = 0;
+          passCount = 0;  
+        }
+      
       }
   });
 
