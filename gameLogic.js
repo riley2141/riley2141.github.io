@@ -2,6 +2,7 @@ var players;
 var leader;
 var missionNum;
 
+
 function assignRoles(){
 	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
 	var numEvil = Math.round(players.length / 3);
@@ -20,8 +21,10 @@ function assignRoles(){
 	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
 	leader = randomIntFromInterval(0, players.length);
 	gameManager.updateGameData( {'leader': players[leader].playerId}, true);
-	alertLeader();
 	gameManager.updateGameData( {'missionNum' : 1}, true);
+	gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
+	alertLeader();
+	
 }
 
 function changeLeader() {
@@ -42,13 +45,15 @@ function randomIntFromInterval(min,max)
 function displayMissionTeam(){
 	console.log("in display mission team players");
 	var missionNum = gameManager.getGameData().missionNum;
-	//TODO get mission team
-	var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
-	console.log("num ready players " + readyPlayers.length);
+	
+
+	var missionTeam = gameManager.getGameData().missionTeam;
+
+	console.log("num displaying mission players " + missionTeam.length);
 	document.getElementById(missionNum).innerHTML = "";
-	for(var i = 0; i < readyPlayers.length; i++)
+	for(var i = 0; i < missionTeam.length; i++)
 	{
-		var playerInfo = readyPlayers[i];
+		var playerInfo = missionTeam[i];
 
 		var playerName = playerInfo.playerData.name;
 		document.getElementById(missionNum).innerHTML = document.getElementById(missionNum).innerHTML + playerName + "<br>";

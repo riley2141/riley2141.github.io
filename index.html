@@ -171,6 +171,7 @@ limitations under the License.
     <script type = "text/javascript">
 
 var missionTeamSizes =   [
+                        [],
                         [2,2,2,3,3,3],
                         [3,3,3,4,4,4],
                         [2,4,3,4,4,4],
@@ -187,6 +188,7 @@ var gameManager;
 var numPlayers;
 var voteCount;
 var passCount;
+var acceptPlayers;
 
 window.onload = function() {
   var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
@@ -253,6 +255,8 @@ window.onload = function() {
             document.getElementById("welcome").style = "display:none";
             document.getElementById("gameBoard").style = "";
 
+            assignRoles();
+
 
           }
 
@@ -266,24 +270,39 @@ window.onload = function() {
       }
       else if (event.requestExtraMessageData.missionTeam != null ) {
         console.log("send voting signal");
+
+        if(event.requestExtraMessageData.missionTeam.length == missionTeamSizes[missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]  )
+        {
+          gameManager.updateGameData({'missionTeam' : event.requestExtraMessageData.missionTeam}, true);
+        }
+        else
+        {
+          console.log("bad team size");
+        }
         displayMissionTeam();
         document.getElementById("successCard").style = "display:none";
         document.getElementById("failCard").style = "display:none";
-        //TODO set mission team in game data
+        
         gameManager.updateGameData({'phase': votingPhase}, false);
       }
       else if (event.requestExtraMessageData.acceptReject != null) {
+
+
         voteCount++;
-        if (event.requestExtraMessageData.acceptReject == "accept")
+        if (event.requestExtraMessageData.acceptReject == "true")
           passCount++;
+          acceptPlayers.push(event.playerInfo.playerId);
+
         if (voteCount == gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length) {
           
-
-
+          
           if (passCount > voteCount / 2) {
             //TODO display vote information
             gameManager.updateGameData({'phase': missionPhase}, false);
             //TODO update mission team stuff
+
+            
+
           } else {
             //TODO display vote information
             //TODO increment and check total vote count
@@ -298,7 +317,7 @@ window.onload = function() {
       else if (event.requestExtraMessageData.successFail != null) {
         voteCount++;
         var missionNum = gameManager.getGameData().missionNum;
-        if (event.requestExtraMessageData.successFail == "success") {
+        if (event.requestExtraMessageData.successFail == "true") {
           passCount++;
         }
         if (voteCount == missionTeamSizes[missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]) {
@@ -313,8 +332,8 @@ window.onload = function() {
             //gameManager.updateGameData({'phase': missionPhase}, false);
             //TODO mark mission box as blue
             //TODO check if game over
-            //TODO increment mission num
-            //TODO update mission team size
+            gameManager.updateGameData({"missionNum" : (missionNum+1)}, true);
+            gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[missionNum+1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
 
             changeLeader();
             
@@ -329,8 +348,8 @@ window.onload = function() {
 
             //TODO mark mission box as red
             //TODO check if game over
-            //TODO increment mission num
-            //TODO update mission team size
+            gameManager.updateGameData({"missionNum" : (missionNum+1)}, true);
+            gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[missionNum+1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
 
             //gameManager.updateGameData({'phase': selectPhase}, false);
             changeLeader();
