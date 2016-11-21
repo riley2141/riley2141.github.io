@@ -24,6 +24,8 @@ function assignRoles(){
 	leader = randomIntFromInterval(0, players.length-1);
 	console.log("leader number is: " + leader);
 
+	console.log("players array: " + players);
+	console.log("playerId should be: " + players[leader].playerId);
 	gameManager.updateGameData( {'leader': players[leader].playerId}, true);
 	gameManager.updateGameData( {'missionNum' : 1}, true);
 	gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
