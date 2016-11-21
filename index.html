@@ -170,8 +170,15 @@ limitations under the License.
     
     <script type = "text/javascript">
 
+var selectPhase = 0;
+var votingPhase = 1;
+var missionPhase = 2;
+
+
 var gameManager;
 var numPlayers;
+var voteCount;
+var passCount;
 
 window.onload = function() {
   var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
@@ -249,6 +256,31 @@ window.onload = function() {
           //set game state to playing
         }
       }
+      else if (event.requestExtraMessageData.startVote == "true") {
+        console.log("send voting signal");
+        displayMissionTeam();
+        gameManager.updateGameData({'phase': votingPhase}, false);
+      }
+      else if (event.requestExtraMessageData.voteDone == "true") {
+        voteCount++;
+        if (event.requestExtraMessageData.passFail == "pass")
+          passCount++;
+        if (voteCount == gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length) {
+          
+          if (passCount > voteCount / 2) {
+            //display pass card
+            gameManager.updateGameData({'phase': missionPhase}, false);
+            //update mission team stuff
+          } else {
+            //display fail card
+            gameManager.updateGameData({'phase': selectPhase}, false);
+            changeLeader();
+          }
+
+          voteCount = 0;
+          passCount = 0;  
+        }
+      }
   });
 
   gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_QUIT,
@@ -322,6 +354,7 @@ window.onload = function() {
       };
     </script> -->
     <script src="lobby.js"></script>
+    <script src="gameLogic.js"></script>
   </body>
 
 </html>
