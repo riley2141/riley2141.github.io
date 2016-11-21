@@ -10,7 +10,7 @@ function assignRoles(){
 	console.log("number of evil players: " + numEvil);
 
 	for (var i = 0; i < numEvil; i++) {
-		var evilPlayer = randomIntFromInterval( 0, players.length );
+		var evilPlayer = randomIntFromInterval( 0, players.length-1 );
 		//write to json
 		gameManager.updatePlayerData(players[evilPlayer].playerId, {'loyalty': 'evil'}, true);
 		players.splice(evilPlayer,1);
@@ -21,7 +21,7 @@ function assignRoles(){
 	}
 
 	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
-	leader = randomIntFromInterval(0, players.length);
+	leader = randomIntFromInterval(0, players.length-1);
 	console.log("leader number is: " + leader);
 
 	gameManager.updateGameData( {'leader': players[leader].playerId}, true);
