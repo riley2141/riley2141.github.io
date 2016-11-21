@@ -21,5 +21,5 @@ function displayReadyPlayers(){
 }
 
 function displayQuitPlayers(){
-	console.log(A player has quit);
+	console.log("A player has quit");
 }
