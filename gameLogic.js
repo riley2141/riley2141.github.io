@@ -6,6 +6,8 @@ var missionNum;
 function assignRoles(){
 	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
 	var numEvil = Math.round(players.length / 3);
+	console.log("number of players being assigned roles: " + players.length);
+	console.log("number of evil players: " + numEvil);
 
 	for (var i = 0; i < numEvil; i++) {
 		var evilPlayer = randomIntFromInterval( 0, players.length );
