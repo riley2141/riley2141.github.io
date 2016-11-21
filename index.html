@@ -107,16 +107,16 @@ limitations under the License.
       <div class = "col-sm-3">
       </div>
       <div class = "col-sm-2">
-        <div class = "card center">
-          <h2 class ="cardHeader sucess center">Success x1</h2>
+        <div class = "card center" id = "successCard" style = "display:none">
+          <h2 class ="cardHeader sucess center" id = "successHeader">Success x1</h2>
           <img src = "scss/img/sucessGoblet.png" class = "goblet center">
         </div>
       </div>
-      <div class = "col-sm-2">
+      <div class = "col-sm-2" id = "voteInformation" style = "display:none">
       </div>
       <div class = "col-sm-2">
-        <div class = "card center">
-          <h2 class ="cardHeader fail center">Fail x1</h2>
+        <div class = "card center" id = "failCard" style = "display:none">
+          <h2 class ="cardHeader fail center" id = "failHeader">Fail x1</h2>
           <img src = "scss/img/failGoblet.png" class = "goblet center">
           </div>
       </div>
@@ -170,7 +170,7 @@ limitations under the License.
     
     <script type = "text/javascript">
 
-var missionTeamSize =   [
+var missionTeamSizes =   [
                         [2,2,2,3,3,3],
                         [3,3,3,4,4,4],
                         [2,4,3,4,4,4],
@@ -267,6 +267,8 @@ window.onload = function() {
       else if (event.requestExtraMessageData.missionTeam != null ) {
         console.log("send voting signal");
         displayMissionTeam();
+        document.getElementById("successCard").style = "display:none";
+        document.getElementById("failCard").style = "display:none";
         //TODO set mission team in game data
         gameManager.updateGameData({'phase': votingPhase}, false);
       }
@@ -299,22 +301,37 @@ window.onload = function() {
         if (event.requestExtraMessageData.successFail == "success") {
           passCount++;
         }
-        if (voteCount == missionTeamSize[missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]) {
+        if (voteCount == missionTeamSizes[missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]) {
           
           if (passCount == voteCount) {
-            //TODO display both cards
+            document.getElementById("successHeader").innerHTML = "Sucess x" + passCount;
+            document.getElementById("successCard").style = "";
+            
+            document.getElementById("failHeader").innerHTML = "Fail x0"
+            document.getElementById("failCard").style = "";
+            
             //gameManager.updateGameData({'phase': missionPhase}, false);
             //TODO mark mission box as blue
-            //TODO increment mission num
             //TODO check if game over
+            //TODO increment mission num
+            //TODO update mission team size
 
             changeLeader();
             
           } else {
-            //TODO display both cards
+            document.getElementById("successHeader").innerHTML = "Sucess x" + passCount;
+            document.getElementById("successCard").style = "";
+            
+            var failCount = voteCount - passCount;
+            document.getElementById("failHeader").innerHTML = "Fail x" + failCount;
+            document.getElementById("failCard").style = "";
+            
+
             //TODO mark mission box as red
-            //TODO increment mission num
             //TODO check if game over
+            //TODO increment mission num
+            //TODO update mission team size
+
             //gameManager.updateGameData({'phase': selectPhase}, false);
             changeLeader();
           }
