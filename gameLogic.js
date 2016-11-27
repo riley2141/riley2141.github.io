@@ -85,3 +85,20 @@ function displayMissionTeam(){
 		document.getElementById(missionNum).innerHTML = document.getElementById(missionNum).innerHTML + playerName + "<br>";
 	}
 }
+
+function checkGameOver() {
+	var goodWins = 0;
+	var badWins = 0;
+
+	for(var i = 0; i < missionResults.length; i++) {
+		if (missionResults[i] == 1)
+			goodWins++;
+		else if (missionResults[i] == 2) {
+			badWins++;
+		}
+	}
+
+	if (goodWins >= 3 || badWins >= 3)
+		return true;
+	return false;
+}

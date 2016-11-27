@@ -137,19 +137,41 @@ limitations under the License.
 
   </div>
 
-  <div class = "gameOver" style = "display:none">
+  <div class = "gameOver" id = "gameOver" style="display:none">
+    <br>
+    <br>
+    <br>
+    <br>
 
-  <br>
-  <br>
+    <h1 class = "center"> Game Over</h1>
+    <br>
+    <h2 class = "who-wins"></h2>
 
     <div class = "row">
-      <div class = "col-sm-12">
-        <h1 class = "evilWins center">Evil wins the game!</h1>
-        <h1 class = "goodWins center" style = "display:none"></h1>
+      <div class = "col-sm-1">
+      </div>
+      <div class = "col-sm-3">
+        <div class = "good-guys-list" onclick="testList()">
+          <h1 style = "margin:0;">Player List</h1>
+          <p id = "goodList"></p>
+        </div>
       </div>
 
-    </div>
+      <div class = "col-sm-4">
+        <img src = "scss/img/goodguy.jpg" class = "center guys">
+        <img src = "scss/img/badguy.jpg"  class = "center guys" style="display:none">
+      </div>
 
+      <div class = "col-sm-3">
+        <div class = "bad-guys-list" onclick="testList()">
+          <h1 style = "margin:0;">Player List</h1>
+          <p id = "badList"></p>
+        </div>
+        
+      </div>
+
+      
+    </div>
 
   </div>
 
@@ -188,6 +210,7 @@ var numPlayers;
 var voteCount;
 var passCount;
 var acceptPlayers;
+var missionResults [-1, -1, -1, -1, -1]; //1 = good wins, 2 = bad wins
 
 window.onload = function() {
   var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
@@ -339,6 +362,12 @@ window.onload = function() {
             //gameManager.updateGameData({'phase': missionPhase}, false);
             //TODO mark mission box as blue
             //TODO check if game over
+            if (checkGameOver()) {
+              console.log("game over");
+              document.getElementById("welcome").style = "display:none";
+              document.getElementById("gameBoard").style = "display:none";
+              document.getElementById("gameOver").style = "";
+            }
             var gameData = gameManager.getGameData();
             gameData.missionNum = gameData.missionNum +1;
             gameData.missionTeamSize =missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length];
