@@ -1,6 +1,7 @@
 var players; 
 var leader;
 var missionNum;
+var gameData;
 
 
 function assignRoles(){
@@ -26,23 +27,36 @@ function assignRoles(){
 
 	console.log("players array: " + players);
 	console.log("playerId should be: " + players[leader].playerId);
-	gameManager.updateGameData( {'leader': players[leader].playerId}, true);
-	gameManager.updateGameData( {'missionNum' : 1}, true);
-	gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
-	alertLeader();
+	gameData = gameManager.getGameData();
+
+	gameData.leader = players[leader].playerId;
+	gameData.missionNum = 1;
+	gameData.missionTeamSize = missionTeamSizes[1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length];
+	gameData.phase = selectPhase;
+	gameManager.updateGameData(gameData, false);
+	console.log("Initial phase change has ended.");
+
+	//gameManager.updateGameData( {'leader': players[leader].playerId}, true);
+	//gameManager.updateGameData( {'missionNum' : 1}, true);
+	//gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
+	//alertLeader();
 	
 }
 
 function changeLeader() {
 	leader = (leader++) % players.length;
-	gameManager.updateGameData( {'leader': players[leader].playerId}, true);
+	gameData = gameManager.getGameData();
+	gameData.leader = players[leader].playerId;
+	//gameManager.updateGameData( {'leader': players[leader].playerId}, true);
 	alertLeader();
 }
 
 function alertLeader() {
 	console.log("Alert leader is setting the phase to selectPhase: " + selectPhase);
-	gameManager.broadcastGameManagerStatus();
-	gameManager.updateGameData( {'phase': selectPhase}, false);
+	//gameManager.broadcastGameManagerStatus();
+	//gameManager.updateGameData( {'phase': selectPhase}, false);
+	gameData.phase = selectPhase;
+	gameManager.updateGameData(gameData, false);
 }
 
 function randomIntFromInterval(min,max)
