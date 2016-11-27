@@ -204,7 +204,8 @@ window.onload = function() {
   castReceiverManager.start(appConfig);
 
   gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null);
-
+  gameManager.updateGameData({'phase' : -1}, false);
+1
   /**
    * Player Available Listener
    */
