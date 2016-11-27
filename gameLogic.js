@@ -29,12 +29,16 @@ function assignRoles(){
 	console.log("playerId should be: " + players[leader].playerId);
 	gameData = gameManager.getGameData();
 
+
+
 	gameData.leader = players[leader].playerId;
 	gameData.missionNum = 1;
 	gameData.missionTeamSize = missionTeamSizes[1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length];
 	gameData.phase = selectPhase;
 	gameManager.updateGameData(gameData, false);
 	console.log("Initial phase change has ended.");
+	gameData = gameManager.getGameData();
+	console.log("Game data looks like this: " + gameData );
 
 	//gameManager.updateGameData( {'leader': players[leader].playerId}, true);
 	//gameManager.updateGameData( {'missionNum' : 1}, true);
