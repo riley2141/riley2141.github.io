@@ -38,7 +38,7 @@ function assignRoles(){
 	gameManager.updateGameData(gameData, false);
 	console.log("Initial phase change has ended.");
 	gameData = gameManager.getGameData();
-	console.log("Game data looks like this: " + gameData );
+	console.log("Game data looks like this: " + JSON.stringify(gameData) );
 
 	//gameManager.updateGameData( {'leader': players[leader].playerId}, true);
 	//gameManager.updateGameData( {'missionNum' : 1}, true);
