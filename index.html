@@ -192,7 +192,7 @@ limitations under the License.
     <script type = "text/javascript">
 
 var missionTeamSizes =   [
-                        [],
+                        [0,0,0,0,0,0],
                         [2,2,2,3,3,3],
                         [3,3,3,4,4,4],
                         [2,4,3,4,4,4],
@@ -295,7 +295,7 @@ window.onload = function() {
 
         var gameData = gameManager.getGameData();
 
-        if(event.requestExtraMessageData.missionTeam.length == missionTeamSizes[missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]  )
+        if(event.requestExtraMessageData.missionTeam.length == missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]  )
         {
           gameData.missionTeam = event.requestExtraMessageData.missionTeam;
           //gameManager.updateGameData({'missionTeam' : event.requestExtraMessageData.missionTeam}, true);
