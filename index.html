@@ -261,7 +261,8 @@ window.onload = function() {
   });
 
   gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
-        console.log("updatePlayerList " + event.requestExtraMessageData.updatePlayerList);
+        //console.log("updatePlayerList " + event.requestExtraMessageData.updatePlayerList);
+        console.log("A listener event has occured");
       if(event.requestExtraMessageData.updatePlayerList == "true"){
         console.log("updatePlayerList equals true");
         //displayReadyPlayers();
@@ -332,20 +333,22 @@ window.onload = function() {
         gameManager.updateGameData(gameData, false);
       }
       else if (event.requestExtraMessageData.acceptReject != null) {
-
+        console.log("Entering accept or reject listener");
 
         voteCount++;
         if (event.requestExtraMessageData.acceptReject == "true")
         {
+          console.log("Player has accepted :" + event.playerInfo.playerData.name);
           passCount++;
           acceptPlayers.push(event.playerInfo.playerData.name);
         }
         else
         {
+          console.log("Player has rejected :" + event.playerInfo.playerData.name);
           rejectPlayers.push(event.playerInfo.playerData.name);
         }
         if (voteCount == gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length) {
-          
+          console.log("all votes have arrived")
           
           if (passCount > voteCount / 2) {
             //TODO display vote information
