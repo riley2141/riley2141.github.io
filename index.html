@@ -336,6 +336,7 @@ window.onload = function() {
         console.log("Entering accept or reject listener");
 
         voteCount++;
+        console.log("current vote count is: " + voteCount);
         if (event.requestExtraMessageData.acceptReject == "true")
         {
           console.log("Player has accepted :" + event.playerInfo.playerData.name);
@@ -353,6 +354,7 @@ window.onload = function() {
           console.log("Player has rejected :" + event.playerInfo.playerData.name);
           rejectPlayers.push(event.playerInfo.playerData.name);
         }
+        console.log("if vote count equlas this then we should continue: " + gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length);
         if (voteCount == gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length) {
           console.log("all votes have arrived")
           
