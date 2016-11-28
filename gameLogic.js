@@ -52,7 +52,7 @@ function assignRoles(){
 }
 
 function changeLeader() {
-	leader = (leader++) % players.length;
+	leader = (leader+1) % players.length;
 	gameData = gameManager.getGameData();
 	gameData.leader = players[leader].playerId;
 	//gameManager.updateGameData( {'leader': players[leader].playerId}, true);
