@@ -294,13 +294,16 @@ window.onload = function() {
         console.log("send voting signal");
 
         var gameData = gameManager.getGameData();
-        console.log("sent data: " + event.requestExtraMessageData.missionTeam.length);
+        var missionTeam = JSON.parse(event.requestExtraMessageData.missionTeam);
+        console.log("sent data length: " + event.requestExtraMessageData.missionTeam.length);
+        console.log("sent data: " + JSON.stringify(event.requestExtraMessageData.missionTeam));
         console.log("what its supposed to be: " + missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length])
 
 
-        if(event.requestExtraMessageData.missionTeam.length == missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]  )
+        if(missionTeam.length == missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]  )
         {
-          gameData.missionTeam = event.requestExtraMessageData.missionTeam;
+          gameData.missionTeam = missionTeam;
+          gameManager.updateGameData(gameData, true);
           //gameManager.updateGameData({'missionTeam' : event.requestExtraMessageData.missionTeam}, true);
         }
         else
@@ -313,6 +316,7 @@ window.onload = function() {
         document.getElementById("failCard").style = "display:none";
         
         //gameManager.updateGameData({'phase': votingPhase}, false);
+        gameData = gameManager.getGameData();
         gameData.phase = votingPhase;
 
         gameManager.updateGameData(gameData, false);
