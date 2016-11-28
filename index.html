@@ -329,8 +329,7 @@ window.onload = function() {
         document.getElementById("successCard").style = "visibility:hidden";
         document.getElementById("failCard").style = "visibility:hidden";
         document.getElementById("voteInformation").style = "visibility:hidden";
-        voteCountCount = 0;
-        document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
+        
         
         //gameManager.updateGameData({'phase': votingPhase}, false);
         gameData = gameManager.getGameData();
@@ -433,7 +432,8 @@ window.onload = function() {
             gameManager.updateGameData(gameData, true);
             //gameManager.updateGameData({"missionNum" : (missionNum+1)}, true);
             //gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[missionNum+1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
-
+            voteCountCount = 0;
+            document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
             changeLeader();
             
           } else {
@@ -462,7 +462,8 @@ window.onload = function() {
             gameManager.updateGameData(gameData, true);
             //gameManager.updateGameData({"missionNum" : (missionNum+1)}, true);
            // gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[missionNum+1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
-
+            voteCountCount = 0;
+            document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
             //gameManager.updateGameData({'phase': selectPhase}, false);
             changeLeader();
           }
