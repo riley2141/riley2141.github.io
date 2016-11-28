@@ -323,6 +323,7 @@ window.onload = function() {
         displayMissionTeam();
         document.getElementById("successCard").style = "visibility:hidden";
         document.getElementById("failCard").style = "visibility:hidden";
+        document.getElementById("voteInformation").style = "visibility:hidden";
         
         //gameManager.updateGameData({'phase': votingPhase}, false);
         gameData = gameManager.getGameData();
@@ -341,13 +342,16 @@ window.onload = function() {
         }
         else
         {
-
+          rejectPlayers.push(event.playerInfo.playerData.name);
         }
         if (voteCount == gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length) {
           
           
           if (passCount > voteCount / 2) {
             //TODO display vote information
+
+            displayVotes();
+            document.getElementById("voteInformation").style = "";
 
 
 
@@ -360,6 +364,8 @@ window.onload = function() {
 
           } else {
             //TODO display vote information
+            displayVotes();
+            document.getElementById("voteInformation").style = "";
             //TODO increment and check total vote count
             //Unnecessary - change leader will call this gameManager.updateGameData({'phase': selectPhase}, false);
             changeLeader();

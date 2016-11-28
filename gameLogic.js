@@ -109,3 +109,25 @@ function checkGameOver() {
 		return true;
 	return false;
 }
+
+function displayVotes() {
+	console.log("in display vote information");
+	var missionNum = gameManager.getGameData().missionNum;
+	
+
+	
+
+	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
+	document.getElementById("playerVotes").innerHTML = "";
+
+	for(var i =0; i < acceptPlayers.length; i++)
+	{
+		document.getElementById("playerVotes").innerHTML = document.getElementById("playerVotes").innerHTML + acceptPlayers[i] + " - Accept" + "<br>";
+	}
+
+	for(var i =0; i < rejectPlayers.length; i++)
+	{
+		document.getElementById("playerVotes").innerHTML = document.getElementById("playerVotes").innerHTML + rejectPlayers[i] + " - Reject" + "<br>";
+	}
+
+}
