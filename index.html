@@ -134,7 +134,7 @@ limitations under the License.
       </div>
       <div class = "col-sm-2">
         <div class="voteBox center">
-          <h2 class ="voteHeader center">Vote Count: 1</h2>
+          <h2 class ="voteHeader center" id = "voteCount">Vote Count: 0</h2>
           <h3 class ="voteHeader center" style="margin-bottom: 10px;">Evil wins at 5</h3>
         </div>
       </div>
@@ -216,8 +216,8 @@ var gameManager;
 var numPlayers;
 var voteCount;
 var passCount;
-var acceptPlayers;
-var rejectPlayers;
+var acceptPlayers = [];
+var rejectPlayers = [];
 var missionResults = [-1, -1, -1, -1, -1]; //1 = good wins, 2 = bad wins
 
 window.onload = function() {
@@ -367,6 +367,8 @@ window.onload = function() {
             displayVotes();
             document.getElementById("voteInformation").style = "";
             //TODO increment and check total vote count
+
+
             //Unnecessary - change leader will call this gameManager.updateGameData({'phase': selectPhase}, false);
             changeLeader();
           }
