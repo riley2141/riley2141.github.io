@@ -262,7 +262,7 @@ window.onload = function() {
 
   gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
 
-      gamePhase = gameManager.getGameData();
+      gamePhase = gameManager.getGameData().phase;
       console.log("game phase : " + gamePhase);
 
         //console.log("updatePlayerList " + event.requestExtraMessageData.updatePlayerList);
