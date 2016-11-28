@@ -342,6 +342,12 @@ window.onload = function() {
           passCount++;
           acceptPlayers.push(event.playerInfo.playerData.name);
         }
+        else if(event.requestExtraMessageData.acceptReject)
+        {
+          console.log("Player has accepted using boolean :" + event.playerInfo.playerData.name);
+          passCount++;
+          acceptPlayers.push(event.playerInfo.playerData.name);
+        }
         else
         {
           console.log("Player has rejected :" + event.playerInfo.playerData.name);
