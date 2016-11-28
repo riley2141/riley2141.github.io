@@ -47,6 +47,9 @@
 .gameBoard .voteHeader {
   color: gold;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+.gameBoard .text {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 150%; }
 
 .gameOver .evilWins {
   color: red;
