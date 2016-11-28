@@ -213,9 +213,9 @@ var missionPhase = 2;
 
 
 var gameManager;
-var numPlayers;
-var voteCount;
-var passCount;
+var numPlayers = 0;
+var voteCount = 0;
+var passCount = 0;
 var acceptPlayers = [];
 var rejectPlayers = [];
 var missionResults = [-1, -1, -1, -1, -1]; //1 = good wins, 2 = bad wins
@@ -236,7 +236,6 @@ window.onload = function() {
 
   gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null);
   gameManager.updateGameData({'phase' : -1}, false);
-1
   /**
    * Player Available Listener
    */
