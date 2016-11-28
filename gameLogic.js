@@ -79,13 +79,16 @@ function displayMissionTeam(){
 
 	var missionTeam = gameManager.getGameData().missionTeam;
 
+	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
+
 	console.log("num displaying mission players " + missionTeam.length);
 	document.getElementById(missionNum).innerHTML = "";
 	for(var i = 0; i < missionTeam.length; i++)
 	{
-		var playerInfo = missionTeam[i];
-		console.log("Player #" + i + " is " + playerInfo);
-		var playerName = playerInfo.playerData.name;
+		var playerId = missionTeam[i];
+		console.log("Player #" + i + " is " + playerId);
+		var playerName = gameManager.getPlayer(playerId).playerData.name;
+		console.log("Player #" + i + " name is " + playerName);
 		document.getElementById(missionNum).innerHTML = document.getElementById(missionNum).innerHTML + playerName + "<br>";
 	}
 }
