@@ -106,15 +106,17 @@ limitations under the License.
       <div class = "col-sm-3">
       </div>
       <div class = "col-sm-2">
-        <div class = "card center" id = "successCard" style = "display:none">
+        <div class = "card center" id = "successCard" style = "visibility: hidden">
           <h2 class ="cardHeader sucess center" id = "successHeader">Success x1</h2>
           <img src = "scss/img/sucessGoblet.png" class = "goblet center">
         </div>
       </div>
-      <div class = "col-sm-2" id = "voteInformation" style = "display:none">
+      <div class = "col-sm-2" id = "voteInformation" style = "visibility: hidden">
+        <h1 style = "margin:0;">Vote List</h1>
+        <p id = "playerVotes"></p>
       </div>
       <div class = "col-sm-2">
-        <div class = "card center" id = "failCard" style = "display:none">
+        <div class = "card center" id = "failCard" style = "visibility: hidden">
           <h2 class ="cardHeader fail center" id = "failHeader">Fail x1</h2>
           <img src = "scss/img/failGoblet.png" class = "goblet center">
           </div>
@@ -210,6 +212,7 @@ var numPlayers;
 var voteCount;
 var passCount;
 var acceptPlayers;
+var rejectPlayers;
 var missionResults = [-1, -1, -1, -1, -1]; //1 = good wins, 2 = bad wins
 
 window.onload = function() {
@@ -313,8 +316,8 @@ window.onload = function() {
                   
         }
         displayMissionTeam();
-        document.getElementById("successCard").style = "display:none";
-        document.getElementById("failCard").style = "display:none";
+        document.getElementById("successCard").style = "visibility:hidden";
+        document.getElementById("failCard").style = "visibility:hidden";
         
         //gameManager.updateGameData({'phase': votingPhase}, false);
         gameData = gameManager.getGameData();
@@ -327,14 +330,22 @@ window.onload = function() {
 
         voteCount++;
         if (event.requestExtraMessageData.acceptReject == "true")
+        {
           passCount++;
-          acceptPlayers.push(event.playerInfo.playerId);
-
+          acceptPlayers.push(event.playerInfo.playerData.name);
+        }
+        else
+        {
+          
+        }
         if (voteCount == gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length) {
           
           
           if (passCount > voteCount / 2) {
             //TODO display vote information
+
+
+
             var gameData = gameManager.getGameData();
             gameManager.updateGameData(gameData, false);
             //gameManager.updateGameData({'phase': missionPhase}, false);
@@ -370,7 +381,10 @@ window.onload = function() {
             
             //gameManager.updateGameData({'phase': missionPhase}, false);
             //TODO mark mission box as blue
+            document.getElementById(missionNum).style = "border-style:solid;border-color:blue";
+
             //TODO check if game over
+            missionResults[missionNum] = 1;
             if (checkGameOver()) {
               console.log("game over");
               document.getElementById("welcome").style = "display:none";
@@ -396,7 +410,16 @@ window.onload = function() {
             
 
             //TODO mark mission box as red
+            document.getElementById(missionNum).style = "border-style:solid;border-color:red";
             //TODO check if game over
+
+            missionResults[missionNum] = 2;
+            if (checkGameOver()) {
+              console.log("game over");
+              document.getElementById("welcome").style = "display:none";
+              document.getElementById("gameBoard").style = "display:none";
+              document.getElementById("gameOver").style = "";
+            }
             var gameData = gameManager.getGameData();
             gameData.missionNum = gameData.missionNum +1;
             gameData.missionTeamSize =missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length];

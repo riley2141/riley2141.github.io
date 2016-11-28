@@ -84,7 +84,7 @@ function displayMissionTeam(){
 	for(var i = 0; i < missionTeam.length; i++)
 	{
 		var playerInfo = missionTeam[i];
-
+		console.log("Player #" + i + " is " + playerInfo);
 		var playerName = playerInfo.playerData.name;
 		document.getElementById(missionNum).innerHTML = document.getElementById(missionNum).innerHTML + playerName + "<br>";
 	}
