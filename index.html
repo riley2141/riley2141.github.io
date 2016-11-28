@@ -211,7 +211,7 @@ var selectPhase = 0;
 var votingPhase = 1;
 var missionPhase = 2;
 
-
+var gamePhase = -2;
 var gameManager;
 var numPlayers = 0;
 var voteCount = 0;
@@ -261,6 +261,10 @@ window.onload = function() {
   });
 
   gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
+
+      gamePhase = gameManager.getGameData();
+      console.log("game phase : " + gamePhase);
+
         //console.log("updatePlayerList " + event.requestExtraMessageData.updatePlayerList);
         console.log("A listener event has occured");
       if(event.requestExtraMessageData.updatePlayerList == "true"){
@@ -299,7 +303,7 @@ window.onload = function() {
           //set game state to playing
         }
       }
-      else if (event.requestExtraMessageData.missionTeam != null ) {
+      else if (event.requestExtraMessageData.missionTeam != null && gamePhase == selectPhase;) {
         console.log("send voting signal");
 
         var gameData = gameManager.getGameData();
@@ -334,7 +338,7 @@ window.onload = function() {
 
         gameManager.updateGameData(gameData, false);
       }
-      else if (event.requestExtraMessageData.acceptReject != null) {
+      else if (event.requestExtraMessageData.acceptReject != null && gamePhase == votingPhase) {
         console.log("Entering accept or reject listener");
 
         voteCount++;
@@ -395,7 +399,7 @@ window.onload = function() {
           rejectPlayers = [];  
         }
       }
-      else if (event.requestExtraMessageData.successFail != null) {
+      else if (event.requestExtraMessageData.successFail != null && gamePhase == missionPhase) {
         console.log("Entering successFail listener");
         voteCount++;
         var missionNum = gameManager.getGameData().missionNum;
