@@ -215,6 +215,7 @@ var missionPhase = 2;
 var gameManager;
 var numPlayers = 0;
 var voteCount = 0;
+var voteCountCount = 0;
 var passCount = 0;
 var acceptPlayers = [];
 var rejectPlayers = [];
@@ -324,6 +325,8 @@ window.onload = function() {
         document.getElementById("successCard").style = "visibility:hidden";
         document.getElementById("failCard").style = "visibility:hidden";
         document.getElementById("voteInformation").style = "visibility:hidden";
+        voteCountCount = 0;
+        document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
         
         //gameManager.updateGameData({'phase': votingPhase}, false);
         gameData = gameManager.getGameData();
@@ -378,6 +381,8 @@ window.onload = function() {
             displayVotes();
             document.getElementById("voteInformation").style = "";
             //TODO increment and check total vote count
+            voteCountCount++;
+            document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
 
 
             //Unnecessary - change leader will call this gameManager.updateGameData({'phase': selectPhase}, false);
@@ -391,9 +396,10 @@ window.onload = function() {
         }
       }
       else if (event.requestExtraMessageData.successFail != null) {
+        console.log("Entering successFail listener");
         voteCount++;
         var missionNum = gameManager.getGameData().missionNum;
-        if (event.requestExtraMessageData.successFail == "true") {
+        if (event.requestExtraMessageData.successFail == true) {
           passCount++;
         }
         if (voteCount == missionTeamSizes[missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]) {
