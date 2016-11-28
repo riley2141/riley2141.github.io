@@ -413,7 +413,7 @@ window.onload = function() {
             
             //gameManager.updateGameData({'phase': missionPhase}, false);
             //TODO mark mission box as blue
-            document.getElementById(missionNum).style = "border-style:solid;border-color:blue";
+            document.getElementById(missionNum).parentElement.style = "border-style:solid;border-color:blue";
 
             //TODO check if game over
             missionResults[missionNum] = 1;
@@ -433,7 +433,7 @@ window.onload = function() {
             changeLeader();
             
           } else {
-            document.getElementById("successHeader").innerHTML = "Sucess x" + passCount;
+            document.getElementById("successHeader").innerHTML = "Success x" + passCount;
             document.getElementById("successCard").style = "";
             
             var failCount = voteCount - passCount;
@@ -442,7 +442,7 @@ window.onload = function() {
             
 
             //TODO mark mission box as red
-            document.getElementById(missionNum).style = "border-style:solid;border-color:red";
+            document.getElementById(missionNum).parentElement.style = "border-style:solid;border-color:red";
             //TODO check if game over
 
             missionResults[missionNum] = 2;
