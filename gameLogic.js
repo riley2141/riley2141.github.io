@@ -13,12 +13,16 @@ function assignRoles(){
 	for (var i = 0; i < numEvil; i++) {
 		var evilPlayer = randomIntFromInterval( 0, players.length-1 );
 		//write to json
-		gameManager.updatePlayerData(players[evilPlayer].playerId, {'loyalty': 'evil'}, true);
+		var playerData = players[evilPlayer].playerData;
+		playerData.loyalty = 'evil';
+		gameManager.updatePlayerData(players[evilPlayer].playerId, playerData, true);
 		players.splice(evilPlayer,1);
 	}
 
 	for (i = 0; i < players.length; i++) {
-		gameManager.updatePlayerData(players[i].playerId, {'loyalty': 'good'}, true);
+		var playerData = players[i].playerData;
+		playerData.loyalty = 'good';
+		gameManager.updatePlayerData(players[i].playerId, playerData, true);
 	}
 
 	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
