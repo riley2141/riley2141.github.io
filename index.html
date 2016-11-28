@@ -294,6 +294,9 @@ window.onload = function() {
         console.log("send voting signal");
 
         var gameData = gameManager.getGameData();
+        console.log("sent data: " + event.requestExtraMessageData.missionTeam.length);
+        console.log("what its supposed to be: " + missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length])
+
 
         if(event.requestExtraMessageData.missionTeam.length == missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]  )
         {
@@ -303,6 +306,7 @@ window.onload = function() {
         else
         {
           console.log("bad team size");
+                  
         }
         displayMissionTeam();
         document.getElementById("successCard").style = "display:none";
