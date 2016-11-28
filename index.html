@@ -365,6 +365,7 @@ window.onload = function() {
 
 
             var gameData = gameManager.getGameData();
+            gameData.phase = missionPhase;
             gameManager.updateGameData(gameData, false);
             //gameManager.updateGameData({'phase': missionPhase}, false);
             //TODO update mission team stuff
