@@ -294,7 +294,7 @@ window.onload = function() {
         console.log("send voting signal");
 
         var gameData = gameManager.getGameData();
-        var missionTeam = JSON.parse(event.requestExtraMessageData.missionTeam);
+        var missionTeam = event.requestExtraMessageData.missionTeam;
         console.log("sent data length: " + event.requestExtraMessageData.missionTeam.length);
         console.log("sent data: " + JSON.stringify(event.requestExtraMessageData.missionTeam));
         console.log("what its supposed to be: " + missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length])
