@@ -124,11 +124,13 @@ function displayVotesIncomplete()
 
 	for(var i =0; i < acceptPlayers.length; i++)
 	{
+		console.log("acceptPlayer " + i + " " + acceptPlayers[i]);
 		document.getElementById("playerVotes").innerHTML = document.getElementById("playerVotes").innerHTML + acceptPlayers[i] + "<br>";
 	}
 
 	for(var i =0; i < rejectPlayers.length; i++)
 	{
+		console.log("rejectPlayer " + i + " " + rejectPlayers[i]);
 		document.getElementById("playerVotes").innerHTML = document.getElementById("playerVotes").innerHTML + rejectPlayers[i] + "<br>";
 	}
 }
