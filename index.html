@@ -77,31 +77,31 @@ limitations under the License.
       </div>
       <div class = "col-sm-2">
         <div class = "turn">
-          <h1 class = "playersPerMission">2</h1>
+          <h1 class = "playersPerMission" id = "ppm1">2</h1>
           <p class = "text" id = "1"></p>
         </div>
       </div>
       <div class = "col-sm-2">
         <div class = "turn">
-          <h1 class = "playersPerMission">3</h1>
+          <h1 class = "playersPerMission" id = "ppm2">3</h1>
           <p class = "text" id = "2"></p>
         </div> 
       </div>
       <div class = "col-sm-2">
           <div class = "turn">
-            <h1 class = "playersPerMission">2</h1>
+            <h1 class = "playersPerMission " id = "ppm3">2</h1>
             <p class = "text" id = "3"></p>
           </div>
       </div>
       <div class = "col-sm-2">
           <div class = "turn">
-            <h1 class = "playersPerMission">3</h1>
+            <h1 class = "playersPerMission" id = "ppm4">3</h1>
             <p class = "text" id = "4"></p>
           </div>  
       </div>
       <div class = "col-sm-2">
           <div class = "turn">
-            <h1 class = "playersPerMission">3</h1>
+            <h1 class = "playersPerMission" id = "ppm5">3</h1>
             <p class = "text" id = "5"></p>
           </div>
       </div>
@@ -197,7 +197,7 @@ limitations under the License.
     <script src="scss/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     
     <script type = "text/javascript">
-//TODO FIX THIS REMEMBER TO FIX THIS
+
 var missionTeamSizes =   [
                         [0,0,0,0,0,0,0,0,0,0,0],
                         [0,2,2,2,2,2,2,2,3,3,3],
@@ -295,6 +295,7 @@ window.onload = function() {
           document.getElementById("welcome").style = "display:none";
           document.getElementById("gameBoard").style = "";
 
+          changeMissionBoxes();
           assignRoles();
 
           //close the lobby

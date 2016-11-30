@@ -131,3 +131,12 @@ function displayVotes() {
 	}
 
 }
+
+changeMissionBoxes()
+{
+	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
+	for(var i = 1; i < 6: i++)
+	{
+		document.getElementById("ppm"+i).innerHTML = missionTeamSizes[i][players.length];
+	}
+}
