@@ -39,6 +39,7 @@ function assignRoles(){
 	gameData.missionNum = 1;
 	gameData.missionTeamSize = missionTeamSizes[1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length];
 	gameData.phase = selectPhase;
+	document.getElementById("playerVotes").innerHTML = "Leader is " + players[leader].playerData.name;
 	gameManager.updateGameData(gameData, false);
 	console.log("Initial phase change has ended.");
 	gameData = gameManager.getGameData();
