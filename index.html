@@ -150,6 +150,7 @@ limitations under the License.
     <br>
     <br>
 
+
     <h1 class = "center"> Game Over</h1>
     <br>
     <h2 class = "who-wins"></h2>
@@ -210,6 +211,7 @@ var missionTeamSizes =   [
 var selectPhase = 0;
 var votingPhase = 1;
 var missionPhase = 2;
+var overPhase = 3;
 
 var gamePhase = -2;
 var gameManager;
@@ -390,6 +392,21 @@ window.onload = function() {
             voteCountCount++;
             document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
 
+            if(voteCountCount == 5)
+            {
+              console.log("game over");
+              document.getElementById("welcome").style = "display:none";
+              document.getElementById("gameBoard").style = "display:none";
+              document.getElementById("gameOver").style = "";
+              var gameData = gameManager.getGameData();
+              gameData.phase = overPhase;
+              gameManager.updateGameData(gameData, false);
+
+              break;
+            }
+
+
+
 
             //Unnecessary - change leader will call this gameManager.updateGameData({'phase': selectPhase}, false);
             changeLeader();
@@ -428,6 +445,13 @@ window.onload = function() {
               document.getElementById("welcome").style = "display:none";
               document.getElementById("gameBoard").style = "display:none";
               document.getElementById("gameOver").style = "";
+              var gameData = gameManager.getGameData();
+              gameData.phase = overPhase;
+              gameManager.updateGameData(gameData, false);
+
+              break;
+
+
             }
             var gameData = gameManager.getGameData();
             
@@ -464,6 +488,11 @@ window.onload = function() {
               document.getElementById("welcome").style = "display:none";
               document.getElementById("gameBoard").style = "display:none";
               document.getElementById("gameOver").style = "";
+              var gameData = gameManager.getGameData();
+              gameData.phase = overPhase;
+              gameManager.updateGameData(gameData, false);
+
+              break;
             }
             var gameData = gameManager.getGameData();
 
