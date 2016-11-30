@@ -64,6 +64,7 @@ function alertLeader() {
 	//gameManager.broadcastGameManagerStatus();
 	//gameManager.updateGameData( {'phase': selectPhase}, false);
 	gameData.phase = selectPhase;
+	document.getElementById("playerVotes").innerHTML = "Leader is " + players[leader].playerData.name;
 	gameManager.updateGameData(gameData, false);
 }
 
@@ -110,6 +111,28 @@ function checkGameOver() {
 	return false;
 }
 
+function displayVotesIncomplete()
+{
+	console.log("in display vote information - incomplete");
+	var missionNum = gameManager.getGameData().missionNum;
+	
+
+	
+
+	
+	document.getElementById("playerVotes").innerHTML = "";
+
+	for(var i =0; i < acceptPlayers.length; i++)
+	{
+		document.getElementById("playerVotes").innerHTML = document.getElementById("playerVotes").innerHTML + acceptPlayers[i] + "<br>";
+	}
+
+	for(var i =0; i < rejectPlayers.length; i++)
+	{
+		document.getElementById("playerVotes").innerHTML = document.getElementById("playerVotes").innerHTML + rejectPlayers[i] + "<br>";
+	}
+}
+
 function displayVotes() {
 	console.log("in display vote information");
 	var missionNum = gameManager.getGameData().missionNum;
@@ -117,7 +140,7 @@ function displayVotes() {
 
 	
 
-	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
+	
 	document.getElementById("playerVotes").innerHTML = "";
 
 	for(var i =0; i < acceptPlayers.length; i++)
@@ -132,7 +155,7 @@ function displayVotes() {
 
 }
 
-changeMissionBoxes()
+function changeMissionBoxes()
 {
 	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
 	for(var i = 1; i < 6: i++)

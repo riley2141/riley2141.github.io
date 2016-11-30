@@ -354,11 +354,13 @@ window.onload = function() {
           console.log("Player has accepted using boolean :" + event.playerInfo.playerData.name);
           passCount++;
           acceptPlayers.push(event.playerInfo.playerData.name);
+          displayVotesIncomplete();
         }
         else
         {
           console.log("Player has rejected :" + event.playerInfo.playerData.name);
           rejectPlayers.push(event.playerInfo.playerData.name);
+          displayVotesIncomplete();
         }
         console.log("if vote count equlas this then we should continue: " + gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length);
         if (voteCount == gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length) {
