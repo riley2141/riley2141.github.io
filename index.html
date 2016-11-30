@@ -413,14 +413,18 @@ window.onload = function() {
 
               evilWins();
 
-              break;
+              
+            }
+            else
+            {
+              changeLeader();
             }
 
 
 
 
             //Unnecessary - change leader will call this gameManager.updateGameData({'phase': selectPhase}, false);
-            changeLeader();
+            
           }
 
           voteCount = 0;
@@ -462,25 +466,30 @@ window.onload = function() {
 
               goodWins();
 
-              break;
+              
 
 
             }
-            var gameData = gameManager.getGameData();
-            
-            document.getElementById("ppm" + gameData.missionNum).parentElement.className = "turn completed";
+            else
+            {
 
-            gameData.missionNum = gameData.missionNum +1;
 
-            document.getElementById("ppm" + gameData.missionNum).parentElementclassName = "turn current";
+              var gameData = gameManager.getGameData();
+              
+              document.getElementById("ppm" + gameData.missionNum).parentElement.className = "turn completed";
 
-            gameData.missionTeamSize =missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length];
-            gameManager.updateGameData(gameData, true);
-            //gameManager.updateGameData({"missionNum" : (missionNum+1)}, true);
-            //gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[missionNum+1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
-            voteCountCount = 0;
-            document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
-            changeLeader();
+              gameData.missionNum = gameData.missionNum +1;
+
+              document.getElementById("ppm" + gameData.missionNum).parentElementclassName = "turn current";
+
+              gameData.missionTeamSize =missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length];
+              gameManager.updateGameData(gameData, true);
+              //gameManager.updateGameData({"missionNum" : (missionNum+1)}, true);
+              //gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[missionNum+1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
+              voteCountCount = 0;
+              document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
+              changeLeader();
+            }
             
           } else {
             document.getElementById("successHeader").innerHTML = "Success x" + passCount;
@@ -505,24 +514,27 @@ window.onload = function() {
               gameData.phase = overPhase;
               gameManager.updateGameData(gameData, false);
               evilWins();
-              break;
+              
             }
-            var gameData = gameManager.getGameData();
+            else
+            {
+              var gameData = gameManager.getGameData();
 
-            document.getElementById("ppm" + gameData.missionNum).parentElement.className = "turn completed";
+              document.getElementById("ppm" + gameData.missionNum).parentElement.className = "turn completed";
 
-            gameData.missionNum = gameData.missionNum +1;
+              gameData.missionNum = gameData.missionNum +1;
 
-            document.getElementById("ppm" + gameData.missionNum).parentElementclassName = "turn current";
+              document.getElementById("ppm" + gameData.missionNum).parentElementclassName = "turn current";
 
-            gameData.missionTeamSize =missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length];
-            gameManager.updateGameData(gameData, true);
-            //gameManager.updateGameData({"missionNum" : (missionNum+1)}, true);
-           // gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[missionNum+1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
-            voteCountCount = 0;
-            document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
-            //gameManager.updateGameData({'phase': selectPhase}, false);
-            changeLeader();
+              gameData.missionTeamSize =missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length];
+              gameManager.updateGameData(gameData, true);
+              //gameManager.updateGameData({"missionNum" : (missionNum+1)}, true);
+             // gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[missionNum+1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
+              voteCountCount = 0;
+              document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
+              //gameManager.updateGameData({'phase': selectPhase}, false);
+              changeLeader();
+            }
           }
 
           voteCount = 0;
