@@ -39,7 +39,7 @@ function assignRoles(){
 	gameData.missionNum = 1;
 	gameData.missionTeamSize = missionTeamSizes[1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length];
 	gameData.phase = selectPhase;
-	document.getElementById("playerVotes").innerHTML = "Leader is " + players[leader].playerData.name;
+	document.getElementById("currLead").innerHTML = "Leader is " + players[leader].playerData.name;
 	gameManager.updateGameData(gameData, false);
 	console.log("Initial phase change has ended.");
 	gameData = gameManager.getGameData();
@@ -65,7 +65,7 @@ function alertLeader() {
 	//gameManager.broadcastGameManagerStatus();
 	//gameManager.updateGameData( {'phase': selectPhase}, false);
 	gameData.phase = selectPhase;
-	document.getElementById("playerVotes").innerHTML = "Leader is " + players[leader].playerData.name;
+	document.getElementById("currLead").innerHTML = "Leader is " + players[leader].playerData.name;
 	gameManager.updateGameData(gameData, false);
 }
 
@@ -127,12 +127,14 @@ function displayVotesIncomplete()
 	{
 		console.log("acceptPlayer " + i + " " + acceptPlayers[i]);
 		document.getElementById("playerVotes").innerHTML = document.getElementById("playerVotes").innerHTML + acceptPlayers[i] + "<br>";
+		console.log(document.getElementById("playerVotes").innerHTML);
 	}
 
 	for(var i =0; i < rejectPlayers.length; i++)
 	{
 		console.log("rejectPlayer " + i + " " + rejectPlayers[i]);
 		document.getElementById("playerVotes").innerHTML = document.getElementById("playerVotes").innerHTML + rejectPlayers[i] + "<br>";
+		console.log(document.getElementById("playerVotes").innerHTML);
 	}
 }
 
@@ -171,14 +173,14 @@ function evilWins()
 {
 	document.getElementById("who-wins").innerHTML = "Victory for Evil";
 	document.getElementById("evilImg").style = "";
-	document.getElementById("goodImg").style = "";
+	document.getElementById("goodImg").style = "display:none";
 	displayLoyalty();
 }
 
 function goodWins()
 {
 	document.getElementById("who-wins").innerHTML = "Victory for Good";
-	
+
 	displayLoyalty();
 }
 
