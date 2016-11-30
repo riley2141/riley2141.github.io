@@ -38,10 +38,15 @@
 
 		&.current {
 			border-width: 5px;
+			
+			h1 {
+				text-decoration: underline
+			}
 		}
 
 		&.completed {
-			opacity: .5;
+			background-color: grey;
+			opacity: .3;
 
 		}
 	}
