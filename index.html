@@ -76,7 +76,7 @@ limitations under the License.
       <div class = "col-sm-1">
       </div>
       <div class = "col-sm-2">
-        <div class = "turn">
+        <div class = "turn current">
           <h1 class = "playersPerMission" id = "ppm1">2</h1>
           <p class = "text" id = "1"></p>
         </div>
@@ -428,7 +428,13 @@ window.onload = function() {
               document.getElementById("gameOver").style = "";
             }
             var gameData = gameManager.getGameData();
+            
+            document.getElementById("ppm" + gameData.missionNum).parentElement.className = "turn completed";
+
             gameData.missionNum = gameData.missionNum +1;
+
+            document.getElementById("ppm" + gameData.missionNum).parentElementclassName = "turn current";
+
             gameData.missionTeamSize =missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length];
             gameManager.updateGameData(gameData, true);
             //gameManager.updateGameData({"missionNum" : (missionNum+1)}, true);
@@ -458,7 +464,13 @@ window.onload = function() {
               document.getElementById("gameOver").style = "";
             }
             var gameData = gameManager.getGameData();
+
+            document.getElementById("ppm" + gameData.missionNum).parentElement.className = "turn completed";
+
             gameData.missionNum = gameData.missionNum +1;
+
+            document.getElementById("ppm" + gameData.missionNum).parentElementclassName = "turn current";
+
             gameData.missionTeamSize =missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length];
             gameManager.updateGameData(gameData, true);
             //gameManager.updateGameData({"missionNum" : (missionNum+1)}, true);

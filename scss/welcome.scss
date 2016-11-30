@@ -37,11 +37,12 @@
 		height: 30vh;
 
 		&.current {
-			background-color: green;
+			border-width: 5px;
 		}
 
 		&.completed {
-			background-color: grey;
+			opacity: .5;
+
 		}
 	}
 
