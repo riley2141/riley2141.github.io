@@ -150,29 +150,38 @@ limitations under the License.
     <br>
     <br>
 
+    <div class = "row">
+      <div class = "col-sm-12">
 
-    <h1 class = "center"> Game Over</h1>
+        <h1 class = "center"> Game Over</h1>
+      </div>
+    </div>
     <br>
-    <h2 class = "who-wins"></h2>
+
+    <div class = "row">
+      <div class = "col-sm-12">
+        <h2 class = "who-wins" id = "who-wins"></h2>
+      </div>
+    </div>
 
     <div class = "row">
       <div class = "col-sm-1">
       </div>
       <div class = "col-sm-3">
-        <div class = "good-guys-list" onclick="testList()">
-          <h1 style = "margin:0;">Player List</h1>
+        <div class = "good-guys-list center goodWins" onclick="testList()">
+          <h1 style = "margin:0;">Good Player List</h1>
           <p id = "goodList"></p>
         </div>
       </div>
 
       <div class = "col-sm-4">
-        <img src = "scss/img/goodguy.jpg" class = "center guys">
-        <img src = "scss/img/badguy.jpg"  class = "center guys" style="display:none">
+        <img src = "scss/img/goodguy.jpg" class = "center guys" id = "goodImg">
+        <img src = "scss/img/badguy.jpg"  class = "center guys" id = "evilImg" style="display:none">
       </div>
 
       <div class = "col-sm-3">
-        <div class = "bad-guys-list" onclick="testList()">
-          <h1 style = "margin:0;">Player List</h1>
+        <div class = "bad-guys-list center evilWins" onclick="testList()">
+          <h1 style = "margin:0;">Evil Player List</h1>
           <p id = "badList"></p>
         </div>
         
@@ -402,6 +411,8 @@ window.onload = function() {
               gameData.phase = overPhase;
               gameManager.updateGameData(gameData, false);
 
+              evilWins();
+
               break;
             }
 
@@ -449,6 +460,8 @@ window.onload = function() {
               gameData.phase = overPhase;
               gameManager.updateGameData(gameData, false);
 
+              goodWins();
+
               break;
 
 
@@ -491,7 +504,7 @@ window.onload = function() {
               var gameData = gameManager.getGameData();
               gameData.phase = overPhase;
               gameManager.updateGameData(gameData, false);
-
+              evilWins();
               break;
             }
             var gameData = gameManager.getGameData();

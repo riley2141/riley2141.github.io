@@ -107,6 +107,15 @@
     		1px 1px 0 #000; 
 	
 	}
+
+	.goodWins {
+		color: blue;
+		text-shadow:
+    		-1px -1px 0 #000,
+    		1px -1px 0 #000,
+    		-1px 1px 0 #000,
+    		1px 1px 0 #000; 
+	}
 }
 body {
 	background-image: url('img/tablebg.jpg');

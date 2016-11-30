@@ -166,3 +166,37 @@ function changeMissionBoxes()
 		document.getElementById("ppm"+i).innerHTML = missionTeamSizes[i][players.length];
 	}
 }
+
+function evilWins()
+{
+	document.getElementById("who-wins").innerHTML = "Victory for Evil";
+	document.getElementById("evilImg").style = "";
+	document.getElementById("goodImg").style = "";
+	displayLoyalty();
+}
+
+function goodWins()
+{
+	document.getElementById("who-wins").innerHTML = "Victory for Good";
+	
+	displayLoyalty();
+}
+
+function displayLoyalty()
+{
+	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
+	document.getElementById("goodList").innerHTML = "";
+	document.getElementById("badList").innerHTML = "";
+
+	for(var i = 0; i < players.length; i++)
+	{
+		if(players[i].playerData.loyalty == "evil")
+		{
+			document.getElementById("badList").innerHTML = document.getElementById("badList").innerHTML + players[i].playerData.name + "<br>";
+		}
+		else
+		{
+			document.getElementById("goodList").innerHTML = document.getElementById("goodList").innerHTML + players[i].playerData.name + "<br>";
+		}
+	}
+}
