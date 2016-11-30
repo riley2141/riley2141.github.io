@@ -109,7 +109,7 @@ limitations under the License.
 
     <div class = "row">
       <div class = "col-sm-12">
-          <h3 id = "currLead"></h3>
+          <h5 class="center" id = "currLead"></h5>
       </div>
     </div>
 
@@ -308,7 +308,7 @@ window.onload = function() {
 
 
           }
-          gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null);
+          gameManager.updateLobbyState(cast.receiver.games.LobbyState.CLOSED, null);
           document.getElementById("welcome").style = "display:none";
           document.getElementById("gameBoard").style = "";
 
@@ -320,6 +320,26 @@ window.onload = function() {
 
           //set game state to playing
         }
+      }
+      else if (event.requestExtraMessageData.reset != null && gamePhase == overPhase)
+      {
+        gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null);
+
+        var playingPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
+
+        for(var i = 0; i < playingPlayers.length; i++){
+            var playerInfo = playingPlayers[i];
+            var playerId = playerInfo.playerId;
+            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.READY);
+          }
+        displayReadyPlayers(); 
+
+        var gameData = gameManager.getGameData();
+        gameData.phase = -1;
+
+        gameManager.updateGameData(gameData, false);
+
+
       }
       else if (event.requestExtraMessageData.missionTeam != null && gamePhase == selectPhase) {
         console.log("send voting signal");
@@ -372,12 +392,14 @@ window.onload = function() {
           passCount++;
           acceptPlayers.push(event.playerInfo.playerData.name);
           displayVotesIncomplete();
+          document.getElementById("voteInformation").style = "";
         }
         else
         {
           console.log("Player has rejected :" + event.playerInfo.playerData.name);
           rejectPlayers.push(event.playerInfo.playerData.name);
           displayVotesIncomplete();
+          document.getElementById("voteInformation").style = "";
         }
         console.log("if vote count equlas this then we should continue: " + gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length);
         if (voteCount == gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length) {
@@ -415,6 +437,7 @@ window.onload = function() {
               document.getElementById("gameOver").style = "";
               var gameData = gameManager.getGameData();
               gameData.phase = overPhase;
+              gameData.goodWins = false;
               gameManager.updateGameData(gameData, false);
 
               evilWins();
@@ -468,6 +491,8 @@ window.onload = function() {
               document.getElementById("gameOver").style = "";
               var gameData = gameManager.getGameData();
               gameData.phase = overPhase;
+              gameData.goodWins = true;
+
               gameManager.updateGameData(gameData, false);
 
               goodWins();
@@ -518,6 +543,7 @@ window.onload = function() {
               document.getElementById("gameOver").style = "";
               var gameData = gameManager.getGameData();
               gameData.phase = overPhase;
+              gameData.goodWins = false;
               gameManager.updateGameData(gameData, false);
               evilWins();
               
