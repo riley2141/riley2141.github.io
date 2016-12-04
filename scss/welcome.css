@@ -34,7 +34,7 @@
   border-style: solid;
   border-width: 3px;
   max-width: 95%;
-  height: 27vh; }
+  height: 25vh; }
   .gameBoard .turn.current {
     border-width: 5px; }
     .gameBoard .turn.current h1 {
@@ -44,7 +44,7 @@
     opacity: .3; }
 .gameBoard .goblet {
   max-width: 100%;
-  height: 27vh;
+  height: 25vh;
   margin: auto; }
 .gameBoard .cardHeader {
   color: gold;
@@ -56,7 +56,7 @@
   background-image: url("img/voteBoxBg.jpg");
   border-radius: 15px;
   width: 100%;
-  height: 11vh; }
+  height: 9vh; }
 .gameBoard .voteHeader {
   color: gold;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }

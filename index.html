@@ -110,7 +110,7 @@ limitations under the License.
 
     <div class = "row">
       <div class = "col-sm-12">
-          <h3 class="center" id = "currLead"></h3>
+          <h2 class="center" id = "currLead"></h2>
       </div>
     </div>
 
@@ -342,8 +342,10 @@ window.onload = function() {
 
         gameManager.updateGameData(gameData, false);
 
+        resetAll();
+
         document.getElementById("welcome").style = "";
-        document.getElementById("gameBoard").style = "display:none";
+        document.getElementById("gameOver").style = "display:none";
 
 
       }

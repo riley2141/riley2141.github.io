@@ -202,3 +202,30 @@ function displayLoyalty()
 		}
 	}
 }
+
+function resetAll()
+{
+	numPlayers = 0;
+	voteCount = 0;
+	voteCountCount = 0;
+	passCount = 0;
+	acceptPlayers = [];
+	rejectPlayers = [];
+	missionResults = [-1, -1, -1, -1, -1];
+
+	document.getElementById("playerVotes").innerHTML = "";
+	document.getElementById("currLead").innerHTML = "";
+	document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
+
+
+
+	for(var i = 1; i < 6; i++)
+	{
+		document.getElementById(i).innerHTML = "";
+		document.getElementById(i).parentElement.style = "";
+	}
+	
+
+
+
+}
