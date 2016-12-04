@@ -332,7 +332,7 @@ window.onload = function() {
         for(var i = 0; i < playingPlayers.length; i++){
             var playerInfo = playingPlayers[i];
             var playerId = playerInfo.playerId;
-            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.READY, null, true);
+            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.READY, {"playerName":gameManager.getPlayer(playerId).playerData.name}, true);
           }
         displayReadyPlayers(); 
 
