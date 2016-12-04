@@ -180,10 +180,12 @@ limitations under the License.
         </div>
       </div>
 
-      <div class = "col-sm-4">
-        <img src = "scss/img/goodguy.jpg" class = "center guys" id = "goodImg">
-        <img src = "scss/img/badguy.jpg"  class = "center guys" id = "evilImg" style="display:none">
+
+      <div class = "col-sm-4 center">
+        <img src = "scss/img/goodguy.jpg" class = "center guys" id = "goodImg" style="display:none" >
+        <img src = "scss/img/badguy.jpg"  class = "center guys" id = "evilImg"  >
       </div>
+
 
       <div class = "col-sm-3">
         <div class = "bad-guys-list center evilWins" onclick="testList()">
@@ -300,7 +302,7 @@ window.onload = function() {
           for(var i = 0; i < readyPlayers.length; i++){
             var playerInfo = readyPlayers[i];
             var playerId = playerInfo.playerId;
-            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING);
+            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING, null, true);
 
             
 
@@ -406,7 +408,7 @@ window.onload = function() {
           console.log("all votes have arrived")
           
           if (passCount > voteCount / 2) {
-            //TODO display vote information
+            
 
             displayVotes();
             document.getElementById("voteInformation").style = "";
@@ -417,15 +419,15 @@ window.onload = function() {
             gameData.phase = missionPhase;
             gameManager.updateGameData(gameData, false);
             //gameManager.updateGameData({'phase': missionPhase}, false);
-            //TODO update mission team stuff
+            
 
             
 
           } else {
-            //TODO display vote information
+            
             displayVotes();
             document.getElementById("voteInformation").style = "";
-            //TODO increment and check total vote count
+            
             voteCountCount++;
             document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
 
@@ -479,10 +481,10 @@ window.onload = function() {
             document.getElementById("failCard").style = "";
             
             //gameManager.updateGameData({'phase': missionPhase}, false);
-            //TODO mark mission box as blue
+            
             document.getElementById(missionNum).parentElement.style = "border-style:solid;border-color:blue";
 
-            //TODO check if game over
+            
             missionResults[missionNum] = 1;
             if (checkGameOver()) {
               console.log("game over");
@@ -531,9 +533,9 @@ window.onload = function() {
             document.getElementById("failCard").style = "";
             
 
-            //TODO mark mission box as red
+            
             document.getElementById(missionNum).parentElement.style = "border-style:solid;border-color:red";
-            //TODO check if game over
+            
 
             missionResults[missionNum] = 2;
             if (checkGameOver()) {

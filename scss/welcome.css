@@ -1,6 +1,7 @@
 .center {
   text-align: center;
-  font-family: "Trebuchet MS", Helvetica, sans-serif; }
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 150%; }
 
 .welcome .home {
   background-color: red; }
