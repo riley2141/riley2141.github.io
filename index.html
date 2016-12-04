@@ -31,7 +31,7 @@ limitations under the License.
 
   <div class = "row">
     <div class = "col-sm-12">
-      <h1 class = "center">AvalonCast</h1>
+      <h1 class = "center title">AvalonCast</h1>
     </div>
   </div>
 
@@ -110,7 +110,7 @@ limitations under the License.
 
     <div class = "row">
       <div class = "col-sm-12">
-          <h5 class="center" id = "currLead"></h5>
+          <h3 class="center" id = "currLead"></h3>
       </div>
     </div>
 
@@ -183,8 +183,8 @@ limitations under the License.
 
 
       <div class = "col-sm-4 center">
-        <img src = "scss/img/goodguy.jpg" class = "center guys" id = "goodImg" style="display:none" >
-        <img src = "scss/img/badguy.jpg"  class = "center guys" id = "evilImg"  >
+        <img src = "scss/img/goodguy.jpg" class = "center guys" id = "goodImg"  style = "">
+        <img src = "scss/img/badguy.jpg"  class = "center guys" id = "evilImg" style="display:none" >
       </div>
 
 
@@ -341,6 +341,9 @@ window.onload = function() {
         gameData.phase = -1;
 
         gameManager.updateGameData(gameData, false);
+
+        document.getElementById("welcome").style = "";
+        document.getElementById("gameBoard").style = "display:none";
 
 
       }
