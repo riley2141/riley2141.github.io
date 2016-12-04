@@ -326,14 +326,14 @@ window.onload = function() {
       }
       else if (event.requestExtraMessageData.reset != null && gamePhase == overPhase)
       {
-        gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null);
+        gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null, true);
 
         var playingPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
 
         for(var i = 0; i < playingPlayers.length; i++){
             var playerInfo = playingPlayers[i];
             var playerId = playerInfo.playerId;
-            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.READY);
+            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.READY, null, true);
           }
         displayReadyPlayers(); 
 
