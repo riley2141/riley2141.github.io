@@ -5,7 +5,7 @@
 .list {
   font-size: 150%;
   color: black;
-  text-shadow: 0; }
+  text-shadow: none; }
 
 .welcome .home {
   background-color: red; }
