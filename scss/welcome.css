@@ -1,6 +1,6 @@
 .center {
   text-align: center;
-  font-family: "Trebuchet MS", Helvetica, sans-serif; }
+  font-family: 'Aref Ruqaa', serif; }
 
 .list {
   font-size: 150%;
@@ -14,7 +14,7 @@
   background: #361919;
   background: rgba(54, 25, 25, 0.5);
   height: 50vh;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: 'Aref Ruqaa', serif;
   font-size: 150%;
   color: black;
   margin: auto; }
@@ -25,7 +25,7 @@
 
 .gameBoard .turn {
   text-align: center;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: 'Aref Ruqaa', serif;
   border-style: solid;
   border-width: 3px;
   max-width: 95%;
@@ -56,7 +56,7 @@
   color: gold;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
 .gameBoard .text {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: 'Aref Ruqaa', serif;
   font-size: 150%; }
 
 .gameOver .evilWins {
