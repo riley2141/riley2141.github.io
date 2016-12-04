@@ -3,7 +3,9 @@
   font-family: "Trebuchet MS", Helvetica, sans-serif; }
 
 .list {
-  font-size: 150%; }
+  font-size: 150%;
+  color: black;
+  text-shadow: 0; }
 
 .welcome .home {
   background-color: red; }
