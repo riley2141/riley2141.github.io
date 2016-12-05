@@ -56,7 +56,7 @@
   background-image: url("img/voteBoxBg.jpg");
   border-radius: 15px;
   width: 100%;
-  height: 9vh; }
+  height: 11vh; }
 .gameBoard .voteHeader {
   color: gold;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }

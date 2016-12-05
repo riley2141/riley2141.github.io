@@ -6,11 +6,8 @@ var gameData;
 
 function assignRoles(){
 	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
-	var numEvil = players.length / 3;
-	if(players.length % 3 != 0)
-	{
-		numEvil = numEvil + 1;
-	}
+	var numEvil = Math.ceil(players.length / 3);
+	
 	console.log("number of players being assigned roles: " + players.length);
 	console.log("number of evil players: " + numEvil);
 
