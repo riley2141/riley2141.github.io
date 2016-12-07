@@ -315,7 +315,7 @@ window.onload = function() {
 
           document.getElementById("playerList").innerHTML = event.playerInfo.playerData.name + " is setting up the game";
 
-          
+
 
           //TODO set it so lobby is closed but players arent playing yet
           for (var i = 0; i < readyPlayers.length; i++) {
@@ -530,7 +530,7 @@ window.onload = function() {
               }
               else {
                 var gameData = gameManager.getGameData();
-                gameData.phase = overPhase;
+                gameData.phase = assassinPhase;
                 gameManager.updateGameData(gameData, false);
                 document.getElementById("currLead").innerHTML = "Assassin is attempting to assassinate Merlin";
               }
