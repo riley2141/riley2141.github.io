@@ -299,7 +299,7 @@ window.onload = function() {
         console.log("updatePlayerList equals true");
         //displayReadyPlayers();
       }
-      else if(event.requestExtraMessageData.startGame == "true"){
+      else if(event.requestExtraMessageData.startGame == "true" && gamePhase == lobbyPhase){
         //get list of ready players
         console.log("Player is trying to start (id): " + event.playerInfo.playerId);
         var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
@@ -320,8 +320,11 @@ window.onload = function() {
           var gameData = gameManager.getGameData();
           gameData.setupLeader = event.playerInfo.playerId;
           gameData.setupLeaderName = event.playerInfo.playerData.name;
-          gameData.gamePhase = setupPhase;
+          gameData.phase = setupPhase;
           gameManager.updateGameData(gameData, false);
+
+
+
           console.log("Moving into setup phase.");
           gameData = gameManager.getGameData();
           console.log("Game data looks like this: " + JSON.stringify(gameData) );
