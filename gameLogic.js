@@ -15,13 +15,23 @@ function assignRoles(){
 		var evilPlayer = randomIntFromInterval( 0, players.length-1 );
 		//write to json
 		var playerData = players[evilPlayer].playerData;
+		if (i == 0 && assassin) {
+			playerData.role = "assassin";
+		}	
+		else
+			playerData.role = "minion";
 		playerData.loyalty = 'evil';
 		gameManager.updatePlayerData(players[evilPlayer].playerId, playerData, true);
 		players.splice(evilPlayer,1);
 	}
 
+	var merlinNum = randomIntFromInterval (0, players.length-1);
 	for (i = 0; i < players.length; i++) {
 		var playerData = players[i].playerData;
+		if (i == merlinNum && merlin) 
+			playerData.role = "merlin";
+		else
+			playerData.role = "servant";
 		playerData.loyalty = 'good';
 		gameManager.updatePlayerData(players[i].playerId, playerData, true);
 	}
