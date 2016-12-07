@@ -319,6 +319,7 @@ window.onload = function() {
 
           var gameData = gameManager.getGameData();
           gameData.setupLeader = readyPlayers[0].playerId;
+          gameData.setupLeaderName = readyPlayers[0].playerData.name;
           gameData.gamePhase = setupPhase;
           gameManager.updateGameData(gameData, false);
 
