@@ -315,7 +315,14 @@ window.onload = function() {
 
           document.getElementById("playerList").innerHTML = event.playerInfo.playerData.name + " is setting up the game";
 
+          
 
+          //TODO set it so lobby is closed but players arent playing yet
+          for (var i = 0; i < readyPlayers.length; i++) {
+            var playerInfo = readyPlayers[i];
+            var playerId = playerInfo.playerId;
+            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING, null, true);
+          }
 
           var gameData = gameManager.getGameData();
           gameData.setupLeader = event.playerInfo.playerId;
@@ -622,14 +629,7 @@ window.onload = function() {
 
         gameManager.updateGameData(gameData, true);
 
-        var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
 
-        //TODO set it so lobby is closed but players arent playing yet
-        for (var i = 0; i < readyPlayers.length; i++) {
-          var playerInfo = readyPlayers[i];
-          var playerId = playerInfo.playerId;
-          gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING, null, true);
-        }
 
         document.getElementById("welcome").style = "display:none";
         document.getElementById("gameBoard").style = "";
