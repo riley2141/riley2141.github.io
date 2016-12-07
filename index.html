@@ -486,21 +486,29 @@ window.onload = function() {
             
             missionResults[missionNum] = 1;
             if (checkGameOver()) {
-              console.log("game over");
-              document.getElementById("welcome").style = "display:none";
-              document.getElementById("gameBoard").style = "display:none";
-              document.getElementById("gameOver").style = "";
-              var gameData = gameManager.getGameData();
-              gameData.phase = overPhase;
-              gameData.goodWins = true;
 
-              //TODO give assassin a chance to assassinate
+              if (!assassin) {
+                console.log("game over");
+                document.getElementById("welcome").style = "display:none";
+                document.getElementById("gameBoard").style = "display:none";
+                document.getElementById("gameOver").style = "";
+                var gameData = gameManager.getGameData();
+                gameData.phase = overPhase;
+                
+                gameData.goodWins = true;
 
-              gameManager.updateGameData(gameData, false);
+                //TODO give assassin a chance to assassinate
 
-              goodWins();
+                gameManager.updateGameData(gameData, false);
 
-              
+                goodWins();
+              }
+              else {
+                var gameData = gameManager.getGameData();
+                gameData.phase = overPhase;
+                gameManager.updateGameData(gameData, false);
+                document.getElementById("currLead").innerHTML = "Assassin is attempting to assassinate Merlin";
+              }
 
 
             }
@@ -602,12 +610,48 @@ window.onload = function() {
           var playerId = playerInfo.playerId;
           gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING, null, true);
         }
-        
+
         document.getElementById("welcome").style = "display:none";
         document.getElementById("gameBoard").style = "";
         //TODO accept player role choices
         changeMissionBoxes();
         assignRoles();
+
+      }
+      else if (event.requestExtraMessageData.assassinGuess != null && gamePhase == assassinPhase) {
+        var assassinGuess = event.requestExtraMessageData.assassinGuess;
+
+        var players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
+  
+        var target = gameManager.getPlayer(assassinGuess).playerData.role;
+        console.log("Target: " + target);
+
+        if (target == "merlin") {
+          console.log("game over");
+          document.getElementById("welcome").style = "display:none";
+          document.getElementById("gameBoard").style = "display:none";
+          document.getElementById("gameOver").style = "";
+          var gameData = gameManager.getGameData();
+          gameData.phase = overPhase;
+          gameData.goodWins = false;
+          gameManager.updateGameData(gameData, false);
+          evilWins();
+        }
+        else {
+          console.log("game over");
+          document.getElementById("welcome").style = "display:none";
+          document.getElementById("gameBoard").style = "display:none";
+          document.getElementById("gameOver").style = "";
+
+          var gameData = gameManager.getGameData();
+          gameData.phase = overPhase;
+          gameData.goodWins = true;
+
+          gameManager.updateGameData(gameData, false);
+
+          goodWins();
+
+        }
 
       }
   });
