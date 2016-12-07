@@ -205,11 +205,11 @@ function displayLoyalty()
 	{
 		if(players[i].playerData.loyalty == "evil")
 		{
-			document.getElementById("badList").innerHTML = document.getElementById("badList").innerHTML + players[i].playerData.name + "<br>";
+			document.getElementById("badList").innerHTML = document.getElementById("badList").innerHTML + players[i].playerData.name + " : " + players[i].playerData.role + "<br>";
 		}
 		else
 		{
-			document.getElementById("goodList").innerHTML = document.getElementById("goodList").innerHTML + players[i].playerData.name + "<br>";
+			document.getElementById("goodList").innerHTML = document.getElementById("goodList").innerHTML + players[i].playerData.name + " : " + players[i].playerData.role + "<br>";
 		}
 	}
 }
