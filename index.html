@@ -311,7 +311,14 @@ window.onload = function() {
 
           gameManager.updateLobbyState(cast.receiver.games.LobbyState.CLOSED, null, true);
 
+          var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
+
+          document.getElementById("playerList").innerHTML = readyPlayers[0].playerData.name + " is setting up the game";
+
+
+
           var gameData = gameManager.getGameData();
+          gameData.setupLeader = readyPlayers[0].playerId;
           gameData.gamePhase = setupPhase;
           gameManager.updateGameData(gameData, false);
 

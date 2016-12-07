@@ -223,6 +223,9 @@ function resetAll()
 	acceptPlayers = [];
 	rejectPlayers = [];
 	missionResults = [-1, -1, -1, -1, -1];
+	merlin = false;
+	assassin = false;
+
 
 	document.getElementById("playerVotes").innerHTML = "";
 	document.getElementById("currLead").innerHTML = "";
