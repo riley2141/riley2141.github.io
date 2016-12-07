@@ -225,7 +225,7 @@ var missionTeamSizes =   [
                         [0,3,3,3,3,3,4,4,5,5,5]
                         ];
 var lobbyPhase = 0;
-var setup = 1;
+var setupPhase = 1;
 var selectPhase = 2;
 var votingPhase = 3;
 var missionPhase = 4;
@@ -241,6 +241,10 @@ var passCount = 0;
 var acceptPlayers = [];
 var rejectPlayers = [];
 var missionResults = [-1, -1, -1, -1, -1]; //1 = good wins, 2 = bad wins
+
+var merlin = false;
+var assassin = false;
+
 
 window.onload = function() {
   var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
@@ -305,24 +309,7 @@ window.onload = function() {
         } else {
           //set players in ready state to playing state
 
-          //TODO set it so lobby is closed but players arent playing yet
-          for(var i = 0; i < readyPlayers.length; i++){
-            var playerInfo = readyPlayers[i];
-            var playerId = playerInfo.playerId;
-            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING, null, true);
-
-            
-
-            
-
-
-          }
           gameManager.updateLobbyState(cast.receiver.games.LobbyState.CLOSED, null, true);
-          document.getElementById("welcome").style = "display:none";
-          document.getElementById("gameBoard").style = "";
-          //TODO accept player role choices
-          changeMissionBoxes();
-          assignRoles();
 
           //close the lobby
           console.log("GAMEPLAY_STATE" + gameManager.getGameplayState());
@@ -589,6 +576,39 @@ window.onload = function() {
           passCount = 0;  
         }
       
+      }
+      else if (event.requestExtraMessageData.selectedRoles != null && gamePhase == setupPhase) {
+        var rolesList = event.requestExtraMessageData.selectedRoles;
+        for (var i = 0; i < rolesList.length; i++) {
+          switch (rolesList[i]) {
+            case "merlin":
+              merlin = true;
+              break;
+            case "assassin":
+              assassin = true;
+              break;
+          }
+        }
+        var gameData = gameManager.getGameData();
+
+        gameData.merlin = merlin;
+        gameData.assassin = assassin;
+
+        gameManager.updateGameData(gameData, true);
+
+        //TODO set it so lobby is closed but players arent playing yet
+        for (var i = 0; i < readyPlayers.length; i++) {
+          var playerInfo = readyPlayers[i];
+          var playerId = playerInfo.playerId;
+          gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.PLAYING, null, true);
+        }
+        
+        document.getElementById("welcome").style = "display:none";
+        document.getElementById("gameBoard").style = "";
+        //TODO accept player role choices
+        changeMissionBoxes();
+        assignRoles();
+
       }
   });
 
