@@ -20,6 +20,12 @@
 }
 
 .welcome{
+	color: gold;
+	text-shadow:
+    		-1px -1px 0 #000,
+    		1px -1px 0 #000,
+    		-1px 1px 0 #000,
+    		1px 1px 0 #000; 
 	.home{
 		background-color:red;
 	}
@@ -44,6 +50,12 @@
 	}
 }
 .gameBoard {
+	color: gold;
+		text-shadow:
+    		-1px -1px 0 #000,
+    		1px -1px 0 #000,
+    		-1px 1px 0 #000,
+    		1px 1px 0 #000; 
 	.turn {
 		text-align: center;
 		font-family: 'Aref Ruqaa', serif;
@@ -109,6 +121,14 @@
 		font-size:150%;
 	}
 
+	.leader {
+		color: red;
+		text-shadow:
+    		-1px -1px 0 #000,
+    		1px -1px 0 #000,
+    		-1px 1px 0 #000,
+    		1px 1px 0 #000; 
+	}
 	
 }
 
