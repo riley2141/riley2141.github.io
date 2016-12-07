@@ -311,6 +311,10 @@ window.onload = function() {
 
           gameManager.updateLobbyState(cast.receiver.games.LobbyState.CLOSED, null, true);
 
+          var gameData = gameManager.getGameData();
+          gameData.gamePhase = setupPhase;
+          gameManager.updateGameData(gameData, false);
+
           //close the lobby
           console.log("GAMEPLAY_STATE" + gameManager.getGameplayState());
 
