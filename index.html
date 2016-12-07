@@ -313,15 +313,18 @@ window.onload = function() {
 
           var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
 
-          document.getElementById("playerList").innerHTML = readyPlayers[0].playerData.name + " is setting up the game";
+          document.getElementById("playerList").innerHTML = event.playerInfo.playerData.name + " is setting up the game";
 
 
 
           var gameData = gameManager.getGameData();
-          gameData.setupLeader = readyPlayers[0].playerId;
-          gameData.setupLeaderName = readyPlayers[0].playerData.name;
+          gameData.setupLeader = event.playerInfo.playerId;
+          gameData.setupLeaderName = event.playerInfo.playerData.name;
           gameData.gamePhase = setupPhase;
           gameManager.updateGameData(gameData, false);
+          console.log("Moving into setup phase.");
+          gameData = gameManager.getGameData();
+          console.log("Game data looks like this: " + JSON.stringify(gameData) );
 
           //close the lobby
           console.log("GAMEPLAY_STATE" + gameManager.getGameplayState());
