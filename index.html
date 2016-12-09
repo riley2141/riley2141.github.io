@@ -269,6 +269,7 @@ window.onload = function() {
     console.log('Received Sender Disconnected event: ' + event.data);
     console.log('num senders: ' + window.castReceiverManager.getSenders().length);
     if (window.castReceiverManager.getSenders().length == 0) {
+      console.log('calling window.close()');
       window.close();
     }
   };
