@@ -267,8 +267,8 @@ window.onload = function() {
   // handler for 'senderdisconnected' event
   castReceiverManager.onSenderDisconnected = function(event) {
     console.log('Received Sender Disconnected event: ' + event.data);
-    console.log('num senders: ' + window.castReceiverManager.getSenders().length);
-    if (window.castReceiverManager.getSenders().length == 0) {
+    console.log('num senders: ' + castReceiverManager.getSenders().length);
+    if (castReceiverManager.getSenders().length == 0) {
       console.log('calling window.close()');
       window.close();
     }
