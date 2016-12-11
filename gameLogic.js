@@ -10,13 +10,33 @@ function assignRoles(){
 	
 	console.log("number of players being assigned roles: " + players.length);
 	console.log("number of evil players: " + numEvil);
-
+	gameData = gameManager.getGameData();
 	for (var i = 0; i < numEvil; i++) {
 		var evilPlayer = randomIntFromInterval( 0, players.length-1 );
 		//write to json
 		var playerData = players[evilPlayer].playerData;
-		if (i == 0 && assassin) {
+		if (assassin) {
 			playerData.role = "assassin";
+			gameData.assassin = playerData.name;
+			assassin = false;
+		}
+		else if(mordred)
+		{
+			playerData.role = "mordred";
+			gameData.mordred = playerData.name;
+			mordred = false;
+		}
+		else if(morgana)
+		{
+			playerData.role = "morgana";
+			gameData.morgana = playerData.name;
+			morgana = false;
+		}
+		else if(oberon)
+		{
+			playerData.role = "oberon";
+			gameData.oberon = playerData.name;
+			oberon = false;
 		}	
 		else
 			playerData.role = "minion";
@@ -26,10 +46,23 @@ function assignRoles(){
 	}
 
 	var merlinNum = randomIntFromInterval (0, players.length-1);
+	var percivalNum = randomIntFromInterval (0, players.length-1);
+	while (percivalNum == merlinNum)
+	{
+		randomIntFromInterval (0, players.length-1);
+	}
 	for (i = 0; i < players.length; i++) {
 		var playerData = players[i].playerData;
 		if (i == merlinNum && merlin) 
 			playerData.role = "merlin";
+			gameData.merlin = playerData.name;
+			merlin = false;
+		else if(i == percivalNum && percival)
+		{
+			playerData.role = "percival";
+			gameData.percival = playerData.name;
+			merlin = false;
+		}
 		else
 			playerData.role = "servant";
 		playerData.loyalty = 'good';
@@ -42,7 +75,7 @@ function assignRoles(){
 
 	console.log("players array: " + players);
 	console.log("playerId should be: " + players[leader].playerId);
-	gameData = gameManager.getGameData();
+	//gameData = gameManager.getGameData();
 
 
 
@@ -225,6 +258,11 @@ function resetAll()
 	missionResults = [-1, -1, -1, -1, -1];
 	merlin = false;
 	assassin = false;
+	mordred = false;
+	percival = false;
+	morgana = false;
+	oberon = false;
+	evilRoles = 0;
 
 
 	document.getElementById("playerVotes").innerHTML = "";

@@ -237,6 +237,11 @@ var missionResults = [-1, -1, -1, -1, -1]; //1 = good wins, 2 = bad wins
 
 var merlin = false;
 var assassin = false;
+var mordred = false;
+var percival = false;
+var morgana = false;
+var oberon = false;
+var evilRoles = 0;
 
 
 window.onload = function() {
@@ -488,7 +493,18 @@ window.onload = function() {
         var missionNum = gameManager.getGameData().missionNum;
         if (event.requestExtraMessageData.successFail == true) {
           passCount++;
+          acceptPlayers.push(event.playerInfo.playerData.name);
+          displayVotesIncomplete();
+          document.getElementById("voteInformation").style = "";
         }
+        else
+        {
+          console.log("Player has rejected :" + event.playerInfo.playerData.name);
+          rejectPlayers.push(event.playerInfo.playerData.name);
+          displayVotesIncomplete();
+          document.getElementById("voteInformation").style = "";
+        }
+
         if (voteCount == missionTeamSizes[missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]) {
           
           if (passCount == voteCount) {
@@ -614,13 +630,29 @@ window.onload = function() {
               break;
             case "assassin":
               assassin = true;
+              evilRoles = evilRoles + 1;
+              break;
+            case "mordred":
+              mordred = true;
+              evilRoles = evilRoles + 1;
+              break;
+            case "percival":
+              percival = true;
+              break;
+            case "morgana":
+              morgana = true;
+              evilRoles = evilRoles + 1;
+              break;
+            case "oberon":
+              oberon = true;
+              evilRoles = evilRoles + 1;
               break;
           }
         }
         var gameData = gameManager.getGameData();
 
-        gameData.merlin = merlin;
-        gameData.assassin = assassin;
+        //gameData.merlin = merlin;
+        //gameData.assassin = assassin;
 
         gameManager.updateGameData(gameData, true);
 
