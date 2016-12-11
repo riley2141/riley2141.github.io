@@ -63,7 +63,7 @@ function assignRoles(){
 		{
 			playerData.role = "percival";
 			gameData.percival = playerData.name;
-			merlin = false;
+			percival = false;
 		}
 		else
 			playerData.role = "servant";
