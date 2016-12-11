@@ -237,6 +237,10 @@ function resetAll()
 	{
 		document.getElementById(i).innerHTML = "";
 		document.getElementById(i).parentElement.style = "";
+		if (i == 1)
+			document.getElementById(i).parentElement.className = "turn current";
+		else
+			document.getElementById(i).parentElement.className = "turn";
 	}
 	
 
