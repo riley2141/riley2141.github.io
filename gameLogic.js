@@ -53,10 +53,12 @@ function assignRoles(){
 	}
 	for (i = 0; i < players.length; i++) {
 		var playerData = players[i].playerData;
-		if (i == merlinNum && merlin) 
+		if (i == merlinNum && merlin)
+		{
 			playerData.role = "merlin";
 			gameData.merlin = playerData.name;
 			merlin = false;
+		}
 		else if(i == percivalNum && percival)
 		{
 			playerData.role = "percival";
