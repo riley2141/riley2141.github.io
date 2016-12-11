@@ -49,7 +49,7 @@ function assignRoles(){
 	var percivalNum = randomIntFromInterval (0, players.length-1);
 	while (percivalNum == merlinNum)
 	{
-		randomIntFromInterval (0, players.length-1);
+		percivalNum = randomIntFromInterval (0, players.length-1);
 	}
 	for (i = 0; i < players.length; i++) {
 		var playerData = players[i].playerData;
