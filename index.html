@@ -200,13 +200,6 @@ limitations under the License.
 
   </div>
 
-
-
-
-
-
-
-
     <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/cast/sdk/libs/games/1.0.0/cast_games_receiver.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -216,7 +209,7 @@ limitations under the License.
     
     <script type = "text/javascript">
 
-var missionTeamSizes =   [
+var missionTeamSizes =  [
                         [0,0,0,0,0,0,0,0,0,0,0],
                         [0,2,2,2,2,2,2,2,3,3,3],
                         [0,3,3,3,3,3,3,3,4,4,4],
@@ -317,6 +310,9 @@ window.onload = function() {
         console.log("updatePlayerList equals true");
         //displayReadyPlayers();
       }
+      /*
+      * Lobby Phase
+      */
       else if(event.requestExtraMessageData.startGame == "true" && gamePhase == lobbyPhase){
         //get list of ready players
         console.log("Player is trying to start (id): " + event.playerInfo.playerId);
@@ -360,31 +356,10 @@ window.onload = function() {
           //set game state to playing
         }
       }
-      else if (event.requestExtraMessageData.reset != null && gamePhase == overPhase)
-      {
-        gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null, true);
 
-        var playingPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
-
-        for(var i = 0; i < playingPlayers.length; i++){
-            var playerInfo = playingPlayers[i];
-            var playerId = playerInfo.playerId;
-            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.READY, {"playerName":gameManager.getPlayer(playerId).playerData.name}, true);
-          }
-        displayReadyPlayers(); 
-
-        var gameData = gameManager.getGameData();
-        gameData.phase = lobbyPhase;
-
-        gameManager.updateGameData(gameData, false);
-
-        resetAll();
-
-        document.getElementById("welcome").style = "";
-        document.getElementById("gameOver").style = "display:none";
-
-
-      }
+      /*
+      * Select Phase
+      */
       else if (event.requestExtraMessageData.missionTeam != null && gamePhase == selectPhase) {
         console.log("send voting signal");
 
@@ -419,11 +394,16 @@ window.onload = function() {
 
         gameManager.updateGameData(gameData, false);
       }
+
+      /*
+      * Voting Phase
+      */
       else if (event.requestExtraMessageData.acceptReject != null && gamePhase == votingPhase) {
         console.log("Entering accept or reject listener");
 
         voteCount++;
         console.log("current vote count is: " + voteCount);
+
         if (event.requestExtraMessageData.acceptReject == "true")
         {
           console.log("Player has accepted :" + event.playerInfo.playerData.name);
@@ -445,25 +425,21 @@ window.onload = function() {
           displayVotesIncomplete();
           document.getElementById("voteInformation").style = "";
         }
+
         console.log("if vote count equlas this then we should continue: " + gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length);
         if (voteCount == gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length) {
+
           console.log("all votes have arrived")
           
           if (passCount > voteCount / 2) {
             
-
             displayVotes();
             document.getElementById("voteInformation").style = "";
-
-
 
             var gameData = gameManager.getGameData();
             gameData.phase = missionPhase;
             gameManager.updateGameData(gameData, false);
             //gameManager.updateGameData({'phase': missionPhase}, false);
-            
-
-            
 
           } else {
             
@@ -485,16 +461,12 @@ window.onload = function() {
               gameManager.updateGameData(gameData, false);
 
               evilWins();
-
-              
+  
             }
             else
             {
               changeLeader();
             }
-
-
-
 
             //Unnecessary - change leader will call this gameManager.updateGameData({'phase': selectPhase}, false);
             
@@ -506,6 +478,10 @@ window.onload = function() {
           rejectPlayers = [];  
         }
       }
+
+      /*
+      * Mission Phase
+      */
       else if (event.requestExtraMessageData.successFail != null && gamePhase == missionPhase) {
         console.log("Entering successFail listener");
         voteCount++;
@@ -558,7 +534,6 @@ window.onload = function() {
             else
             {
 
-
               var gameData = gameManager.getGameData();
               
               document.getElementById("ppm" + gameData.missionNum).parentElement.className = "turn completed";
@@ -583,8 +558,6 @@ window.onload = function() {
             var failCount = voteCount - passCount;
             document.getElementById("failHeader").innerHTML = "Fail x" + failCount;
             document.getElementById("failCard").style = "";
-            
-
             
             document.getElementById(missionNum).parentElement.style = "border-style:solid;border-color:red";
             
@@ -628,6 +601,10 @@ window.onload = function() {
         }
       
       }
+
+      /*
+      * Setup Phase
+      */
       else if (event.requestExtraMessageData.selectedRoles != null && gamePhase == setupPhase) {
         var rolesList = event.requestExtraMessageData.selectedRoles;
         for (var i = 0; i < rolesList.length; i++) {
@@ -647,8 +624,6 @@ window.onload = function() {
 
         gameManager.updateGameData(gameData, true);
 
-
-
         document.getElementById("welcome").style = "display:none";
         document.getElementById("gameBoard").style = "";
         //TODO accept player role choices
@@ -656,6 +631,10 @@ window.onload = function() {
         assignRoles();
 
       }
+
+      /*
+      * Assassin Phase
+      */
       else if (event.requestExtraMessageData.assassinGuess != null && gamePhase == assassinPhase) {
         var assassinGuess = event.requestExtraMessageData.assassinGuess;
 
@@ -690,6 +669,34 @@ window.onload = function() {
           goodWins();
 
         }
+
+      }
+
+      /*
+      * Game Over Phase
+      */
+      else if (event.requestExtraMessageData.reset != null && gamePhase == overPhase)
+      {
+        gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null, true);
+
+        var playingPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
+
+        for(var i = 0; i < playingPlayers.length; i++){
+            var playerInfo = playingPlayers[i];
+            var playerId = playerInfo.playerId;
+            gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.READY, {"playerName":gameManager.getPlayer(playerId).playerData.name}, true);
+          }
+        displayReadyPlayers(); 
+
+        var gameData = gameManager.getGameData();
+        gameData.phase = lobbyPhase;
+
+        gameManager.updateGameData(gameData, false);
+
+        resetAll();
+
+        document.getElementById("welcome").style = "";
+        document.getElementById("gameOver").style = "display:none";
 
       }
   });
