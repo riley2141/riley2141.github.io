@@ -20,12 +20,14 @@
 }
 
 .welcome{
-	color: gold;
-	text-shadow:
+	h1{
+		color: gold;
+		text-shadow:
     		-1px -1px 0 #000,
     		1px -1px 0 #000,
     		-1px 1px 0 #000,
     		1px 1px 0 #000; 
+    }
 	.home{
 		background-color:red;
 	}
@@ -61,6 +63,7 @@
 		font-family: 'Aref Ruqaa', serif;
 		border-style: solid;
 		border-width: 3px;
+		border-color: black;
 		max-width: 95%;
 		height: 25vh;
 
