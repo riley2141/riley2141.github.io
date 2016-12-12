@@ -129,12 +129,12 @@ limitations under the License.
         <p class = "text center" id = "currMissionTeam"></p>
       </div>
       <div class = "col-sm-2" id = "voteInformationLeft" style = "visibility: hidden">
-        <h1 class = "" style = "margin:0;">Vote List</h1>
-        <p class = "text" id = "playerVotesLeft"></p>
+        <h1 class = "right" style = "margin:0;">Vote List</h1>
+        <p class = "text right" id = "playerVotesLeft"></p>
       </div>
       <div class = "col-sm-2" id = "voteInformationRight" style = "visibility: hidden">
-        <h1 class = "" style = "margin:0;">Vote List</h1>
-        <p class = "text" id = "playerVotesRight"></p>
+        <h1 class = "" style = "margin:0;"></h1>
+        <p class = "text left" id = "playerVotesRight"></p>
       </div>
 
     </div>
@@ -626,6 +626,9 @@ window.onload = function() {
 
           voteCount = 0;
           passCount = 0;
+          acceptPlayers = [];
+          rejectPlayers = [];
+          allPlayers = [];
         }
 
       }
