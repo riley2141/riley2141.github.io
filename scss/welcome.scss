@@ -16,7 +16,7 @@
     		-1px -1px 0 #000,
     		1px -1px 0 #000,
     		-1px 1px 0 #000,
-    		1px 1px 0 #000; 
+    		1px 1px 0 #000;
 }
 
 .welcome{
@@ -26,7 +26,7 @@
     		-1px -1px 0 #000,
     		1px -1px 0 #000,
     		-1px 1px 0 #000,
-    		1px 1px 0 #000; 
+    		1px 1px 0 #000;
     }
 	.home{
 		background-color:red;
@@ -41,7 +41,7 @@
 		font-size:150%;
 		color:black;
 		margin:auto;
-		
+
 	}
 
 	.guys {
@@ -57,7 +57,7 @@
     		-1px -1px 0 #000,
     		1px -1px 0 #000,
     		-1px 1px 0 #000,
-    		1px 1px 0 #000; 
+    		1px 1px 0 #000;
 	.turn {
 		text-align: center;
 		font-family: 'Aref Ruqaa', serif;
@@ -69,7 +69,7 @@
 
 		&.current {
 			border-width: 5px;
-			
+
 			h1 {
 				text-decoration: underline
 			}
@@ -78,13 +78,16 @@
 		&.completed {
 			background-color: grey;
 			opacity: .3;
+		}
 
+		h2 {
+			margin-top: 5px;
 		}
 	}
 
 	.goblet {
-		max-width:100%; 
-		height:25vh; 
+		max-width:100%;
+		height:25vh;
 		margin:auto;
 	}
 
@@ -94,12 +97,12 @@
     		-1px -1px 0 #000,
     		1px -1px 0 #000,
     		-1px 1px 0 #000,
-    		1px 1px 0 #000; 
+    		1px 1px 0 #000;
 
 	}
 
 	.card {
-		background-image: url('img/cardBg.jpg'); 
+		background-image: url('img/cardBg.jpg');
 		border-radius: 30px;
 	}
 
@@ -116,7 +119,7 @@
     		-1px -1px 0 #000,
     		1px -1px 0 #000,
     		-1px 1px 0 #000,
-    		1px 1px 0 #000; 
+    		1px 1px 0 #000;
 	}
 
 	.text {
@@ -130,21 +133,21 @@
     		-1px -1px 0 #000,
     		1px -1px 0 #000,
     		-1px 1px 0 #000,
-    		1px 1px 0 #000; 
+    		1px 1px 0 #000;
 	}
-	
+
 }
 
 .gameOver {
 	.evilWins {
-		
+
 		color: red;
 		text-shadow:
     		-1px -1px 0 #000,
     		1px -1px 0 #000,
     		-1px 1px 0 #000,
-    		1px 1px 0 #000; 
-	
+    		1px 1px 0 #000;
+
 	}
 
 	.goodWins {
@@ -153,7 +156,7 @@
     		-1px -1px 0 #000,
     		1px -1px 0 #000,
     		-1px 1px 0 #000,
-    		1px 1px 0 #000; 
+    		1px 1px 0 #000;
 	}
 
 	.guys {
@@ -166,6 +169,5 @@
 body {
 	background-image: url('img/tablebg.jpg');
 	color: black;
-	
-}
 
+}

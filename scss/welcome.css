@@ -49,6 +49,8 @@
     .gameBoard .turn.completed {
       background-color: grey;
       opacity: .3; }
+    .gameBoard .turn h2 {
+      margin-top: 5px; }
   .gameBoard .goblet {
     max-width: 100%;
     height: 25vh;
