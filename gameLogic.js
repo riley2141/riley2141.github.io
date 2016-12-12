@@ -266,7 +266,8 @@ function resetAll()
 	evilRoles = 0;
 
 
-	document.getElementById("playerVotes").innerHTML = "";
+	document.getElementById("playerVotesLeft").innerHTML = "";
+	document.getElementById("playerVotesRight").innerHTML = "";
 	document.getElementById("currLead").innerHTML = "";
 	document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
 
