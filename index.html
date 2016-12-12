@@ -35,7 +35,7 @@ limitations under the License.
     </div>
   </div>
 
-  <div class = "welcome" id = "welcome" style = "display:none">
+  <div class = "welcome" id = "welcome" style = "">
     <br>
     <br>
     <br>
@@ -66,12 +66,8 @@ limitations under the License.
 
   </div>
 
-  <div class = "gameBoard" id = "gameBoard" style = "">
+  <div class = "gameBoard" id = "gameBoard" style = "display:none">
     <br>
-
-
-
-
     <div class = "row">
       <div class = "col-sm-1">
       </div>
@@ -400,7 +396,8 @@ window.onload = function() {
         displayMissionTeam();
         document.getElementById("successCard").style = "visibility:hidden";
         document.getElementById("failCard").style = "visibility:hidden";
-        document.getElementById("voteInformation").style = "visibility:hidden";
+        document.getElementById("voteInformationLeft").style = "visibility:hidden";
+        document.getElementById("voteInformationRight").style = "visibility:hidden";
 
 
         //gameManager.updateGameData({'phase': votingPhase}, false);
@@ -435,7 +432,7 @@ window.onload = function() {
           rejectPlayers.push(event.playerInfo.playerData.name);
           allPlayers.push(event.playerInfo.playerData.name);
           displayVotesIncomplete();
-          document.getElementById("voteInformation").style = "";
+          document.getElementById("voteInformationLeft").style = "";
           document.getElementById("voteInformationRight").style = "";
         }
 
@@ -447,7 +444,8 @@ window.onload = function() {
           if (passCount > voteCount / 2) {
 
             displayVotes();
-            document.getElementById("voteInformation").style = "";
+            document.getElementById("voteInformationLeft").style = "";
+            document.getElementById("voteInformationRight").style = "";
 
             var gameData = gameManager.getGameData();
             gameData.phase = missionPhase;
@@ -457,7 +455,8 @@ window.onload = function() {
           } else {
 
             displayVotes();
-            document.getElementById("voteInformation").style = "";
+            document.getElementById("voteInformationLeft").style = "";
+            document.getElementById("voteInformationRight").style = "";
 
             voteCountCount++;
             document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
@@ -505,7 +504,8 @@ window.onload = function() {
           acceptPlayers.push(event.playerInfo.playerData.name);
           allPlayers.push(event.playerInfo.playerData.name);
           displayVotesIncomplete();
-          document.getElementById("voteInformation").style = "";
+          document.getElementById("voteInformationLeft").style = "";
+          document.getElementById("voteInformationRight").style = "";
         }
         else
         {
@@ -513,7 +513,8 @@ window.onload = function() {
           rejectPlayers.push(event.playerInfo.playerData.name);
           allPlayers.push(event.playerInfo.playerData.name);
           displayVotesIncomplete();
-          document.getElementById("voteInformation").style = "";
+          document.getElementById("voteInformationLeft").style = "";
+          document.getElementById("voteInformationRight").style = "";
         }
 
         if (voteCount == missionTeamSizes[missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]) {
