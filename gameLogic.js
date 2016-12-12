@@ -182,7 +182,8 @@ function displayVotes() {
 	console.log("in display vote information");
 	var missionNum = gameManager.getGameData().missionNum;
 
-	document.getElementById("playerVotes").innerHTML = "";
+	document.getElementById("playerVotesLeft").innerHTML = "";
+	document.getElementById("playerVotesRight").innerHTML = "";
 
 	var count = 0;
 	for(var i =0; i < acceptPlayers.length; i++)
