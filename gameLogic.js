@@ -1,4 +1,4 @@
-var players; 
+var players;
 var leader;
 var missionNum;
 var gameData;
@@ -7,7 +7,7 @@ var gameData;
 function assignRoles(){
 	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
 	var numEvil = Math.ceil(players.length / 3);
-	
+
 	console.log("number of players being assigned roles: " + players.length);
 	console.log("number of evil players: " + numEvil);
 	gameData = gameManager.getGameData();
@@ -37,7 +37,7 @@ function assignRoles(){
 			playerData.role = "oberon";
 			gameData.oberon = playerData.name;
 			oberon = false;
-		}	
+		}
 		else
 			playerData.role = "minion";
 		playerData.loyalty = 'evil';
@@ -95,7 +95,7 @@ function assignRoles(){
 	//gameManager.updateGameData( {'missionNum' : 1}, true);
 	//gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
 	//alertLeader();
-	
+
 }
 
 function changeLeader() {
@@ -123,14 +123,14 @@ function randomIntFromInterval(min,max)
 function displayMissionTeam(){
 	console.log("in display mission team players");
 	var missionNum = gameManager.getGameData().missionNum;
-	
-
 	var missionTeam = gameManager.getGameData().missionTeam;
 
 	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
 
 	console.log("num displaying mission players " + missionTeam.length);
+	document.getElementById("MissionTeam").style = "";
 	document.getElementById(missionNum).innerHTML = "";
+	document.getElementById("currMissionTeam").innerHTML = "";
 	for(var i = 0; i < missionTeam.length; i++)
 	{
 		var playerId = missionTeam[i];
@@ -138,6 +138,7 @@ function displayMissionTeam(){
 		var playerName = gameManager.getPlayer(playerId).playerData.name;
 		console.log("Player #" + i + " name is " + playerName);
 		document.getElementById(missionNum).innerHTML = document.getElementById(missionNum).innerHTML + playerName + "<br>";
+		document.getElementById("currMissionTeam").innerHTML = document.getElementById("currMissionTeam"). innerHTML + playerName + "<br>";
 	}
 }
 
@@ -162,48 +163,45 @@ function displayVotesIncomplete()
 {
 	console.log("in display vote information - incomplete");
 	var missionNum = gameManager.getGameData().missionNum;
-	
 
-	
+	document.getElementById("playerVotesLeft").innerHTML = "";
+	document.getElementById("playerVotesRight").innerHTML = "";
 
-	
-	document.getElementById("playerVotes").innerHTML = "";
-
-	for(var i =0; i < acceptPlayers.length; i++)
+	for(var i = 0; i < allPlayers.length; i++)
 	{
-		console.log("acceptPlayer " + i + " " + acceptPlayers[i]);
-		document.getElementById("playerVotes").innerHTML = document.getElementById("playerVotes").innerHTML + acceptPlayers[i] + "<br>";
-		console.log(document.getElementById("playerVotes").innerHTML);
-	}
-
-	for(var i =0; i < rejectPlayers.length; i++)
-	{
-		console.log("rejectPlayer " + i + " " + rejectPlayers[i]);
-		document.getElementById("playerVotes").innerHTML = document.getElementById("playerVotes").innerHTML + rejectPlayers[i] + "<br>";
-		console.log(document.getElementById("playerVotes").innerHTML);
+		if (i < 5) {
+			document.getElementById("playerVotesLeft").innerHTML = document.getElementById("playerVotesLeft").innerHTML + allPlayers[i] + "<br>";
+		}
+		else {
+			document.getElementById("playerVotesRight").innerHTML = document.getElementById("playerVotesRight").innerHTML + allPlayers[i] + "<br>";
+		}
 	}
 }
 
 function displayVotes() {
 	console.log("in display vote information");
 	var missionNum = gameManager.getGameData().missionNum;
-	
 
-	
-
-	
 	document.getElementById("playerVotes").innerHTML = "";
 
+	var count = 0;
 	for(var i =0; i < acceptPlayers.length; i++)
 	{
-		document.getElementById("playerVotes").innerHTML = document.getElementById("playerVotes").innerHTML + acceptPlayers[i] + " - Accept" + "<br>";
+		if (count < 5)
+			document.getElementById("playerVotesLeft").innerHTML = document.getElementById("playerVotesLeft").innerHTML + acceptPlayers[i] + " - Accept" + "<br>";
+		else
+			document.getElementById("playerVotesRight").innerHTML = document.getElementById("playerVotesRight").innerHTML + acceptPlayers[i] + " - Accept" + "<br>";
+		count++;
 	}
 
-	for(var i =0; i < rejectPlayers.length; i++)
+	for(i = 0; i < rejectPlayers.length; i++)
 	{
-		document.getElementById("playerVotes").innerHTML = document.getElementById("playerVotes").innerHTML + rejectPlayers[i] + " - Reject" + "<br>";
+		if (count < 5)
+			document.getElementById("playerVotesLeft").innerHTML = document.getElementById("playerVotesLeft").innerHTML + rejectPlayers[i] + " - Reject" + "<br>";
+		else
+			document.getElementById("playerVotesRight").innerHTML = document.getElementById("playerVotesRight").innerHTML + rejectPlayers[i] + " - Reject" + "<br>";
+		count++;
 	}
-
 }
 
 function changeMissionBoxes()
@@ -257,6 +255,7 @@ function resetAll()
 	passCount = 0;
 	acceptPlayers = [];
 	rejectPlayers = [];
+	allPlayers = [];
 	missionResults = [-1, -1, -1, -1, -1];
 	merlin = false;
 	assassin = false;
@@ -282,7 +281,7 @@ function resetAll()
 		else
 			document.getElementById(i).parentElement.className = "turn";
 	}
-	
+
 
 
 

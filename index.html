@@ -16,14 +16,14 @@ limitations under the License.
 <!DOCTYPE html>
 <html>
   <head>
-    
+
     <title>Cast Hello Text</title>
-    <link href="https://fonts.googleapis.com/css?family=Aref+Ruqaa" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Aref+Ruqaa" rel="stylesheet">
     <link href="scss/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="scss/welcome.css" />
-    
+
     <script src="gameBoard.js"></script>
-    
+
 
   </head>
   <body>
@@ -35,7 +35,7 @@ limitations under the License.
     </div>
   </div>
 
-  <div class = "welcome" id = "welcome" style = "">
+  <div class = "welcome" id = "welcome" style = "display:none">
     <br>
     <br>
     <br>
@@ -49,29 +49,29 @@ limitations under the License.
         <img src = "scss/img/goodguy.jpg" class = "center guys">
       </div>
       <div class = "col-sm-4">
-        
+
         <div class = "center lobby" onclick="testList()">
           <h1 style = "margin:0;">Player List</h1>
           <p id = "playerList" class = "list"></p>
         </div>
-        
+
       </div>
 
       <div class = "col-sm-3">
         <img src = "scss/img/badguy.jpg"  class = "center guys">
       </div>
 
-      
+
     </div>
 
   </div>
 
-  <div class = "gameBoard" id = "gameBoard" style = "display:none">
+  <div class = "gameBoard" id = "gameBoard" style = "">
     <br>
-    
-    
-    
-    
+
+
+
+
     <div class = "row">
       <div class = "col-sm-1">
       </div>
@@ -85,7 +85,7 @@ limitations under the License.
         <div class = "turn">
           <h2 class = "playersPerMission" id = "ppm2">3</h2>
           <p class = "text" id = "2"></p>
-        </div> 
+        </div>
       </div>
       <div class = "col-sm-2">
           <div class = "turn">
@@ -97,7 +97,7 @@ limitations under the License.
           <div class = "turn">
             <h2 class = "playersPerMission" id = "ppm4">3</h2>
             <p class = "text" id = "4"></p>
-          </div>  
+          </div>
       </div>
       <div class = "col-sm-2">
           <div class = "turn">
@@ -114,7 +114,7 @@ limitations under the License.
     </div>
 
     <div class = "row">
-      <div class = "col-sm-3">
+      <div class = "col-sm-1">
       </div>
       <div class = "col-sm-2">
         <div class = "card center" id = "successCard" style = "visibility: hidden">
@@ -122,16 +122,25 @@ limitations under the License.
           <img src = "scss/img/sucessGoblet.png" class = "goblet center">
         </div>
       </div>
-      <div class = "col-sm-2 center" id = "voteInformation" style = "visibility: hidden">
-        <h1 class = "center" style = "margin:0;">Vote List</h1>
-        <p class = "text center" id = "playerVotes"></p>
-      </div>
       <div class = "col-sm-2">
         <div class = "card center" id = "failCard" style = "visibility: hidden">
           <h2 class ="cardHeader fail center" id = "failHeader">Fail x1</h2>
           <img src = "scss/img/failGoblet.png" class = "goblet center">
           </div>
       </div>
+      <div class = "col-sm-2 center" id = "MissionTeam" style = "visibility: hidden">
+        <h1 class = "center" style = "margin:0;">Mission Team</h1>
+        <p class = "text center" id = "currMissionTeam"></p>
+      </div>
+      <div class = "col-sm-2" id = "voteInformationLeft" style = "visibility: hidden">
+        <h1 class = "" style = "margin:0;">Vote List</h1>
+        <p class = "text" id = "playerVotesLeft"></p>
+      </div>
+      <div class = "col-sm-2" id = "voteInformationRight" style = "visibility: hidden">
+        <h1 class = "" style = "margin:0;">Vote List</h1>
+        <p class = "text" id = "playerVotesRight"></p>
+      </div>
+
     </div>
 
 
@@ -192,10 +201,10 @@ limitations under the License.
           <h1 style = "margin:0;">Evil Player List</h1>
           <p id = "badList" class="list"></p>
         </div>
-        
+
       </div>
 
-      
+
     </div>
 
   </div>
@@ -206,7 +215,7 @@ limitations under the License.
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="scss/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    
+
     <script type = "text/javascript">
 
 var missionTeamSizes =  [
@@ -233,6 +242,7 @@ var voteCountCount = 0;
 var passCount = 0;
 var acceptPlayers = [];
 var rejectPlayers = [];
+var allPlayers = [];
 var missionResults = [-1, -1, -1, -1, -1]; //1 = good wins, 2 = bad wins
 
 var merlin = false;
@@ -385,14 +395,14 @@ window.onload = function() {
         else
         {
           console.log("bad team size");
-                  
+
         }
         displayMissionTeam();
         document.getElementById("successCard").style = "visibility:hidden";
         document.getElementById("failCard").style = "visibility:hidden";
         document.getElementById("voteInformation").style = "visibility:hidden";
-        
-        
+
+
         //gameManager.updateGameData({'phase': votingPhase}, false);
         gameData = gameManager.getGameData();
         gameData.phase = votingPhase;
@@ -409,35 +419,33 @@ window.onload = function() {
         voteCount++;
         console.log("current vote count is: " + voteCount);
 
-        if (event.requestExtraMessageData.acceptReject == "true")
-        {
-          console.log("Player has accepted :" + event.playerInfo.playerData.name);
-          passCount++;
-          acceptPlayers.push(event.playerInfo.playerData.name);
-        }
-        else if(event.requestExtraMessageData.acceptReject)
+        if(event.requestExtraMessageData.acceptReject)
         {
           console.log("Player has accepted using boolean :" + event.playerInfo.playerData.name);
           passCount++;
           acceptPlayers.push(event.playerInfo.playerData.name);
+          allPlayers.push(event.playerInfo.playerData.name);
           displayVotesIncomplete();
-          document.getElementById("voteInformation").style = "";
+          document.getElementById("voteInformationLeft").style = "";
+          document.getElementById("voteInformationRight").style = "";
         }
         else
         {
           console.log("Player has rejected :" + event.playerInfo.playerData.name);
           rejectPlayers.push(event.playerInfo.playerData.name);
+          allPlayers.push(event.playerInfo.playerData.name);
           displayVotesIncomplete();
           document.getElementById("voteInformation").style = "";
+          document.getElementById("voteInformationRight").style = "";
         }
 
         console.log("if vote count equlas this then we should continue: " + gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length);
         if (voteCount == gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length) {
 
           console.log("all votes have arrived")
-          
+
           if (passCount > voteCount / 2) {
-            
+
             displayVotes();
             document.getElementById("voteInformation").style = "";
 
@@ -447,10 +455,10 @@ window.onload = function() {
             //gameManager.updateGameData({'phase': missionPhase}, false);
 
           } else {
-            
+
             displayVotes();
             document.getElementById("voteInformation").style = "";
-            
+
             voteCountCount++;
             document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
 
@@ -466,7 +474,7 @@ window.onload = function() {
               gameManager.updateGameData(gameData, false);
 
               evilWins();
-  
+
             }
             else
             {
@@ -474,13 +482,14 @@ window.onload = function() {
             }
 
             //Unnecessary - change leader will call this gameManager.updateGameData({'phase': selectPhase}, false);
-            
+
           }
 
           voteCount = 0;
           passCount = 0;
           acceptPlayers = [];
-          rejectPlayers = [];  
+          rejectPlayers = [];
+          allPlayers = [];
         }
       }
 
@@ -494,6 +503,7 @@ window.onload = function() {
         if (event.requestExtraMessageData.successFail == true) {
           passCount++;
           acceptPlayers.push(event.playerInfo.playerData.name);
+          allPlayers.push(event.playerInfo.playerData.name);
           displayVotesIncomplete();
           document.getElementById("voteInformation").style = "";
         }
@@ -501,24 +511,25 @@ window.onload = function() {
         {
           console.log("Player has rejected :" + event.playerInfo.playerData.name);
           rejectPlayers.push(event.playerInfo.playerData.name);
+          allPlayers.push(event.playerInfo.playerData.name);
           displayVotesIncomplete();
           document.getElementById("voteInformation").style = "";
         }
 
         if (voteCount == missionTeamSizes[missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]) {
-          
+
           if (passCount == voteCount) {
             document.getElementById("successHeader").innerHTML = "Success x" + passCount;
             document.getElementById("successCard").style = "";
-            
+
             document.getElementById("failHeader").innerHTML = "Fail x0"
             document.getElementById("failCard").style = "";
-            
+
             //gameManager.updateGameData({'phase': missionPhase}, false);
-            
+
             document.getElementById(missionNum).parentElement.style = "border-style:solid;border-color:blue";
 
-            
+
             missionResults[missionNum] = 1;
             if (checkGameOver()) {
 
@@ -529,7 +540,7 @@ window.onload = function() {
                 document.getElementById("gameOver").style = "";
                 var gameData = gameManager.getGameData();
                 gameData.phase = overPhase;
-                
+
                 gameData.goodWins = true;
 
                 //TODO give assassin a chance to assassinate
@@ -551,7 +562,7 @@ window.onload = function() {
             {
 
               var gameData = gameManager.getGameData();
-              
+
               document.getElementById("ppm" + gameData.missionNum).parentElement.className = "turn completed";
 
               gameData.missionNum = gameData.missionNum +1;
@@ -566,17 +577,17 @@ window.onload = function() {
               document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
               changeLeader();
             }
-            
+
           } else {
             document.getElementById("successHeader").innerHTML = "Success x" + passCount;
             document.getElementById("successCard").style = "";
-            
+
             var failCount = voteCount - passCount;
             document.getElementById("failHeader").innerHTML = "Fail x" + failCount;
             document.getElementById("failCard").style = "";
-            
+
             document.getElementById(missionNum).parentElement.style = "border-style:solid;border-color:red";
-            
+
 
             missionResults[missionNum] = 2;
             if (checkGameOver()) {
@@ -589,7 +600,7 @@ window.onload = function() {
               gameData.goodWins = false;
               gameManager.updateGameData(gameData, false);
               evilWins();
-              
+
             }
             else
             {
@@ -613,9 +624,9 @@ window.onload = function() {
           }
 
           voteCount = 0;
-          passCount = 0;  
+          passCount = 0;
         }
-      
+
       }
 
       /*
@@ -671,7 +682,7 @@ window.onload = function() {
         var assassinGuess = event.requestExtraMessageData.assassinGuess;
 
         var players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
-  
+
         var target = gameManager.getPlayer(assassinGuess).playerData.role;
         console.log("Target: " + target);
 
@@ -718,7 +729,7 @@ window.onload = function() {
             var playerId = playerInfo.playerId;
             gameManager.updatePlayerState(playerId, cast.receiver.games.PlayerState.READY, {"playerName":gameManager.getPlayer(playerId).playerData.name}, true);
           }
-        displayReadyPlayers(); 
+        displayReadyPlayers();
 
         var gameData = gameManager.getGameData();
         gameData.phase = lobbyPhase;
@@ -740,7 +751,7 @@ window.onload = function() {
 
 };
 
-  
+
 
     </script>
 
@@ -749,19 +760,19 @@ window.onload = function() {
         cast.receiver.logger.setLevelValue(0);
         window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
         console.log('Starting Receiver Manager');
-        
+
         // handler for the 'ready' event
         castReceiverManager.onReady = function(event) {
           console.log('Received Ready event: ' + JSON.stringify(event.data));
           window.castReceiverManager.setApplicationState("Application status is ready...");
         };
-        
+
         // handler for 'senderconnected' event
         castReceiverManager.onSenderConnected = function(event) {
           console.log('Received Sender Connected event: ' + event.data);
           console.log(window.castReceiverManager.getSender(event.data).userAgent);
         };
-        
+
         // handler for 'senderdisconnected' event
         castReceiverManager.onSenderDisconnected = function(event) {
           console.log('Received Sender Disconnected event: ' + event.data);
@@ -769,7 +780,7 @@ window.onload = function() {
 	        window.close();
 	      }
         };
-        
+
         // handler for 'systemvolumechanged' event
         castReceiverManager.onSystemVolumeChanged = function(event) {
           console.log('Received System Volume Changed event: ' + event.data['level'] + ' ' +
@@ -795,7 +806,7 @@ window.onload = function() {
         window.castReceiverManager.start({statusText: "Application is starting"});
         console.log('Receiver Manager started');
       };
-      
+
       // utility function to display the text message in the input field
       function displayText(text) {
         console.log(text);
