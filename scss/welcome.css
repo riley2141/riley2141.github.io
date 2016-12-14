@@ -70,16 +70,6 @@
   .gameBoard .card {
     background-image: url("img/cardBg.jpg");
     border-radius: 30px; }
-  .gameBoard .displayBox {
-    max-width: 90%;
-    background: #361919;
-    background: rgba(54, 25, 25, 0.5);
-    margin: auto; }
-  .gameBoard .voteListBox {
-    max-width: 100%;
-    background: #361919;
-    background: rgba(54, 25, 25, 0.5);
-    margin: auto; }
   .gameBoard .voteBox {
     background-image: url("img/voteBoxBg.jpg");
     border-radius: 15px;
