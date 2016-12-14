@@ -88,14 +88,12 @@
     max-width: 90%;
     background: #361919;
     background: rgba(54, 25, 25, 0.5);
-    margin: auto;
-    height: 25vh; }
+    margin: auto; }
   .gameBoard .voteListBox {
-    width: 100%;
+    max-width: 100%;
     background: #361919;
     background: rgba(54, 25, 25, 0.5);
-    margin: auto;
-    height: 25vh; }
+    margin: auto; }
 
 .gameOver .evilWins {
   color: red;
