@@ -409,7 +409,7 @@ window.onload = function() {
         //gameManager.updateGameData({'phase': votingPhase}, false);
         gameData = gameManager.getGameData();
         gameData.phase = votingPhase;
-
+        document.getElementById("currLead").innerHTML = "Vote Phase - Leader is " + gameManager.getGameData().leaderName;
         gameManager.updateGameData(gameData, false);
       }
 
@@ -461,6 +461,7 @@ window.onload = function() {
             document.getElementById("voteInformationRight").style = "";
 
             var gameData = gameManager.getGameData();
+            document.getElementById("currLead").innerHTML = "Mission Phase - Leader is " + gameManager.getGameData().leaderName;
             gameData.phase = missionPhase;
             gameManager.updateGameData(gameData, false);
             //gameManager.updateGameData({'phase': missionPhase}, false);

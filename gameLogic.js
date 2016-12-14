@@ -102,6 +102,7 @@ function changeLeader() {
 	leader = (leader+1) % players.length;
 	gameData = gameManager.getGameData();
 	gameData.leader = players[leader].playerId;
+	gameData.leaderName = players[leader].playerData.name;
 	//gameManager.updateGameData( {'leader': players[leader].playerId}, true);
 	alertLeader();
 }
@@ -122,7 +123,7 @@ function alertLeader() {
 
 	//update gamephase/data
 	gameData.phase = selectPhase;
-	document.getElementById("currLead").innerHTML = "Leader is " + players[leader].playerData.name;
+	document.getElementById("currLead").innerHTML = "Select Phase - Leader is " + players[leader].playerData.name;
 	gameManager.updateGameData(gameData, false);
 }
 
