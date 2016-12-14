@@ -112,13 +112,13 @@ function alertLeader() {
 	//gameManager.updateGameData( {'phase': selectPhase}, false
 
 	//set hasVoted and hasMissioned to false for all players
-	// var players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
-	// for(var i = 0; i < players.length; i++){
-	// 	var playerData = players[i].playerData;
-	// 	playerData.hasVoted = false;
-	// 	playerData.hasMissioned = false;
-	// 	gameManager.updatePlayerData(players[i].playerId, playerData, true);
-	// }
+	var players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
+	for(var i = 0; i < players.length; i++){
+		var playerData = players[i].playerData;
+		playerData.hasVoted = false;
+		playerData.hasMissioned = false;
+		gameManager.updatePlayerData(players[i].playerId, playerData, true);
+	}
 
 	//update gamephase/data
 	gameData.phase = selectPhase;

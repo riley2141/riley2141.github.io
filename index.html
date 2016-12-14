@@ -417,11 +417,11 @@ window.onload = function() {
         console.log("current vote count is: " + voteCount);
 
         //update player's hasVoted variable
-        // var player = event.playerInfo;
-        // var playerData = player.playerData;
-        // if(playerData.hasVoted) return;
-        // playerData.hasVoted = true;
-        // gameManager.updatePlayerData(player.playerId, playerData, true);
+        var player = event.playerInfo;
+        var playerData = player.playerData;
+        if(playerData.hasVoted) return;
+        playerData.hasVoted = true;
+        gameManager.updatePlayerData(player.playerId, playerData, true);
 
         if(event.requestExtraMessageData.acceptReject)
         {
@@ -508,11 +508,11 @@ window.onload = function() {
         var missionNum = gameManager.getGameData().missionNum;
 
         //update player's hasMissioned variable
-        // var player = event.playerInfo;
-        // var playerData = player.playerData;
-        // if(playerData.hasMissioned) return;
-        // playerData.hasMissioned = true;
-        // gameManager.updatePlayerData(player.playerId, playerData, true);
+        var player = event.playerInfo;
+        var playerData = player.playerData;
+        if(playerData.hasMissioned) return;
+        playerData.hasMissioned = true;
+        gameManager.updatePlayerData(player.playerId, playerData, true);
 
 
         if (event.requestExtraMessageData.successFail) {
