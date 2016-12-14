@@ -109,7 +109,18 @@ function changeLeader() {
 function alertLeader() {
 	console.log("Alert leader is setting the phase to selectPhase: " + selectPhase);
 	//gameManager.broadcastGameManagerStatus();
-	//gameManager.updateGameData( {'phase': selectPhase}, false);
+	//gameManager.updateGameData( {'phase': selectPhase}, false
+
+	//set hasVoted and hasMissioned to false for all players
+	var players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
+	for(var i = 0; i < players.length; i++){
+		var playerData = players[i].playerData;
+		playerData.hasVoted = false;
+		playerData.hasMissioned = false;
+		gameManager.updatePlayerData(players[i].playerId, playerData, true);
+	}
+
+	//update gamephase/data
 	gameData.phase = selectPhase;
 	document.getElementById("currLead").innerHTML = "Leader is " + players[leader].playerData.name;
 	gameManager.updateGameData(gameData, false);

@@ -416,6 +416,13 @@ window.onload = function() {
         voteCount++;
         console.log("current vote count is: " + voteCount);
 
+        //update player's hasVoted variable
+        var player = event.playerInfo;
+        var playerData = player.playerData;
+        if(playerData.hasVoted) return;
+        playerData.hasVoted = true;
+        gameManager.updatePlayerData(player.playerId, playerData, true);
+
         if(event.requestExtraMessageData.acceptReject)
         {
           console.log("Player has accepted using boolean :" + event.playerInfo.playerData.name);
@@ -499,7 +506,16 @@ window.onload = function() {
         console.log("Entering successFail listener");
         voteCount++;
         var missionNum = gameManager.getGameData().missionNum;
-        if (event.requestExtraMessageData.successFail == true) {
+
+        //update player's hasMissioned variable
+        var player = event.playerInfo;
+        var playerData = player.playerData;
+        if(playerData.hasMissioned) return;
+        playerData.hasMissioned = true;
+        gameManager.updatePlayerData(player.playerId, playerData, true);
+
+
+        if (event.requestExtraMessageData.successFail) {
           passCount++;
           acceptPlayers.push(event.playerInfo.playerData.name);
           allPlayers.push(event.playerInfo.playerData.name);
@@ -520,6 +536,7 @@ window.onload = function() {
         if (voteCount == missionTeamSizes[missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]) {
 
           if (passCount == voteCount) {
+
             document.getElementById("successHeader").innerHTML = "Success x" + passCount;
             document.getElementById("successCard").style = "";
 
