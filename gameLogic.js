@@ -279,10 +279,16 @@ function resetAll()
 	evilRoles = 0;
 
 
+
 	document.getElementById("playerVotesLeft").innerHTML = "";
 	document.getElementById("playerVotesRight").innerHTML = "";
 	document.getElementById("currLead").innerHTML = "";
 	document.getElementById("voteCount").innerHTML = "Vote Count: " + voteCountCount;
+	document.getElementById("voteInformationRight").style = "visibility:hidden";
+	document.getElementById("voteInformationLeft").style = "visibility:hidden";
+	document.getElementById("MissionTeam").style = "visibility:hidden";
+	document.getElementById("failCard").style = "visibility:hidden";
+	document.getElementById("successCard").style = "visibility:hidden";
 
 
 
