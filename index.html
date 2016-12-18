@@ -335,7 +335,7 @@ window.onload = function() {
         console.log("Player is trying to start (id): " + event.playerInfo.playerId);
         var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
         // make sure ready players is between 5 and 10
-        if(readyPlayers.length < 1 || readyPlayers.length > 10){
+        if(readyPlayers.length < 5 || readyPlayers.length > 10){
           event.resultExtraMessageData = { result: "NumberPlayersInvalid" };
         } else {
           //set players in ready state to playing state
