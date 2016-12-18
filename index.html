@@ -336,7 +336,7 @@ window.onload = function() {
         var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
         // make sure ready players is between 5 and 10
         if(readyPlayers.length < 5 || readyPlayers.length > 10){
-          event.resultExtraMessageData = { result: "NumberPlayersInvalid" };
+          event.StatusCode =  cast.receiver.games.StatusCode.TOO_MANY_PLAYERS;
         } else {
           //set players in ready state to playing state
 
