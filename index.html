@@ -35,6 +35,7 @@ limitations under the License.
     </div>
   </div>
 
+<!-- This div is for the Pregrame Lobby UI screen. Contains list of current players in lobby -->
   <div class = "welcome" id = "welcome" style = "">
     <br>
     <br>
@@ -66,8 +67,10 @@ limitations under the License.
 
   </div>
 
+<!-- This div is for the game board UI screen. -->
   <div class = "gameBoard" id = "gameBoard" style = "display:none">
     <br>
+    <!-- This row is for the missions and the players per mission. Players per mission is updated on start of game. -->
     <div class = "row">
       <div class = "col-sm-1">
       </div>
@@ -103,12 +106,15 @@ limitations under the License.
       </div>
     </div>
 
+
+    <!-- This row displays the current leader and what phase the game is in: select, vote, mission, or assassin. -->
     <div class = "row">
       <div class = "col-sm-12">
           <h2 class="center" id = "currLead"></h2>
       </div>
     </div>
 
+    <!-- This row displays the success/fail cards, the current mission team, and the current voting results. -->
     <div class = "row">
       <div class = "col-sm-1">
       </div>
@@ -145,7 +151,7 @@ limitations under the License.
 
     </div>
 
-
+    <!-- This row displays the current vote count. Vote count changes after a failed vote. Resets after missions -->
     <div class = "row">
       <div class = "col-sm-5">
       </div>
@@ -161,6 +167,7 @@ limitations under the License.
 
   </div>
 
+  <!-- This div is for the game over UI screen. Contains lists of players and roles as well as who won. -->
   <div class = "gameOver" id = "gameOver" style="display:none">
     <br>
     <br>
@@ -220,6 +227,8 @@ limitations under the License.
 
     <script type = "text/javascript">
 
+
+//This array is used to determine the number of players per mission. Column refers to mission num and row is number of players.
 var missionTeamSizes =  [
                         [0,0,0,0,0,0,0,0,0,0,0],
                         [0,2,2,2,2,2,2,2,3,3,3],
@@ -228,6 +237,8 @@ var missionTeamSizes =  [
                         [0,3,3,3,3,3,3,4,5,5,5],
                         [0,3,3,3,3,3,4,4,5,5,5]
                         ];
+
+//These are used as enums to see what phase the game is and deny sender messages that are for the wrong phase
 var lobbyPhase = 0;
 var setupPhase = 1;
 var selectPhase = 2;
@@ -236,6 +247,7 @@ var missionPhase = 4;
 var assassinPhase = 5;
 var overPhase = 6;
 
+//These variables are used over the course of the game to keep track of certain stats and players who have voted
 var gamePhase = -2;
 var gameManager;
 var numPlayers = 0;
@@ -247,6 +259,8 @@ var rejectPlayers = [];
 var allPlayers = [];
 var missionResults = [-1, -1, -1, -1, -1]; //1 = good wins, 2 = bad wins
 
+
+//These variables are used to keep track of what roles the sender picks and how many evil roles are used.
 var merlin = false;
 var assassin = false;
 var mordred = false;
@@ -257,6 +271,8 @@ var evilRoles = 0;
 
 
 window.onload = function() {
+
+  //Upon loading the we set up the receiver for casting and initialize the game manger
   var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
   var appConfig = new cast.receiver.CastReceiverManager.Config();
   appConfig.statusText = 'My Game is getting ready';
@@ -269,8 +285,11 @@ window.onload = function() {
   gameManager = new cast.receiver.games.GameManager(gameConfig);
 
   castReceiverManager.start(appConfig);
+  //End initialization
 
+  //Lobby is set to open
   gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null);
+  //This function updates the gamedata, phase is updated to let the senders know to change their current phase
   gameManager.updateGameData({'phase' : lobbyPhase}, false);
 
 
@@ -299,6 +318,8 @@ window.onload = function() {
     //document.getElementById("console").innerHTML = "Player Id: " + event.playerInfo.playerId + " is available";
   });
 
+
+  //When a player is ready they added to the player list
   gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_READY,
   function(event) {
 
@@ -316,6 +337,9 @@ window.onload = function() {
 
   });
 
+  //This is the core listener for messages. All sender messages are received here and then sorted based on the if/else block
+  //Messages come with extra message data which is used to determine what kind of message is sent
+  //Messages sent from the wrong game phase are ignored
   gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
 
       gamePhase = gameManager.getGameData().phase;
@@ -348,7 +372,7 @@ window.onload = function() {
 
 
 
-          //TODO set it so lobby is closed but players arent playing yet
+          
           for (var i = 0; i < readyPlayers.length; i++) {
             var playerInfo = readyPlayers[i];
             var playerId = playerInfo.playerId;
@@ -375,7 +399,7 @@ window.onload = function() {
       }
 
       /*
-      * Select Phase
+      * Select Phase- leader selects a team
       */
       else if (event.requestExtraMessageData.missionTeam != null && gamePhase == selectPhase) {
         console.log("send voting signal");
@@ -399,6 +423,7 @@ window.onload = function() {
           console.log("bad team size");
 
         }
+
         displayMissionTeam();
         document.getElementById("successCard").style = "visibility:hidden";
         document.getElementById("failCard").style = "visibility:hidden";
@@ -414,7 +439,7 @@ window.onload = function() {
       }
 
       /*
-      * Voting Phase
+      * Voting Phase - where players vote on given mission team
       */
       else if (event.requestExtraMessageData.acceptReject != null && gamePhase == votingPhase) {
         console.log("Entering accept or reject listener");
@@ -429,6 +454,7 @@ window.onload = function() {
         playerData.hasVoted = true;
         gameManager.updatePlayerData(player.playerId, playerData, true);
 
+        //If player accepts the mission team we increment the pass count and add them to the accepted players list
         if(event.requestExtraMessageData.acceptReject)
         {
           console.log("Player has accepted using boolean :" + event.playerInfo.playerData.name);
@@ -439,6 +465,7 @@ window.onload = function() {
           document.getElementById("voteInformationLeft").style = "";
           document.getElementById("voteInformationRight").style = "";
         }
+        //Otherwise dont increment and add to reject players list
         else
         {
           console.log("Player has rejected :" + event.playerInfo.playerData.name);
@@ -450,10 +477,11 @@ window.onload = function() {
         }
 
         console.log("if vote count equlas this then we should continue: " + gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length);
+        //If the vote count equals the number of players then that was the last vote and we can proceed.
         if (voteCount == gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length) {
 
           console.log("all votes have arrived")
-
+          //We move to the mission phase if the passcount is greater than half the vote count
           if (passCount > voteCount / 2) {
 
             displayVotes();
@@ -507,7 +535,7 @@ window.onload = function() {
       }
 
       /*
-      * Mission Phase
+      * Mission Phase - where players pass or fail a mission, passing/failing works the same as voting so very similar code
       */
       else if (event.requestExtraMessageData.successFail != null && gamePhase == missionPhase) {
         console.log("Entering successFail listener");
@@ -660,7 +688,7 @@ window.onload = function() {
       }
 
       /*
-      * Setup Phase
+      * Setup Phase -  after setup leader has made role choices we look at those choice and mark variables accordingly
       */
       else if (event.requestExtraMessageData.selectedRoles != null && gamePhase == setupPhase) {
         var rolesList = event.requestExtraMessageData.selectedRoles;
@@ -706,7 +734,7 @@ window.onload = function() {
       }
 
       /*
-      * Assassin Phase
+      * Assassin Phase - after assassin chooses target, we look if they are right and move into the correct game over screen based on that.
       */
       else if (event.requestExtraMessageData.assassinGuess != null && gamePhase == assassinPhase) {
         var assassinGuess = event.requestExtraMessageData.assassinGuess;
@@ -746,7 +774,7 @@ window.onload = function() {
       }
 
       /*
-      * Game Over Phase
+      * Game Over Phase - if players hit the move back into lobbby button, we set them to ready and reset all variables and UI screens.
       */
       else if (event.requestExtraMessageData.reset != null && gamePhase == overPhase)
       {
@@ -774,6 +802,8 @@ window.onload = function() {
       }
   });
 
+
+  //Listeners for player quitting and dropping
   gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_QUIT,
   displayQuitPlayers);
 
@@ -785,65 +815,7 @@ window.onload = function() {
 
     </script>
 
-    <!-- <script type="text/javascript">
-      window.onload = function() {
-        cast.receiver.logger.setLevelValue(0);
-        window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
-        console.log('Starting Receiver Manager');
 
-        // handler for the 'ready' event
-        castReceiverManager.onReady = function(event) {
-          console.log('Received Ready event: ' + JSON.stringify(event.data));
-          window.castReceiverManager.setApplicationState("Application status is ready...");
-        };
-
-        // handler for 'senderconnected' event
-        castReceiverManager.onSenderConnected = function(event) {
-          console.log('Received Sender Connected event: ' + event.data);
-          console.log(window.castReceiverManager.getSender(event.data).userAgent);
-        };
-
-        // handler for 'senderdisconnected' event
-        castReceiverManager.onSenderDisconnected = function(event) {
-          console.log('Received Sender Disconnected event: ' + event.data);
-          if (window.castReceiverManager.getSenders().length == 0) {
-	        window.close();
-	      }
-        };
-
-        // handler for 'systemvolumechanged' event
-        castReceiverManager.onSystemVolumeChanged = function(event) {
-          console.log('Received System Volume Changed event: ' + event.data['level'] + ' ' +
-              event.data['muted']);
-        };
-
-        // create a CastMessageBus to handle messages for a custom namespace
-        window.messageBus =
-          window.castReceiverManager.getCastMessageBus(
-              'urn:x-cast:com.google.cast.sample.helloworld');
-
-        // handler for the CastMessageBus message event
-        window.messageBus.onMessage = function(event) {
-          console.log('Message [' + event.senderId + ']: ' + event.data);
-          // display the message from the sender
-          displayText(event.data);
-          // inform all senders on the CastMessageBus of the incoming message event
-          // sender message listener will be invoked
-          window.messageBus.send(event.senderId, event.data);
-        }
-
-        // initialize the CastReceiverManager with an application status message
-        window.castReceiverManager.start({statusText: "Application is starting"});
-        console.log('Receiver Manager started');
-      };
-
-      // utility function to display the text message in the input field
-      function displayText(text) {
-        console.log(text);
-        document.getElementById("message").innerHTML=text;
-        window.castReceiverManager.setApplicationState(text);
-      };
-    </script> -->
     <script src="lobby.js"></script>
     <script src="gameLogic.js"></script>
   </body>
