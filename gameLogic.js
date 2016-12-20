@@ -11,6 +11,7 @@ function assignRoles(){
 	console.log("number of players being assigned roles: " + players.length);
 	console.log("number of evil players: " + numEvil);
 	gameData = gameManager.getGameData();
+	//assign evil roles
 	for (var i = 0; i < numEvil; i++) {
 		var evilPlayer = randomIntFromInterval( 0, players.length-1 );
 		//write to json
@@ -44,7 +45,7 @@ function assignRoles(){
 		gameManager.updatePlayerData(players[evilPlayer].playerId, playerData, true);
 		players.splice(evilPlayer,1);
 	}
-
+	// assign good roles
 	var merlinNum = randomIntFromInterval (0, players.length-1);
 	var percivalNum = randomIntFromInterval (0, players.length-1);
 	while (percivalNum == merlinNum)
@@ -79,8 +80,7 @@ function assignRoles(){
 	console.log("playerId should be: " + players[leader].playerId);
 	//gameData = gameManager.getGameData();
 
-
-
+	//initialize gameData elements
 	gameData.leader = players[leader].playerId;
 	gameData.leaderName = players[leader].playerData.name;
 	gameData.missionNum = 1;
@@ -91,11 +91,6 @@ function assignRoles(){
 	console.log("Initial phase change has ended.");
 	gameData = gameManager.getGameData();
 	console.log("Game data looks like this: " + JSON.stringify(gameData) );
-
-	//gameManager.updateGameData( {'leader': players[leader].playerId}, true);
-	//gameManager.updateGameData( {'missionNum' : 1}, true);
-	//gameManager.updateGameData({"missionTeamSize" : missionTeamSizes[1][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length] }, true);
-	//alertLeader();
 
 }
 
@@ -110,8 +105,6 @@ function changeLeader() {
 
 function alertLeader() {
 	console.log("Alert leader is setting the phase to selectPhase: " + selectPhase);
-	//gameManager.broadcastGameManagerStatus();
-	//gameManager.updateGameData( {'phase': selectPhase}, false
 
 	//set hasVoted and hasMissioned to false for all players
 	var players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
@@ -141,9 +134,11 @@ function displayMissionTeam(){
 	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
 
 	console.log("num displaying mission players " + missionTeam.length);
+	//clears field first
 	document.getElementById("MissionTeam").style = "";
 	document.getElementById(missionNum).innerHTML = "";
 	document.getElementById("currMissionTeam").innerHTML = "";
+	//loops through and displays player name
 	for(var i = 0; i < missionTeam.length; i++)
 	{
 		var playerId = missionTeam[i];
@@ -179,7 +174,7 @@ function displayVotesIncomplete()
 
 	document.getElementById("playerVotesLeft").innerHTML = "";
 	document.getElementById("playerVotesRight").innerHTML = "";
-
+	//prints who still has to vote
 	for(var i = 0; i < allPlayers.length; i++)
 	{
 		if (i < 5) {
@@ -199,6 +194,8 @@ function displayVotes() {
 	document.getElementById("playerVotesRight").innerHTML = "";
 
 	var count = 0;
+	//display voting results
+	//players who accept first
 	for(var i =0; i < acceptPlayers.length; i++)
 	{
 		if (count < 5)
@@ -207,7 +204,7 @@ function displayVotes() {
 			document.getElementById("playerVotesRight").innerHTML = document.getElementById("playerVotesRight").innerHTML + acceptPlayers[i] + " - Accept" + "<br>";
 		count++;
 	}
-
+	//then players who reject
 	for(i = 0; i < rejectPlayers.length; i++)
 	{
 		if (count < 5)
@@ -220,6 +217,7 @@ function displayVotes() {
 
 function changeMissionBoxes()
 {
+	//dynamically changes the number of players per mission based on num players
 	players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
 	for(var i = 1; i < 6; i++)
 	{
@@ -248,6 +246,7 @@ function displayLoyalty()
 	document.getElementById("goodList").innerHTML = "";
 	document.getElementById("badList").innerHTML = "";
 
+	//display roles and loyalty in Game over
 	for(var i = 0; i < players.length; i++)
 	{
 		if(players[i].playerData.loyalty == "evil")
@@ -280,7 +279,7 @@ function resetAll()
 	evilRoles = 0;
 
 
-
+	//clear all gameBoard dynamic text
 	document.getElementById("playerVotesLeft").innerHTML = "";
 	document.getElementById("playerVotesRight").innerHTML = "";
 	document.getElementById("currLead").innerHTML = "";
