@@ -31,7 +31,7 @@ limitations under the License.
 
   <div class = "row">
     <div class = "col-sm-12">
-      <h1 class = "center title">AvalonCast</h1>
+      <h1 class = "center title">AvalonCast!!!!!</h1>
     </div>
   </div>
 
@@ -247,6 +247,10 @@ var missionPhase = 4;
 var assassinPhase = 5;
 var overPhase = 6;
 
+//enums for min/max player size
+var minPlayers = 2; //currently 2 for debug purposes, should be 5
+var maxPlayers = 10;
+
 //These variables are used over the course of the game to keep track of certain stats and players who have voted
 var gamePhase = -2;
 var gameManager;
@@ -359,7 +363,7 @@ window.onload = function() {
         console.log("Player is trying to start (id): " + event.playerInfo.playerId);
         var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
         // make sure ready players is between 5 and 10
-        if(readyPlayers.length < 5 || readyPlayers.length > 10){
+        if(readyPlayers.length < minPlayers || readyPlayers.length > maxPlayers){
           event.statusCode =  cast.receiver.games.StatusCode.TOO_MANY_PLAYERS;
         } else {
           //set players in ready state to playing state
