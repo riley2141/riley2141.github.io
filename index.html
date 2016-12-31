@@ -29,39 +29,26 @@ limitations under the License.
   <body>
 
 
-  <div class = "row">
+  <!-- <div class = "row">
     <div class = "col-sm-12">
-      <h1 class = "center title">AvalonCast</h1>
+      <h1 class = "center title">Avaloncast</h1>
     </div>
-  </div>
+  </div> -->
 
 <!-- This div is for the Pregrame Lobby UI screen. Contains list of current players in lobby -->
   <div class = "welcome" id = "welcome" style = "">
-    <br>
-    <br>
-    <br>
-    <br>
-
-
-    <div class = "row">
-      <div class = "col-sm-1">
-      </div>
+  	<div class = "row">
       <div class = "col-sm-3">
-        <img src = "scss/img/goodguy.jpg" class = "center guys">
+        <div class = "big-text">5 - 10 Players</div>
       </div>
       <div class = "col-sm-4">
 
-        <div class = "center lobby" onclick="testList()">
-          <h1 style = "margin:0;">Player List</h1>
+        <div class = "lobby" onclick="testList()">
+          <h1 >Players</h1>
           <p id = "playerList" class = "list"></p>
         </div>
 
       </div>
-
-      <div class = "col-sm-3">
-        <img src = "scss/img/badguy.jpg"  class = "center guys">
-      </div>
-
 
     </div>
 
@@ -279,7 +266,7 @@ window.onload = function() {
   //Upon loading the we set up the receiver for casting and initialize the game manger
   var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
   var appConfig = new cast.receiver.CastReceiverManager.Config();
-  appConfig.statusText = 'My Game is getting ready';
+  appConfig.statusText = 'Avaloncast';
   console.log("AvalonCast is initiating");
   appConfig.maxInactivity = 6000;  // 100 minutes for testing only.
 
