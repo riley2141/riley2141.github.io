@@ -19,12 +19,13 @@
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
 
 .welcome h1 {
-  color: gray;
+  color: gold;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
 .welcome .home {
   background-color: red; }
 .welcome .lobby {
   max-width: 90%;
+  background: #361919;
   background: rgba(54, 25, 25, 0.5);
   height: 65vh;
   font-family: 'Droid Sans', sans-serif;
@@ -41,7 +42,7 @@
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
   .gameBoard .turn {
     text-align: center;
-    font-family: 'Droid Sans', sans-serif;
+    font-family: 'Aref Ruqaa', serif;
     border-style: solid;
     border-width: 3px;
     border-color: black;
@@ -78,7 +79,7 @@
     color: gold;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,1 1px 1px 0 #000; }
   .gameBoard .text {
-    font-family: 'Droid Sans', sans-serif;
+    font-family: 'Aref Ruqaa', serif;
     font-size: 150%; }
   .gameBoard .leader {
     color: red;
