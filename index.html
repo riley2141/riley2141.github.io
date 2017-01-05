@@ -780,7 +780,8 @@ window.onload = function() {
       /*
       * Game Over Phase - if players hit the move back into lobbby button, we set them to ready and reset all variables and UI screens.
       */
-      else if (event.requestExtraMessageData.reset != null && gamePhase == overPhase)
+      //else if (event.requestExtraMessageData.reset != null && gamePhase == overPhase)
+      else if (event.requestExtraMessageData.reset != null)
       {
         gameManager.updateLobbyState(cast.receiver.games.LobbyState.OPEN, null, true);
 
