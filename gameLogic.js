@@ -46,7 +46,10 @@ function assignRoles(){
 		players.splice(evilPlayer,1);
 	}
 	// assign good roles
-	if(players.length <= 1) return;
+	if(players.length <= 1) {
+		console.log("not enough players (" + players.length + ")");
+		return;
+	}
 	var merlinNum = randomIntFromInterval (0, players.length-1);
 	var percivalNum = randomIntFromInterval (0, players.length-1);
 	while (percivalNum == merlinNum)
