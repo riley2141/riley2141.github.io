@@ -364,7 +364,7 @@ window.onload = function() {
         var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
         // make sure ready players is between 5 and 10
         if(readyPlayers.length < minPlayers || readyPlayers.length > maxPlayers){
-          gameMangerResult = new cast.receiver.games.GameManagerResult();
+          gameManagerResult = new cast.receiver.games.GameManagerResult();
           gameManagerResult.extraMessageData.wrongNumPlayers = true;
         } else {
           //set players in ready state to playing state
