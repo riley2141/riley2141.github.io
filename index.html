@@ -365,7 +365,7 @@ window.onload = function() {
         if(!(readyPlayers.length < minPlayers || readyPlayers.length > maxPlayers)){
           //set players in ready state to playing state
 
-          castReceiverManager.setApplicationState("Avaloncast: Game in Progress");
+          appConfig = "Avaloncast: Game in Progress";
 
           gameManager.updateLobbyState(cast.receiver.games.LobbyState.CLOSED, null, true);
 
