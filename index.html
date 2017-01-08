@@ -363,10 +363,7 @@ window.onload = function() {
         console.log("Player is trying to start (id): " + event.playerInfo.playerId);
         var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
         // make sure ready players is between 5 and 10
-        if(readyPlayers.length < minPlayers || readyPlayers.length > maxPlayers){
-          gameManagerResult = new cast.receiver.games.GameManagerResult();
-          gameManagerResult.extraMessageData.wrongNumPlayers = true;
-        } else {
+        if(!(readyPlayers.length < minPlayers || readyPlayers.length > maxPlayers)){
           //set players in ready state to playing state
 
           gameManager.updateLobbyState(cast.receiver.games.LobbyState.CLOSED, null, true);
