@@ -248,7 +248,7 @@ var assassinPhase = 5;
 var overPhase = 6;
 
 //enums for min/max player size
-var minPlayers = 2; //for debug purposes, should be 5
+var minPlayers = 2;
 var maxPlayers = 10;
 
 //These variables are used over the course of the game to keep track of certain stats and players who have voted
@@ -280,7 +280,7 @@ window.onload = function() {
   var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
   var appConfig = new cast.receiver.CastReceiverManager.Config();
   appConfig.statusText = 'Avaloncast is initiating';
-  console.log("Avaloncast is initiating");
+  //console.log("Avaloncast is initiating");
   appConfig.maxInactivity = 6000;  // 100 minutes for testing only.
 
   var gameConfig = new cast.receiver.games.GameManagerConfig();
@@ -299,18 +299,17 @@ window.onload = function() {
 
   // handler for 'senderdisconnected' event
   castReceiverManager.onSenderDisconnected = function(event) {
-    console.log('Received Sender Disconnected event: ' + event.data);
-    console.log('num senders: ' + castReceiverManager.getSenders().length);
+    //console.log('Received Sender Disconnected event: ' + event.data);
+    //console.log('num senders: ' + castReceiverManager.getSenders().length);
     if (castReceiverManager.getSenders().length == 0) {
-      console.log('calling window.close()');
+      //console.log('calling window.close()');
       window.close();
     }
   };
 
   // handler for the 'ready' event
   castReceiverManager.onReady = function(event) {
-    console.log('Received Ready event: ' + JSON.stringify(event.data));
-    //window.castReceiverManager.setApplicationState("Application status is ready...");
+    appConfig.statusText = 'Avaloncast: In Lobby';
   };
 
   /**
@@ -318,7 +317,7 @@ window.onload = function() {
    */
   gameManager.addEventListener(cast.receiver.games.EventType.PLAYER_AVAILABLE,
   function(event) {
-    //console.log("Player Id: " + event.playerInfo.playerId + " is available");
+    ////console.log("Player Id: " + event.playerInfo.playerId + " is available");
     //document.getElementById("console").innerHTML = "Player Id: " + event.playerInfo.playerId + " is available";
   });
 
@@ -331,7 +330,7 @@ window.onload = function() {
     var playerId = event.playerInfo.playerId;
 
 
-    console.log("Player Name: " + playerName + " is ready with id " + playerId);
+    //console.log("Player Name: " + playerName + " is ready with id " + playerId);
 
     gameManager.updatePlayerData(playerId, {'name' : playerName}, false);
 
@@ -347,12 +346,12 @@ window.onload = function() {
   gameManager.addEventListener(cast.receiver.games.EventType.GAME_MESSAGE_RECEIVED, function(event){
 
       gamePhase = gameManager.getGameData().phase;
-      console.log("game phase : " + gamePhase);
+      //console.log("game phase : " + gamePhase);
 
-        //console.log("updatePlayerList " + event.requestExtraMessageData.updatePlayerList);
-        console.log("A listener event has occured");
+        ////console.log("updatePlayerList " + event.requestExtraMessageData.updatePlayerList);
+        //console.log("A listener event has occured");
       if(event.requestExtraMessageData.updatePlayerList == "true"){
-        console.log("updatePlayerList equals true");
+        //console.log("updatePlayerList equals true");
         //displayReadyPlayers();
       }
       /*
@@ -360,7 +359,7 @@ window.onload = function() {
       */
       else if(event.requestExtraMessageData.startGame == "true" && gamePhase == lobbyPhase){
         //get list of ready players
-        console.log("Player is trying to start (id): " + event.playerInfo.playerId);
+        //console.log("Player is trying to start (id): " + event.playerInfo.playerId);
         var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
         // make sure ready players is between 5 and 10
         if(!(readyPlayers.length < minPlayers || readyPlayers.length > maxPlayers)){
@@ -389,12 +388,12 @@ window.onload = function() {
 
 
 
-          console.log("Moving into setup phase.");
+          //console.log("Moving into setup phase.");
           gameData = gameManager.getGameData();
-          console.log("Game data looks like this: " + JSON.stringify(gameData) );
+          //console.log("Game data looks like this: " + JSON.stringify(gameData) );
 
           //close the lobby
-          console.log("GAMEPLAY_STATE" + gameManager.getGameplayState());
+          //console.log("GAMEPLAY_STATE" + gameManager.getGameplayState());
 
           //set game state to playing
         }
@@ -404,14 +403,14 @@ window.onload = function() {
       * Select Phase- leader selects a team
       */
       else if (event.requestExtraMessageData.missionTeam != null && gamePhase == selectPhase) {
-        console.log("send voting signal");
+        //console.log("send voting signal");
 
         var gameData = gameManager.getGameData();
         var missionTeam = event.requestExtraMessageData.missionTeam;
-        console.log("first person on team? : " + missionTeam[0]);
-        console.log("sent data length: " + event.requestExtraMessageData.missionTeam.length);
-        console.log("sent data: " + JSON.stringify(event.requestExtraMessageData.missionTeam));
-        console.log("what its supposed to be: " + missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length])
+        //console.log("first person on team? : " + missionTeam[0]);
+        //console.log("sent data length: " + event.requestExtraMessageData.missionTeam.length);
+        //console.log("sent data: " + JSON.stringify(event.requestExtraMessageData.missionTeam));
+        //console.log("what its supposed to be: " + missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length])
 
 
         if(missionTeam.length == missionTeamSizes[gameData.missionNum][gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length]  )
@@ -422,7 +421,7 @@ window.onload = function() {
         }
         else
         {
-          console.log("bad team size");
+          //console.log("bad team size");
 
         }
 
@@ -444,10 +443,10 @@ window.onload = function() {
       * Voting Phase - where players vote on given mission team
       */
       else if (event.requestExtraMessageData.acceptReject != null && gamePhase == votingPhase) {
-        console.log("Entering accept or reject listener");
+        //console.log("Entering accept or reject listener");
 
         voteCount++;
-        console.log("current vote count is: " + voteCount);
+        //console.log("current vote count is: " + voteCount);
 
         //update player's hasVoted variable
         var player = event.playerInfo;
@@ -459,7 +458,7 @@ window.onload = function() {
         //If player accepts the mission team we increment the pass count and add them to the accepted players list
         if(event.requestExtraMessageData.acceptReject)
         {
-          console.log("Player has accepted using boolean :" + event.playerInfo.playerData.name);
+          //console.log("Player has accepted using boolean :" + event.playerInfo.playerData.name);
           passCount++;
           acceptPlayers.push(event.playerInfo.playerData.name);
           allPlayers.push(event.playerInfo.playerData.name);
@@ -470,7 +469,7 @@ window.onload = function() {
         //Otherwise dont increment and add to reject players list
         else
         {
-          console.log("Player has rejected :" + event.playerInfo.playerData.name);
+          //console.log("Player has rejected :" + event.playerInfo.playerData.name);
           rejectPlayers.push(event.playerInfo.playerData.name);
           allPlayers.push(event.playerInfo.playerData.name);
           displayVotesIncomplete();
@@ -478,11 +477,11 @@ window.onload = function() {
           document.getElementById("voteInformationRight").style = "";
         }
 
-        console.log("if vote count equlas this then we should continue: " + gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length);
+        //console.log("if vote count equlas this then we should continue: " + gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length);
         //If the vote count equals the number of players then that was the last vote and we can proceed.
         if (voteCount == gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING).length) {
 
-          console.log("all votes have arrived")
+          //console.log("all votes have arrived")
           //We move to the mission phase if the passcount is greater than half the vote count
           if (passCount > voteCount / 2) {
 
@@ -507,7 +506,7 @@ window.onload = function() {
 
             if(voteCountCount == 5)
             {
-              console.log("game over");
+              //console.log("game over");
               document.getElementById("welcome").style = "display:none";
               document.getElementById("gameBoard").style = "display:none";
               document.getElementById("gameOver").style = "";
@@ -540,7 +539,7 @@ window.onload = function() {
       * Mission Phase - where players pass or fail a mission, passing/failing works the same as voting so very similar code
       */
       else if (event.requestExtraMessageData.successFail != null && gamePhase == missionPhase) {
-        console.log("Entering successFail listener");
+        //console.log("Entering successFail listener");
         voteCount++;
         var missionNum = gameManager.getGameData().missionNum;
 
@@ -562,7 +561,7 @@ window.onload = function() {
         }
         else
         {
-          console.log("Player has rejected :" + event.playerInfo.playerData.name);
+          //console.log("Player has rejected :" + event.playerInfo.playerData.name);
           rejectPlayers.push(event.playerInfo.playerData.name);
           allPlayers.push(event.playerInfo.playerData.name);
           displayVotesIncomplete();
@@ -591,7 +590,7 @@ window.onload = function() {
 
 
               if (gameManager.getGameData().assassin == null) {
-                console.log("game over");
+                //console.log("game over");
                 document.getElementById("welcome").style = "display:none";
                 document.getElementById("gameBoard").style = "display:none";
                 document.getElementById("gameOver").style = "";
@@ -648,7 +647,7 @@ window.onload = function() {
 
             missionResults[missionNum] = 2;
             if (checkGameOver()) {
-              console.log("game over");
+              //console.log("game over");
               document.getElementById("welcome").style = "display:none";
               document.getElementById("gameBoard").style = "display:none";
               document.getElementById("gameOver").style = "";
@@ -744,10 +743,10 @@ window.onload = function() {
         var players = gameManager.getPlayersInState(cast.receiver.games.PlayerState.PLAYING);
 
         var target = gameManager.getPlayer(assassinGuess).playerData.role;
-        console.log("Target: " + target);
+        //console.log("Target: " + target);
 
         if (target == "merlin") {
-          console.log("game over");
+          //console.log("game over");
           document.getElementById("welcome").style = "display:none";
           document.getElementById("gameBoard").style = "display:none";
           document.getElementById("gameOver").style = "";
@@ -758,7 +757,7 @@ window.onload = function() {
           evilWins();
         }
         else {
-          console.log("game over");
+          //console.log("game over");
           document.getElementById("welcome").style = "display:none";
           document.getElementById("gameBoard").style = "display:none";
           document.getElementById("gameOver").style = "";
