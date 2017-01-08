@@ -309,7 +309,7 @@ window.onload = function() {
 
   // handler for the 'ready' event
   castReceiverManager.onReady = function(event) {
-    appConfig.statusText = 'Avaloncast: In Lobby';
+    castReceiverManager.setApplicationState("Avaloncast: In Lobby");
   };
 
   /**
