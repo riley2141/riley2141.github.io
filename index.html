@@ -361,9 +361,11 @@ window.onload = function() {
         //get list of ready players
         //console.log("Player is trying to start (id): " + event.playerInfo.playerId);
         var readyPlayers = gameManager.getPlayersInState(cast.receiver.games.PlayerState.READY);
-        // make sure ready players is between 5 and 10
+        // make sure ready players is between min and max players
         if(!(readyPlayers.length < minPlayers || readyPlayers.length > maxPlayers)){
           //set players in ready state to playing state
+
+          castReceiverManager.setApplicationState("Avaloncast: Game in Progress");
 
           gameManager.updateLobbyState(cast.receiver.games.LobbyState.CLOSED, null, true);
 
