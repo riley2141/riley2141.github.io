@@ -279,7 +279,7 @@ window.onload = function() {
   //Upon loading the we set up the receiver for casting and initialize the game manger
   var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
   var appConfig = new cast.receiver.CastReceiverManager.Config();
-  appConfig.statusText = 'Avaloncast is initiating';
+  appConfig.statusText = 'Avaloncast';
   //console.log("Avaloncast is initiating");
   appConfig.maxInactivity = 6000;  // 100 minutes for testing only.
 
@@ -309,7 +309,7 @@ window.onload = function() {
 
   // handler for the 'ready' event
   castReceiverManager.onReady = function(event) {
-    castReceiverManager.setApplicationState("Avaloncast: In Lobby");
+    //castReceiverManager.setApplicationState("Avaloncast: In Lobby");
   };
 
   /**
@@ -364,8 +364,6 @@ window.onload = function() {
         // make sure ready players is between min and max players
         if(!(readyPlayers.length < minPlayers || readyPlayers.length > maxPlayers)){
           //set players in ready state to playing state
-
-          appConfig = "Avaloncast: Game in Progress";
 
           gameManager.updateLobbyState(cast.receiver.games.LobbyState.CLOSED, null, true);
 
